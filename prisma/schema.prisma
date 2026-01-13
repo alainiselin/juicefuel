@@ -1,0 +1,352 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model user_profile {
+  id                       String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                    String?            @unique
+  display_name             String?
+  avatar_url               String?
+  created_at               DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime           @updatedAt @db.Timestamptz(6)
+  email_verified           DateTime?          @db.Timestamptz(6)
+  password_hash            String?
+  active_household_id      String?            @db.Uuid
+  accounts                 Account[]
+  sessions                 Session[]
+  household_members        household_member[]
+  created_recipe_libraries recipe_library[]   @relation("CreatedLibraries")
+  active_household         household?         @relation("ActiveHousehold", fields: [active_household_id], references: [id])
+  recipe_favorites         recipe_favorite[]
+}
+
+model Account {
+  id                  String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id             String       @db.Uuid
+  type                String
+  provider            String
+  provider_account_id String
+  refresh_token       String?
+  access_token        String?
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String?
+  session_state       String?
+  user                user_profile @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, provider_account_id])
+  @@index([user_id])
+}
+
+model Session {
+  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  session_token String       @unique
+  user_id       String       @db.Uuid
+  expires       DateTime     @db.Timestamptz(6)
+  user          user_profile @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime @db.Timestamptz(6)
+
+  @@unique([identifier, token])
+}
+
+model household_member {
+  household_id String       @db.Uuid
+  user_id      String       @db.Uuid
+  role         MemberRole   @default(MEMBER)
+  joined_at    DateTime     @default(now()) @db.Timestamptz(6)
+  household    household    @relation(fields: [household_id], references: [id], onDelete: Cascade)
+  user         user_profile @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([household_id, user_id])
+  @@index([user_id])
+  @@index([household_id, role])
+}
+
+model household {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  created_at       DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime           @updatedAt @db.Timestamptz(6)
+  invite_code      String?            @unique
+  members          household_member[]
+  meal_plan        meal_plan?
+  recipe_libraries recipe_library[]
+  shopping_lists   shopping_list[]
+  shopping_articles shopping_article[]
+  tag              tag[]
+  ingredients      ingredient[]
+  active_for_users user_profile[]     @relation("ActiveHousehold")
+
+  @@index([name])
+}
+
+model meal_plan {
+  id           String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  household_id String      @unique @db.Uuid
+  created_at   DateTime    @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime    @updatedAt @db.Timestamptz(6)
+  household    household   @relation(fields: [household_id], references: [id], onDelete: Cascade)
+  slots        meal_slot[]
+}
+
+model meal_slot {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  meal_plan_id String    @db.Uuid
+  date         DateTime  @db.Date
+  slot         SlotType
+  recipe_id    String    @db.Uuid
+  meal_plan    meal_plan @relation(fields: [meal_plan_id], references: [id], onDelete: Cascade)
+  recipe       recipe    @relation(fields: [recipe_id], references: [id])
+
+  @@unique([meal_plan_id, date, slot])
+  @@index([recipe_id])
+}
+
+model recipe_library {
+  id                 String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  household_id       String        @db.Uuid
+  name               String
+  created_at         DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime      @updatedAt @db.Timestamptz(6)
+  created_by_user_id String?       @db.Uuid
+  is_public          Boolean       @default(false)
+  recipes            recipe[]
+  created_by         user_profile? @relation("CreatedLibraries", fields: [created_by_user_id], references: [id])
+  household          household     @relation(fields: [household_id], references: [id], onDelete: Cascade)
+
+  @@index([household_id, name])
+  @@index([is_public])
+}
+
+model recipe {
+  id                    String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  recipe_library_id     String              @db.Uuid
+  title                 String
+  description           String?             @db.VarChar(240)
+  source_url            String?
+  instructions_markdown String?
+  created_at            DateTime            @default(now()) @db.Timestamptz(6)
+  updated_at            DateTime            @updatedAt @db.Timestamptz(6)
+  base_servings         Int                 @default(4)
+  prep_time_minutes     Int?
+  meal_slots            meal_slot[]
+  recipe_library        recipe_library      @relation(fields: [recipe_library_id], references: [id], onDelete: Cascade)
+  ingredients           recipe_ingredient[]
+  tags                  recipe_tag[]
+  favorites             recipe_favorite[]
+
+  @@index([recipe_library_id, title])
+}
+
+model recipe_favorite {
+  id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String       @db.Uuid
+  recipe_id  String       @db.Uuid
+  created_at DateTime     @default(now()) @db.Timestamptz(6)
+  user       user_profile @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  recipe     recipe       @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, recipe_id])
+  @@index([user_id])
+  @@index([recipe_id])
+}
+
+model ingredient {
+  id                 String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String               @unique
+  default_unit       Unit?
+  created_at         DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime             @updatedAt @db.Timestamptz(6)
+  source             IngredientSource?    @default(OFF)
+  is_core            Boolean?             @default(true)
+  household_id       String?              @db.Uuid
+  is_recipe_eligible Boolean              @default(true)
+  aisle              String?
+  aliases            ingredient_alias[]
+  ingredient_tag     ingredient_tag[]
+  recipe_ingredients recipe_ingredient[]
+  shopping_items     shopping_list_item[]
+  household          household?           @relation(fields: [household_id], references: [id], onDelete: Cascade)
+
+  @@index([is_core])
+  @@index([household_id])
+  @@index([is_recipe_eligible])
+  @@index([aisle])
+  @@index([name])
+}
+
+model ingredient_alias {
+  id            String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ingredient_id String     @db.Uuid
+  name          String     @unique
+  created_at    DateTime   @default(now()) @db.Timestamptz(6)
+  ingredient    ingredient @relation(fields: [ingredient_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([name])
+  @@index([ingredient_id])
+}
+
+model recipe_ingredient {
+  recipe_id     String     @db.Uuid
+  ingredient_id String     @db.Uuid
+  quantity      Decimal?   @db.Decimal(10, 3)
+  unit          Unit?
+  note          String?
+  ingredient    ingredient @relation(fields: [ingredient_id], references: [id])
+  recipe        recipe     @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+
+  @@id([recipe_id, ingredient_id])
+}
+
+model tag {
+  id                     String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                   String
+  slug                   String                   @unique
+  created_at             DateTime                 @default(now()) @db.Timestamptz(6)
+  updated_at             DateTime                 @updatedAt @db.Timestamptz(6)
+  kind                   String?
+  scope                  String?                  @default("GLOBAL")
+  household_id           String?                  @db.Uuid
+  ingredient_tag         ingredient_tag[]
+  recipes                recipe_tag[]
+  shopping_list_item_tag shopping_list_item_tag[]
+  household              household?               @relation(fields: [household_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([name])
+  @@index([household_id])
+  @@index([kind])
+  @@index([scope])
+}
+
+model recipe_tag {
+  recipe_id String @db.Uuid
+  tag_id    String @db.Uuid
+  recipe    recipe @relation(fields: [recipe_id], references: [id], onDelete: Cascade)
+  tag       tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@id([recipe_id, tag_id])
+  @@index([tag_id])
+}
+
+model shopping_list {
+  id           String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  household_id String               @db.Uuid
+  title        String
+  status       ShoppingListStatus   @default(DRAFT)
+  store_hint   String?
+  created_at   DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime             @updatedAt @db.Timestamptz(6)
+  household    household            @relation(fields: [household_id], references: [id], onDelete: Cascade)
+  items        shopping_list_item[]
+
+  @@index([household_id, status])
+}
+
+model shopping_article {
+  id              String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  household_id    String               @db.Uuid
+  name            String
+  normalized_name String
+  default_unit    Unit?
+  default_aisle   String               @default("own-items")
+  created_at      DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime             @updatedAt @db.Timestamptz(6)
+  household       household            @relation(fields: [household_id], references: [id], onDelete: Cascade)
+  shopping_items  shopping_list_item[]
+
+  @@unique([household_id, normalized_name])
+  @@index([household_id])
+  @@index([normalized_name])
+}
+
+model shopping_list_item {
+  id                     String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  shopping_list_id       String                   @db.Uuid
+  ingredient_id          String?                  @db.Uuid
+  article_id             String?                  @db.Uuid
+  quantity               Float?
+  unit                   Unit?
+  note                   String?
+  is_checked             Boolean                  @default(false)
+  created_at             DateTime                 @default(now()) @db.Timestamptz(6)
+  updated_at             DateTime                 @updatedAt @db.Timestamptz(6)
+  ingredient             ingredient?              @relation(fields: [ingredient_id], references: [id])
+  article                shopping_article?        @relation(fields: [article_id], references: [id])
+  shopping_list          shopping_list            @relation(fields: [shopping_list_id], references: [id], onDelete: Cascade)
+  shopping_list_item_tag shopping_list_item_tag[]
+
+  @@index([shopping_list_id])
+  @@index([ingredient_id])
+  @@index([article_id])
+}
+
+model ingredient_tag {
+  ingredient_id String     @db.Uuid
+  tag_id        String     @db.Uuid
+  ingredient    ingredient @relation(fields: [ingredient_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tag           tag        @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([ingredient_id, tag_id])
+  @@index([tag_id])
+}
+
+model shopping_list_item_tag {
+  shopping_list_item_id String             @db.Uuid
+  tag_id                String             @db.Uuid
+  shopping_list_item    shopping_list_item @relation(fields: [shopping_list_item_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tag                   tag                @relation(fields: [tag_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([shopping_list_item_id, tag_id])
+  @@index([tag_id])
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum SlotType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+  OTHER
+}
+
+enum ShoppingListStatus {
+  DRAFT
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum Unit {
+  G
+  KG
+  ML
+  L
+  TBSP
+  TSP
+  CUP
+  PIECE
+  PACKAGE
+  OTHER
+}
+
+enum IngredientSource {
+  OFF
+  USER
+}

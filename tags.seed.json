@@ -1,0 +1,1869 @@
+[
+  {
+    "category": "CUISINE",
+    "canonical_name": "Lao",
+    "slug": "lao",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Thai",
+    "slug": "thai",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Inca",
+    "slug": "inca",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Komi",
+    "slug": "komi",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Iraqi",
+    "slug": "iraqi",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Czech",
+    "slug": "czech",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Cuban",
+    "slug": "cuban",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Dutch",
+    "slug": "dutch",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Aztec",
+    "slug": "aztec",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Greek",
+    "slug": "greek",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Swiss",
+    "slug": "swiss",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tajik",
+    "slug": "tajik",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Omani",
+    "slug": "omani",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Swazi",
+    "slug": "swazi",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Danish",
+    "slug": "danish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Yemeni",
+    "slug": "yemeni",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Soviet",
+    "slug": "soviet",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Indian",
+    "slug": "indian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Afghan",
+    "slug": "afghan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kazakh",
+    "slug": "kazakh",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Somali",
+    "slug": "somali",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Polish",
+    "slug": "polish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Slovak",
+    "slug": "slovak",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "German",
+    "slug": "german",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "French",
+    "slug": "french",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kenyan",
+    "slug": "kenyan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Samoan",
+    "slug": "samoan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tongan",
+    "slug": "tongan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Libyan",
+    "slug": "libyan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Malian",
+    "slug": "malian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Qatari",
+    "slug": "qatari",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Syrian",
+    "slug": "syrian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kyrgyz",
+    "slug": "kyrgyz",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Zambia",
+    "slug": "zambia",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Fijian",
+    "slug": "fijian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Chilean",
+    "slug": "chilean",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Burmese",
+    "slug": "burmese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Latvian",
+    "slug": "latvian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Serbian",
+    "slug": "serbian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Maltese",
+    "slug": "maltese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Iranian",
+    "slug": "iranian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Italian",
+    "slug": "italian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "British",
+    "slug": "british",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Mexican",
+    "slug": "mexican",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Cypriot",
+    "slug": "cypriot",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Turkish",
+    "slug": "turkish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Spanish",
+    "slug": "spanish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kuwaiti",
+    "slug": "kuwaiti",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Swedish",
+    "slug": "swedish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Finnish",
+    "slug": "finnish",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Israeli",
+    "slug": "israeli",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Chinese",
+    "slug": "chinese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Angolan",
+    "slug": "angolan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Turkmen",
+    "slug": "turkmen",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Haitian",
+    "slug": "haitian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Chadian",
+    "slug": "chadian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ivorian",
+    "slug": "ivorian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Mughlai",
+    "slug": "mughlai",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Gambian",
+    "slug": "gambian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Guinean",
+    "slug": "guinean",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Nauruan",
+    "slug": "nauruan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Emirati",
+    "slug": "emirati",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kosovan",
+    "slug": "kosovan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Palauan",
+    "slug": "palauan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Rwandan",
+    "slug": "rwandan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ugandan",
+    "slug": "ugandan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Namibian",
+    "slug": "namibian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Nepalese",
+    "slug": "nepalese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Estonian",
+    "slug": "estonian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Filipino",
+    "slug": "filipino",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ghanaian",
+    "slug": "ghanaian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Japanese",
+    "slug": "japanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Moroccan",
+    "slug": "moroccan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Georgian",
+    "slug": "georgian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Albanian",
+    "slug": "albanian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Canadian",
+    "slug": "canadian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tunisian",
+    "slug": "tunisian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Egyptian",
+    "slug": "egyptian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Moldovan",
+    "slug": "moldovan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Croatian",
+    "slug": "croatian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Romanian",
+    "slug": "romanian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Armenian",
+    "slug": "armenian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Peruvian",
+    "slug": "peruvian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Honduran",
+    "slug": "honduran",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Eritrean",
+    "slug": "eritrean",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bahraini",
+    "slug": "bahraini",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Botswana",
+    "slug": "botswana",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Lebanese",
+    "slug": "lebanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Malagasy",
+    "slug": "malagasy",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Austrian",
+    "slug": "austrian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Kiribati",
+    "slug": "kiribati",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Andorran",
+    "slug": "andorran",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bruneian",
+    "slug": "bruneian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Algerian",
+    "slug": "algerian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Beninese",
+    "slug": "beninese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Belizean",
+    "slug": "belizean",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bolivian",
+    "slug": "bolivian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Gabonese",
+    "slug": "gabonese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Jamaican",
+    "slug": "jamaican",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Liberian",
+    "slug": "liberian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bahamian",
+    "slug": "bahamian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Malawian",
+    "slug": "malawian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tuvaluan",
+    "slug": "tuvaluan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Dominica",
+    "slug": "dominica",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Nigerian",
+    "slug": "nigerian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Sudanese",
+    "slug": "sudanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Guyanese",
+    "slug": "guyanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Suriname",
+    "slug": "suriname",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Comorian",
+    "slug": "comorian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Uruguayan",
+    "slug": "uruguayan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Pakistani",
+    "slug": "pakistani",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Mongolian",
+    "slug": "mongolian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Norwegian",
+    "slug": "norwegian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ukrainian",
+    "slug": "ukrainian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Byzantine",
+    "slug": "byzantine",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Cambodian",
+    "slug": "cambodian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ethiopian",
+    "slug": "ethiopian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Hungarian",
+    "slug": "hungarian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Malaysian",
+    "slug": "malaysian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bulgarian",
+    "slug": "bulgarian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Icelandic",
+    "slug": "icelandic",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Argentine",
+    "slug": "argentine",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Brazilian",
+    "slug": "brazilian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Taiwanese",
+    "slug": "taiwanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Colombian",
+    "slug": "colombian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Grenadian",
+    "slug": "grenadian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Congolese",
+    "slug": "congolese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tatarstan",
+    "slug": "tatarstan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Bhutanese",
+    "slug": "bhutanese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Jordanian",
+    "slug": "jordanian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Mauritian",
+    "slug": "mauritian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Tanzanian",
+    "slug": "tanzanian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Slovenian",
+    "slug": "slovenian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Abkhazian",
+    "slug": "abkhazian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Burkinabé",
+    "slug": "burkinab",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Burundian",
+    "slug": "burundian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Barbadian",
+    "slug": "barbadian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Maldivian",
+    "slug": "maldivian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Indonesian",
+    "slug": "indonesian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Vietnamese",
+    "slug": "vietnamese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Senegalese",
+    "slug": "senegalese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Venezuelan",
+    "slug": "venezuelan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Macedonian",
+    "slug": "macedonian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Portuguese",
+    "slug": "portuguese",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Belarusian",
+    "slug": "belarusian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Australian",
+    "slug": "australian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Sri Lankan",
+    "slug": "sri-lankan",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Ecuadorian",
+    "slug": "ecuadorian",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Mauritania",
+    "slug": "mauritania",
+    "aliases": []
+  },
+  {
+    "category": "CUISINE",
+    "canonical_name": "Paraguayan",
+    "slug": "paraguayan",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "A38",
+    "slug": "a38",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Odeon",
+    "slug": "odeon",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Harpa",
+    "slug": "harpa",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Reduta",
+    "slug": "reduta",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "E-werk",
+    "slug": "e-werk",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Gasteig",
+    "slug": "gasteig",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Bimhuis",
+    "slug": "bimhuis",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Melkweg",
+    "slug": "melkweg",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Olympia",
+    "slug": "olympia",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Stopera",
+    "slug": "stopera",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Harmonie",
+    "slug": "harmonie",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Tonhalle",
+    "slug": "tonhalle",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Desingel",
+    "slug": "desingel",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Dzintari",
+    "slug": "dzintari",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Le Phare",
+    "slug": "le-phare",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Metropol",
+    "slug": "metropol",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Paradiso",
+    "slug": "paradiso",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Gasometer",
+    "slug": "gasometer",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Alte Oper",
+    "slug": "alte-oper",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Gürzenich",
+    "slug": "grzenich",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Bunkamura",
+    "slug": "bunkamura",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Afas Live",
+    "slug": "afas-live",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Afas Dome",
+    "slug": "afas-dome",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Linnahall",
+    "slug": "linnahall",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Kaim-saal",
+    "slug": "kaim-saal",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Kolosseum",
+    "slug": "kolosseum",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Razzmatazz",
+    "slug": "razzmatazz",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Semperoper",
+    "slug": "semperoper",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Gewandhaus",
+    "slug": "gewandhaus",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Troldsalen",
+    "slug": "troldsalen",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Cow Palace",
+    "slug": "cow-palace",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Ziggo Dome",
+    "slug": "ziggo-dome",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Bierhübeli",
+    "slug": "bierhbeli",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Sofiensaal",
+    "slug": "sofiensaal",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Tanglewood",
+    "slug": "tanglewood",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Rudolfinum",
+    "slug": "rudolfinum",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Die Glocke",
+    "slug": "die-glocke",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Grieg Hall",
+    "slug": "grieg-hall",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Usher Hall",
+    "slug": "usher-hall",
+    "aliases": []
+  },
+  {
+    "category": "DIET",
+    "canonical_name": "Konzerthaus",
+    "slug": "konzerthaus",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Pain",
+    "slug": "pain",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Yield",
+    "slug": "yield",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Lasik",
+    "slug": "lasik",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Gmroii",
+    "slug": "gmroii",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Wheeze",
+    "slug": "wheeze",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Merchet",
+    "slug": "merchet",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Censure",
+    "slug": "censure",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Dunking",
+    "slug": "dunking",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Torment",
+    "slug": "torment",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Adipsia",
+    "slug": "adipsia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Rhonchi",
+    "slug": "rhonchi",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Menarche",
+    "slug": "menarche",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Pricking",
+    "slug": "pricking",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Branding",
+    "slug": "branding",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Crepitus",
+    "slug": "crepitus",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Nocturia",
+    "slug": "nocturia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Crackles",
+    "slug": "crackles",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Lethality",
+    "slug": "lethality",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Colititer",
+    "slug": "colititer",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Peg Ratio",
+    "slug": "peg-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "A/s Ratio",
+    "slug": "as-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Hemolysis",
+    "slug": "hemolysis",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Tachypnea",
+    "slug": "tachypnea",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Ätzfaktor",
+    "slug": "tzfaktor",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Gauss Sum",
+    "slug": "gauss-sum",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Bradypnea",
+    "slug": "bradypnea",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Hypoxemia",
+    "slug": "hypoxemia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "St Normal",
+    "slug": "st-normal",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Elasticity",
+    "slug": "elasticity",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Sphericity",
+    "slug": "sphericity",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Suspension",
+    "slug": "suspension",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Water Cure",
+    "slug": "water-cure",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Polydipsia",
+    "slug": "polydipsia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Cashielaws",
+    "slug": "cashielaws",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Scratching",
+    "slug": "scratching",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Lang Factor",
+    "slug": "lang-factor",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Tachycardia",
+    "slug": "tachycardia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Bradycardia",
+    "slug": "bradycardia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Dehydration",
+    "slug": "dehydration",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Kneecapping",
+    "slug": "kneecapping",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Abacination",
+    "slug": "abacination",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Turpin Case",
+    "slug": "turpin-case",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Bow Strings",
+    "slug": "bow-strings",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Heart Click",
+    "slug": "heart-click",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Haller Index",
+    "slug": "haller-index",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Dedekind Sum",
+    "slug": "dedekind-sum",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Total Return",
+    "slug": "total-return",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Abtriebswert",
+    "slug": "abtriebswert",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Feet Burning",
+    "slug": "feet-burning",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Hyporeflexia",
+    "slug": "hyporeflexia",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "St Elevation",
+    "slug": "st-elevation",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Zanes Olympic",
+    "slug": "zanes-olympic",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Profit Margin",
+    "slug": "profit-margin",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Share Capital",
+    "slug": "share-capital",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Lagophthalmos",
+    "slug": "lagophthalmos",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Head Pressing",
+    "slug": "head-pressing",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "St Depression",
+    "slug": "st-depression",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Cardiac Shunt",
+    "slug": "cardiac-shunt",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Carotid Bruit",
+    "slug": "carotid-bruit",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Gallop Rhythm",
+    "slug": "gallop-rhythm",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Reference Rate",
+    "slug": "reference-rate",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Air–fuel Ratio",
+    "slug": "airfuel-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Horowitz Index",
+    "slug": "horowitz-index",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Covering Costs",
+    "slug": "covering-costs",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Cashflow Ratio",
+    "slug": "cashflow-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Lighting Ratio",
+    "slug": "lighting-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Pogson's Ratio",
+    "slug": "pogsons-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Butsuryu Ni Ho",
+    "slug": "butsuryu-ni-ho",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Welcome Parade",
+    "slug": "welcome-parade",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Bound By Ropes",
+    "slug": "bound-by-ropes",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Mongolian Spot",
+    "slug": "mongolian-spot",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Sucking Reflex",
+    "slug": "sucking-reflex",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Ejection Click",
+    "slug": "ejection-click",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Venous Finding",
+    "slug": "venous-finding",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Capacity Factor",
+    "slug": "capacity-factor",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Wow And Flutter",
+    "slug": "wow-and-flutter",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Expansion Ratio",
+    "slug": "expansion-ratio",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Borel Summation",
+    "slug": "borel-summation",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Fermat Quotient",
+    "slug": "fermat-quotient",
+    "aliases": []
+  },
+  {
+    "category": "TECHNIQUE",
+    "canonical_name": "Circeo Massacre",
+    "slug": "circeo-massacre",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Spicy",
+    "slug": "spicy",
+    "aliases": [
+      "hot",
+      "fiery"
+    ]
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Sweet",
+    "slug": "sweet",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Sour",
+    "slug": "sour",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Bitter",
+    "slug": "bitter",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Salty",
+    "slug": "salty",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Umami",
+    "slug": "umami",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Smoky",
+    "slug": "smoky",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Tangy",
+    "slug": "tangy",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Refreshing",
+    "slug": "refreshing",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Rich",
+    "slug": "rich",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Savory",
+    "slug": "savory",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Mild",
+    "slug": "mild",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Herbal",
+    "slug": "herbal",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Citrusy",
+    "slug": "citrusy",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Nutty",
+    "slug": "nutty",
+    "aliases": []
+  },
+  {
+    "category": "FLAVOR",
+    "canonical_name": "Creamy",
+    "slug": "creamy",
+    "aliases": []
+  },
+  {
+    "category": "TIME",
+    "canonical_name": "Quick",
+    "slug": "quick",
+    "aliases": [
+      "fast",
+      "quick meal",
+      "30 minutes"
+    ]
+  },
+  {
+    "category": "TIME",
+    "canonical_name": "Weekday",
+    "slug": "weekday",
+    "aliases": []
+  },
+  {
+    "category": "TIME",
+    "canonical_name": "Weekend",
+    "slug": "weekend",
+    "aliases": []
+  },
+  {
+    "category": "TIME",
+    "canonical_name": "Make Ahead",
+    "slug": "make-ahead",
+    "aliases": []
+  },
+  {
+    "category": "TIME",
+    "canonical_name": "Slow Cooked",
+    "slug": "slow-cooked",
+    "aliases": []
+  },
+  {
+    "category": "COST",
+    "canonical_name": "Cheap",
+    "slug": "cheap",
+    "aliases": []
+  },
+  {
+    "category": "COST",
+    "canonical_name": "Budget",
+    "slug": "budget",
+    "aliases": []
+  },
+  {
+    "category": "COST",
+    "canonical_name": "Affordable",
+    "slug": "affordable",
+    "aliases": []
+  },
+  {
+    "category": "COST",
+    "canonical_name": "Premium",
+    "slug": "premium",
+    "aliases": []
+  },
+  {
+    "category": "COST",
+    "canonical_name": "Expensive",
+    "slug": "expensive",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Fruits & Vegetables",
+    "slug": "fruits-vegetables",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Bread & Pastries",
+    "slug": "bread-pastries",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Milk & Cheese",
+    "slug": "milk-cheese",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Meat & Fish",
+    "slug": "meat-fish",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Ingredients & Spices",
+    "slug": "ingredients-spices",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Grain Products",
+    "slug": "grain-products",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Frozen & Convenience",
+    "slug": "frozen-convenience",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Snacks & Sweets",
+    "slug": "snacks-sweets",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Beverages",
+    "slug": "beverages",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Household",
+    "slug": "household",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Care & Health",
+    "slug": "care-health",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Pet Supplies",
+    "slug": "pet-supplies",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Home & Garden",
+    "slug": "home-garden",
+    "aliases": []
+  },
+  {
+    "category": "AISLE",
+    "canonical_name": "Own Items",
+    "slug": "own-items",
+    "aliases": []
+  }
+]
