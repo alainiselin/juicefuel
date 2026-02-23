@@ -104,7 +104,3 @@ npm run preview
 ## Project Status
 
 JuiceFuel is an MVP-stage application ready for self-hosting. Core features are implemented and stable.
-
-## License
-
-[Add your license here]
