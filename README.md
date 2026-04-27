@@ -2,6 +2,8 @@
 
 A modern meal planning and recipe management application built with Nuxt 3 and Supabase.
 
+🌐 **Live:** [juicefuel.juicecrew.vip](https://juicefuel.juicecrew.vip) — deployment notes in [`docs/guides/deployment.md`](./docs/guides/deployment.md).
+
 ## What is JuiceFuel?
 
 JuiceFuel helps households plan meals, manage recipes, and generate organized shopping lists. Key features:

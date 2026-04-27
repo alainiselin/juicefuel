@@ -47,6 +47,7 @@ How-to documentation:
 - [Development Setup](./guides/development-setup.md)
 - [API Testing](./guides/api-testing.md)
 - [Seeding Test Data](./guides/seeding-test-data.md)
+- [Deployment](./guides/deployment.md)
 
 ### 📦 [Archive](./archive/)
 Historical notes and deprecated documentation:
