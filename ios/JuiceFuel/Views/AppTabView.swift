@@ -8,26 +8,14 @@ struct AppTabView: View {
             RecipesListView()
                 .tabItem { Label("Recipes", systemImage: "book.closed") }
 
-            placeholder("Plan", systemImage: "calendar", message: "Weekly planner coming soon")
+            PlannerView()
                 .tabItem { Label("Plan", systemImage: "calendar") }
 
-            placeholder("Shopping", systemImage: "cart", message: "Shopping list coming soon")
+            ShoppingListView()
                 .tabItem { Label("Shopping", systemImage: "cart") }
 
             profileTab
                 .tabItem { Label("Me", systemImage: "person.crop.circle") }
-        }
-    }
-
-    private func placeholder(_ title: String, systemImage: String, message: String) -> some View {
-        NavigationStack {
-            VStack(spacing: 12) {
-                Image(systemName: systemImage)
-                    .font(.system(size: 48))
-                    .foregroundStyle(.tertiary)
-                Text(message).foregroundStyle(.secondary)
-            }
-            .navigationTitle(title)
         }
     }
 
