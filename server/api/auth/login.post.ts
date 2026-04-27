@@ -65,5 +65,6 @@ export default defineEventHandler(async (event) => {
       display_name: user.display_name,
       avatar_url: user.avatar_url,
     },
+    token: session.session_token,
   };
 });
