@@ -24,6 +24,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: vip.juicecrew.juicefuel
         PRODUCT_NAME: JuiceFuel
+        CODE_SIGN_ENTITLEMENTS: JuiceFuel/JuiceFuel.entitlements
         INFOPLIST_KEY_CFBundleDisplayName: JuiceFuel
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES

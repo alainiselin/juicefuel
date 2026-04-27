@@ -1,17 +1,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var auth = AuthService.shared
+    @State private var didRestore = false
+
     var body: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "fork.knife")
-                .font(.system(size: 64))
-                .foregroundStyle(.tint)
-            Text("JuiceFuel")
-                .font(.largeTitle.bold())
-            Text("Scaffold OK")
-                .foregroundStyle(.secondary)
+        Group {
+            if !didRestore {
+                ProgressView()
+            } else if auth.isSignedIn {
+                AppTabView(auth: auth)
+            } else {
+                LoginView(auth: auth)
+            }
         }
-        .padding()
+        .task {
+            await auth.restoreSession()
+            didRestore = true
+        }
     }
 }
 
