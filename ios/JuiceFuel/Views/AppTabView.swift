@@ -5,7 +5,7 @@ struct AppTabView: View {
 
     var body: some View {
         TabView {
-            placeholder("Recipes", systemImage: "book.closed", message: "Recipes coming next")
+            RecipesListView()
                 .tabItem { Label("Recipes", systemImage: "book.closed") }
 
             placeholder("Plan", systemImage: "calendar", message: "Weekly planner coming soon")
