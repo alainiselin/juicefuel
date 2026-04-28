@@ -13,7 +13,7 @@ struct ShoppingList: Codable, Identifiable, Hashable {
     let title: String
     let status: ShoppingListStatus
     let storeHint: String?
-    let items: [ShoppingListItem]
+    var items: [ShoppingListItem]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -33,7 +33,7 @@ struct ShoppingListItem: Codable, Identifiable, Hashable {
     let quantity: Double?
     let unit: String?
     let note: String?
-    let isChecked: Bool
+    var isChecked: Bool
     let ingredient: ShoppingItemIngredient?
     let article: ShoppingItemArticle?
     let tags: [ShoppingItemTag]?

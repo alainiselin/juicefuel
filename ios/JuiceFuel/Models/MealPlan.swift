@@ -58,15 +58,22 @@ struct MealSlot: Codable, Identifiable, Hashable {
     }
 }
 
-/// Lightweight view of a household used to discover the meal-plan id.
+/// Lightweight view of a household used to discover the meal-plan id and recipe libraries.
 struct HouseholdSummary: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let mealPlan: MealPlanRef?
+    let recipeLibraries: [RecipeLibraryRef]?
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case mealPlan = "meal_plan"
+        case recipeLibraries = "recipe_libraries"
     }
+}
+
+struct RecipeLibraryRef: Codable, Identifiable, Hashable {
+    let id: String
+    let name: String
 }

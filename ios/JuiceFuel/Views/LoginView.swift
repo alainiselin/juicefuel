@@ -51,6 +51,20 @@ struct LoginView: View {
                 .frame(height: 48)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
+                Button {
+                    Task { await auth.signInWithGoogle() }
+                } label: {
+                    HStack(spacing: 10) {
+                        Image(systemName: "g.circle.fill")
+                            .font(.title3)
+                        Text("Continue with Google")
+                            .font(.body.weight(.medium))
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 48)
+                }
+                .buttonStyle(.bordered)
+                .disabled(auth.isLoading)
+
                 if let message = auth.errorMessage {
                     Text(message)
                         .font(.footnote)

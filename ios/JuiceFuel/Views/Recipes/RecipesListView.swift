@@ -4,6 +4,7 @@ struct RecipesListView: View {
     @State private var recipes: [Recipe] = []
     @State private var phase: Phase = .loading
     @State private var searchText = ""
+    @State private var showingAddSheet = false
 
     enum Phase {
         case loading, loaded, empty, error(String)
@@ -16,6 +17,18 @@ struct RecipesListView: View {
                 .searchable(text: $searchText, prompt: "Search recipes")
                 .refreshable { await load() }
                 .task { await load() }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            showingAddSheet = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingAddSheet) {
+                    AddRecipeSheet { Task { await load() } }
+                }
         }
     }
 

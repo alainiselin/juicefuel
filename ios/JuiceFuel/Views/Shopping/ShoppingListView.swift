@@ -69,26 +69,52 @@ struct ShoppingListView: View {
 }
 
 private struct ShoppingListDetailView: View {
-    let list: ShoppingList
+    @State var list: ShoppingList
+    @State private var errorMessage: String?
 
     var body: some View {
         List {
             ForEach(grouped, id: \.0) { (aisle, items) in
                 Section(header: Text(aisle)) {
                     ForEach(items) { item in
-                        itemRow(item)
+                        Button {
+                            toggle(item)
+                        } label: {
+                            itemRow(item)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
+            }
+            if let errorMessage {
+                Text(errorMessage)
+                    .font(.footnote)
+                    .foregroundStyle(.red)
             }
         }
         .navigationTitle(list.title)
         .navigationBarTitleDisplayMode(.inline)
+        .refreshable { await reload() }
+    }
+
+    private func reload() async {
+        do {
+            let fresh: ShoppingList = try await APIClient.shared.send(
+                "GET",
+                path: "/api/shopping-list/\(list.id)"
+            )
+            list = fresh
+            errorMessage = nil
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 
     private func itemRow(_ item: ShoppingListItem) -> some View {
         HStack {
             Image(systemName: item.isChecked ? "checkmark.circle.fill" : "circle")
                 .foregroundStyle(item.isChecked ? Color.green : Color.secondary)
+                .imageScale(.large)
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.displayName)
                     .strikethrough(item.isChecked)
@@ -97,7 +123,9 @@ private struct ShoppingListDetailView: View {
                     Text(amount).font(.caption).foregroundStyle(.secondary)
                 }
             }
+            Spacer()
         }
+        .contentShape(Rectangle())
     }
 
     private func formattedAmount(_ item: ShoppingListItem) -> String? {
@@ -113,6 +141,30 @@ private struct ShoppingListDetailView: View {
         }
         return groups
             .sorted { $0.key.localizedCompare($1.key) == .orderedAscending }
+    }
+
+    private func toggle(_ item: ShoppingListItem) {
+        guard let idx = list.items.firstIndex(where: { $0.id == item.id }) else { return }
+        let previous = list.items[idx].isChecked
+        list.items[idx].isChecked.toggle()
+        let newValue = list.items[idx].isChecked
+        let id = item.id
+
+        Task {
+            do {
+                _ = try await APIClient.shared.sendVoid(
+                    "PATCH",
+                    path: "/api/shopping-list-items/\(id)",
+                    body: ["is_checked": newValue]
+                )
+            } catch {
+                // Revert on failure.
+                if let i = list.items.firstIndex(where: { $0.id == id }) {
+                    list.items[i].isChecked = previous
+                }
+                errorMessage = "Couldn't sync — \(error.localizedDescription)"
+            }
+        }
     }
 }
 

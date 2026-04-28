@@ -84,6 +84,40 @@ final class AuthService {
         }
     }
 
+    // MARK: - External-flow token handoff
+
+    /// Used when a third-party flow (e.g. Google via ASWebAuthenticationSession) hands us a
+    /// session token directly. Stores it and hydrates currentUser from /api/profile.
+    func acceptToken(_ token: String) async {
+        isLoading = true
+        errorMessage = nil
+        defer { isLoading = false }
+        KeychainStore.set(token, for: Self.tokenKey)
+        do {
+            let user: User = try await APIClient.shared.send("GET", path: "/api/profile")
+            currentUser = user
+        } catch {
+            // The token is unusable — drop it to avoid a stuck signed-in state.
+            KeychainStore.delete(Self.tokenKey)
+            currentUser = nil
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    // MARK: - Google sign-in
+
+    func signInWithGoogle() async {
+        errorMessage = nil
+        do {
+            let token = try await GoogleSignInService.shared.signIn()
+            await acceptToken(token)
+        } catch GoogleSignInService.SignInError.cancelled {
+            // User cancelled — silent.
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
     // MARK: - Session restore
 
     func restoreSession() async {

@@ -54,6 +54,7 @@ struct RecipeDetailView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .task { await loadFull() }
+        .refreshable { await loadFull() }
     }
 
     private func metaRow(for recipe: Recipe) -> some View {
