@@ -17,13 +17,17 @@ export default defineEventHandler(async (event) => {
   // Validate state parameter (CSRF protection)
   const stateCookie = getCookie(event, 'oauth_state');
   const stateParam = query.state as string;
-  
+
   if (!stateCookie || !stateParam || stateCookie !== stateParam) {
     console.error('OAuth state mismatch');
     deleteCookie(event, 'oauth_state');
     return sendRedirect(event, '/login?error=oauth_state');
   }
-  
+
+  // The state encodes "<nonce>:<returnTo>". Extract returnTo so we know whether the
+  // flow was started from the web or from the iOS app via ASWebAuthenticationSession.
+  const returnTo = stateCookie.split(':')[1] === 'ios' ? 'ios' : 'web';
+
   // Clear state cookie
   deleteCookie(event, 'oauth_state');
   
@@ -145,7 +149,7 @@ export default defineEventHandler(async (event) => {
       },
     });
     
-    // Set session cookie
+    // Set session cookie (web flow only — iOS uses Bearer tokens)
     setCookie(event, 'session_token', session.session_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -153,12 +157,21 @@ export default defineEventHandler(async (event) => {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
     });
-    
-    // Redirect to planner
+
+    // For iOS, hand the session token back via a custom URL scheme so the
+    // ASWebAuthenticationSession in the native app can capture it.
+    if (returnTo === 'ios') {
+      return sendRedirect(event, `juicefuel://auth/callback?token=${encodeURIComponent(session.session_token)}`);
+    }
+
+    // Redirect to planner (web)
     return sendRedirect(event, '/plan');
-    
+
   } catch (error) {
     console.error('OAuth callback error:', error);
+    if (returnTo === 'ios') {
+      return sendRedirect(event, 'juicefuel://auth/callback?error=oauth_error');
+    }
     return sendRedirect(event, '/login?error=oauth_error');
   }
 });
