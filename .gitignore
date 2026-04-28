@@ -25,3 +25,6 @@ logs
 
 /app/generated/prisma
 .vercel
+
+# Claude Code worktrees and local state
+.claude/
