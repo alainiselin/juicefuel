@@ -7,7 +7,7 @@ status: stable
 
 # Session Management
 
-JuiceFuel uses session-based authentication with httpOnly cookies.
+JuiceFuel uses session-based authentication. The same `session_token` is delivered as either an httpOnly cookie (web) or an `Authorization: Bearer <token>` header (native iOS).
 
 ## Session Flow
 
@@ -115,17 +115,25 @@ Same as login - create session after successful OAuth.
 ### Middleware
 **File:** `server/middleware/auth.ts`
 
-Runs on every request:
+Runs on every request. Reads the cookie first; if missing, falls back to the
+`Authorization: Bearer <token>` header so native clients work the same way:
 ```typescript
 export default defineEventHandler(async (event) => {
-  const sessionToken = getCookie(event, 'session_token');
-  
+  let sessionToken = getCookie(event, 'session_token');
+
+  if (!sessionToken) {
+    const authHeader = getHeader(event, 'authorization');
+    if (authHeader?.startsWith('Bearer ')) {
+      sessionToken = authHeader.slice('Bearer '.length).trim();
+    }
+  }
+
   if (sessionToken) {
     const session = await prisma.session.findUnique({
       where: { session_token: sessionToken },
       include: { user: true }
     });
-    
+
     if (session && session.expires > new Date()) {
       event.context.user = session.user;
       event.context.userId = session.user.id;
@@ -133,6 +141,8 @@ export default defineEventHandler(async (event) => {
   }
 });
 ```
+
+The token value is identical in either transport — no JWT, no refresh token, just the `session_token` UUID stored in the `session` table.
 
 ### Protected Endpoints
 ```typescript

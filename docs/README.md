@@ -48,6 +48,7 @@ How-to documentation:
 - [API Testing](./guides/api-testing.md)
 - [Seeding Test Data](./guides/seeding-test-data.md)
 - [Deployment](./guides/deployment.md)
+- [iOS Development](./guides/ios-development.md)
 
 ### 📦 [Archive](./archive/)
 Historical notes and deprecated documentation:

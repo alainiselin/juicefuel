@@ -13,7 +13,8 @@ JuiceFuel helps households plan meals, manage recipes, and generate organized sh
 - **Smart Shopping Lists**: Auto-generated lists organized by supermarket sections (rubrics)
 - **Multi-Household**: Support for families, roommates, and shared households
 - **Tagging System**: Organize recipes by cuisine, diet, cooking technique, and more
-- **Authentication**: Email/password and Google OAuth support
+- **Authentication**: Email/password, Google OAuth, and Sign in with Apple
+- **Native iOS app**: SwiftUI client at [`/ios`](./ios/) consuming the same API via Bearer tokens
 
 ## Quick Start
 
@@ -62,6 +63,8 @@ Default test users:
 - [Architecture Overview](./docs/architecture/system-overview.md) - System design and data flow
 - [API Testing Guide](./docs/guides/api-testing.md) - Testing API endpoints
 - [Seeding Test Data](./docs/guides/seeding-test-data.md) - Understanding test data
+- [iOS Development](./docs/guides/ios-development.md) - Native iOS app workflow
+- [Deployment](./docs/guides/deployment.md) - Production deployment notes
 
 ### Explore by Domain
 - [Authentication](./docs/domains/authentication/) - User auth, sessions, OAuth
@@ -74,11 +77,13 @@ Default test users:
 
 ## Tech Stack
 
-- **Frontend**: Nuxt 3, Vue 3, Tailwind CSS, Pinia
+- **Web frontend**: Nuxt 4, Vue 3, Tailwind CSS, Pinia
+- **iOS frontend**: SwiftUI (iOS 17+), driven from CLI via xcodegen + xcbeautify
 - **Backend**: Nitro (Nuxt server), Prisma ORM
-- **Database**: PostgreSQL (Supabase)
-- **Auth**: Session-based with bcrypt + Google OAuth
-- **Type Safety**: TypeScript + Zod schemas
+- **Database**: PostgreSQL (Supabase, hosted in eu-central-1)
+- **Hosting**: Vercel (web + API)
+- **Auth**: Session tokens delivered as cookie (web) or Bearer header (iOS); bcrypt + Google OAuth + Sign in with Apple
+- **Type Safety**: TypeScript + Zod schemas (web/server), Codable structs (iOS)
 
 ## Key Concepts
 

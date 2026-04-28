@@ -7,41 +7,40 @@ status: stable
 
 # Authentication System Overview
 
-JuiceFuel implements session-based authentication with email/password and Google OAuth support.
+JuiceFuel implements session-based authentication with email/password, Google OAuth, and (for native iOS) Sign in with Apple. The same session token is delivered as either a `session_token` httpOnly cookie (web) or an `Authorization: Bearer <token>` header (native iOS).
 
 ## Architecture
 
 ### Components
 
 ```
-┌─────────────────────────────────────────────┐
-│  Login Page (app/pages/login.vue)          │
-│  - Email/Password form                      │
-│  - Google OAuth button                      │
-└───────────────┬─────────────────────────────┘
-                │
-                ▼
-┌─────────────────────────────────────────────┐
-│  useAuth() Composable                       │
-│  - login(), signup(), logout()              │
-│  - Session state management                 │
-└───────────────┬─────────────────────────────┘
-                │
-                ▼
+┌──────────────────────────────┐   ┌──────────────────────────────┐
+│  Web client                  │   │  iOS client (ios/)           │
+│  - app/pages/login.vue       │   │  - LoginView                 │
+│  - useAuth() composable      │   │  - AuthService (@Observable) │
+│  - Session via cookie        │   │  - APIClient (Bearer header) │
+└──────────────┬───────────────┘   └──────────────┬───────────────┘
+               │                                  │
+               │ session_token cookie             │ Authorization: Bearer …
+               │                                  │
+               └──────────────┬───────────────────┘
+                              ▼
 ┌─────────────────────────────────────────────┐
 │  API Endpoints (server/api/auth/)           │
-│  - POST /auth/signup                        │
-│  - POST /auth/login                         │
+│  - POST /auth/signup       → {user, token}  │
+│  - POST /auth/login        → {user, token}  │
 │  - POST /auth/logout                        │
 │  - GET  /auth/session                       │
-│  - GET  /auth/google                        │
+│  - GET  /auth/google[?return_to=ios]        │
 │  - GET  /auth/callback/google               │
+│  - POST /auth/apple        → {user, token}  │
 └───────────────┬─────────────────────────────┘
                 │
                 ▼
 ┌─────────────────────────────────────────────┐
 │  Auth Middleware (server/middleware/)       │
-│  - Validates session token                  │
+│  - Reads session_token cookie OR            │
+│    Authorization: Bearer header             │
 │  - Attaches user to event.context           │
 └───────────────┬─────────────────────────────┘
                 │
@@ -50,7 +49,7 @@ JuiceFuel implements session-based authentication with email/password and Google
 │  Database (Prisma)                          │
 │  - user_profile                             │
 │  - session                                  │
-│  - account (OAuth)                          │
+│  - account (OAuth: google, apple)           │
 └─────────────────────────────────────────────┘
 ```
 
@@ -126,11 +125,36 @@ JuiceFuel implements session-based authentication with email/password and Google
 
 See [[google-oauth-setup]] for detailed flow.
 
+The same endpoint serves both web and native iOS clients. iOS calls `/api/auth/google?return_to=ios` and the callback redirects to `juicefuel://auth/callback?token=…` instead of `/plan` so the `ASWebAuthenticationSession` in the native app can capture the session token. No extra Google Cloud Console configuration is needed for iOS — the redirect Google sees is still our HTTPS callback.
+
+### Sign in with Apple (iOS-only)
+
+```
+1. iOS app: SignInWithAppleButton triggers ASAuthorizationController
+   ↓
+2. User authenticates with Face ID / Touch ID / password
+   ↓
+3. iOS receives identity_token (JWT) + (first time only) email + name
+   ↓
+4. iOS POSTs to /api/auth/apple with { identity_token, email?, display_name? }
+   ↓
+5. Server verifies the JWT against Apple's JWKS
+   (issuer = https://appleid.apple.com, audience = APPLE_BUNDLE_ID)
+   ↓
+6. Server upserts user_profile (matched by Apple sub or email)
+   and creates an account row with provider='apple'
+   ↓
+7. Server creates session, returns { user, token }
+```
+
+The `APPLE_BUNDLE_ID` env var must match the iOS app's Bundle ID (currently `vip.juicecrew.juicefuel`). Apple only sends the user's email/name on the FIRST sign-in, so the iOS client passes them in the body when present.
+
 ### Session Validation
 
 ```
 Every API Request:
 1. Extract session_token from cookie
+   (or from Authorization: Bearer <token> header for native clients)
    ↓
 2. Middleware: Find session in database
    ↓
@@ -196,10 +220,14 @@ Every API Request:
   "user": {
     "id": "uuid",
     "email": "user@example.com",
-    "display_name": "User Name"
-  }
+    "display_name": "User Name",
+    "avatar_url": null
+  },
+  "token": "abc123-… (session_token)"
 }
 ```
+
+The `token` is the same value as the `session_token` cookie. Web clients ignore it (the cookie is set automatically); native clients use it as the `Authorization: Bearer <token>` value on subsequent requests.
 
 ### POST /api/auth/login
 **Request:**
@@ -218,9 +246,26 @@ Every API Request:
     "email": "user@example.com",
     "display_name": "User Name",
     "avatar_url": null
-  }
+  },
+  "token": "abc123-…"
 }
 ```
+
+### POST /api/auth/apple
+Native iOS only. Validates an Apple identity token and returns a session.
+
+**Request:**
+```json
+{
+  "identity_token": "<JWT from ASAuthorizationAppleIDCredential.identityToken>",
+  "email": "user@example.com",
+  "display_name": "User Name"
+}
+```
+
+`email` and `display_name` are optional and only present on the first sign-in (Apple only emits them once per app).
+
+**Response:** same shape as `/login`: `{ user, token }`.
 
 ### GET /api/auth/session
 **Response:**
@@ -310,25 +355,36 @@ export default defineEventHandler(async (event) => {
 ```
 server/
 ├── api/auth/
-│   ├── signup.post.ts          # Email signup
-│   ├── login.post.ts           # Email login
+│   ├── signup.post.ts          # Email signup → {user, token}
+│   ├── login.post.ts           # Email login → {user, token}
 │   ├── logout.post.ts          # Session termination
 │   ├── session.get.ts          # Session check
-│   ├── google.get.ts           # OAuth initiation
-│   └── callback/google.get.ts  # OAuth callback
+│   ├── google.get.ts           # OAuth initiation (web + ?return_to=ios)
+│   ├── callback/google.get.ts  # OAuth callback (redirects to /plan or juicefuel://)
+│   └── apple.post.ts           # Sign in with Apple (validates JWT)
 ├── middleware/
-│   └── auth.ts                 # Session validation
+│   └── auth.ts                 # Session validation (cookie OR Bearer)
 └── utils/
     ├── authHelpers.ts          # requireAuth()
     └── householdBootstrap.ts   # Auto-create household
 
-app/
+app/                            # web client (Nuxt)
 ├── composables/
 │   └── useAuth.ts              # Auth state management
 ├── middleware/
 │   └── auth.global.ts          # Route protection
 └── pages/
     └── login.vue               # Login/signup UI
+
+ios/                            # native iOS client (SwiftUI)
+└── JuiceFuel/
+    ├── Services/
+    │   ├── AuthService.swift           # @Observable; login/signup/Apple/Google
+    │   ├── GoogleSignInService.swift   # ASWebAuthenticationSession driver
+    │   ├── KeychainStore.swift         # Stores the Bearer token
+    │   └── APIClient.swift             # Adds Authorization: Bearer header
+    └── Views/
+        └── LoginView.swift             # Email/pw + SIWA + Continue with Google
 ```
 
 ## Testing

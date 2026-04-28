@@ -28,6 +28,7 @@ All set in Vercel (Settings → Environment Variables → Production):
 | `AUTH_ORIGIN` | OAuth callback base | `https://juicefuel.juicecrew.vip` |
 | `GOOGLE_CLIENT_ID` | Google OAuth | from https://console.cloud.google.com/auth/clients |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth | same |
+| `APPLE_BUNDLE_ID` | Sign in with Apple JWT audience | must match the iOS app's Bundle ID (`vip.juicecrew.juicefuel`) |
 | `OPENAI_API_KEY` | AI recipe generation | optional |
 
 `sslmode=no-verify` is intentional: the `pg` driver on Vercel's runtime doesn't trust Supabase's intermediate CA. TLS still encrypts; the chain isn't verified. To make verification proper, add `ssl: { ca, rejectUnauthorized: true }` to the `pg.Pool` in [`server/utils/prisma.ts`](../../server/utils/prisma.ts) with Supabase's root cert.
