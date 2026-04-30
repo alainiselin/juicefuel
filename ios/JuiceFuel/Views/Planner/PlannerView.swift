@@ -189,16 +189,17 @@ struct PlannerView: View {
         }
         do {
             let active: ActiveHouseholdResponse = try await APIClient.shared.send("GET", path: "/api/households/me")
-            householdId = active.household.id
             let households: [HouseholdSummary] = try await APIClient.shared.send("GET", path: "/api/households")
             let household = households.first(where: { $0.id == active.household.id }) ?? households.first
+
             guard let plan = household?.mealPlan else {
+                householdId = active.household.id
                 mealPlanId = nil
                 slotsByDay = [:]
                 phase = .noPlan
                 return
             }
-            mealPlanId = plan.id
+
             let weekEnd = Calendar.current.date(byAdding: .day, value: 6, to: weekStart) ?? weekStart
             let from = ymd(weekStart)
             let to = ymd(weekEnd)
@@ -206,6 +207,11 @@ struct PlannerView: View {
                 "GET",
                 path: "/api/meal-plan?meal_plan_id=\(plan.id)&from=\(from)&to=\(to)"
             )
+
+            // Batch state updates so the List doesn't re-render between awaits
+            // and disturb the underlying UIRefreshControl during pull-to-refresh.
+            householdId = active.household.id
+            mealPlanId = plan.id
             slotsByDay = Dictionary(grouping: slots) { $0.dateKey }
             errorMessage = nil
             phase = .loaded
@@ -220,6 +226,8 @@ struct PlannerView: View {
     private static func isCancellation(_ error: Error) -> Bool {
         if error is CancellationError { return true }
         if let urlError = error as? URLError, urlError.code == .cancelled { return true }
+        if case let APIError.transport(inner) = error { return isCancellation(inner) }
+        if case let APIError.decoding(inner) = error { return isCancellation(inner) }
         return false
     }
 
