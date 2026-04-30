@@ -120,6 +120,43 @@ struct Tag: Codable, Hashable, Identifiable {
     let slug: String?
     let kind: String?
     let scope: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case label
+        case slug
+        case kind
+        case scope
+    }
+
+    init(id: String, name: String, slug: String? = nil, kind: String? = nil, scope: String? = nil) {
+        self.id = id
+        self.name = name
+        self.slug = slug
+        self.kind = kind
+        self.scope = scope
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+            ?? container.decodeIfPresent(String.self, forKey: .label)
+            ?? ""
+        slug = try container.decodeIfPresent(String.self, forKey: .slug)
+        kind = try container.decodeIfPresent(String.self, forKey: .kind)
+        scope = try container.decodeIfPresent(String.self, forKey: .scope)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encodeIfPresent(slug, forKey: .slug)
+        try container.encodeIfPresent(kind, forKey: .kind)
+        try container.encodeIfPresent(scope, forKey: .scope)
+    }
 }
 
 struct AIRecipeGenerationResponse: Codable, Hashable {
