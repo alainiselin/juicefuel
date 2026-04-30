@@ -1,6 +1,7 @@
 import { mealPlanRepo } from '../repos/mealPlanRepo';
 import prisma from '../utils/prisma';
 import type { CreateMealPlanEntryInput, UpdateMealPlanEntryInput } from '../../spec/schemas';
+import { parseMealPlanDateKey, serializeMealSlot, serializeMealSlots } from '../utils/mealPlanDates';
 
 export const mealPlanService = {
   async getEntriesForUser(userId: string, mealPlanId: string, from: string, to: string) {
@@ -29,10 +30,11 @@ export const mealPlanService = {
   },
 
   async getEntries(mealPlanId: string, from: string, to: string) {
-    const fromDate = new Date(from);
-    const toDate = new Date(to);
+    const fromDate = parseMealPlanDateKey(from);
+    const toDate = parseMealPlanDateKey(to);
     
-    return mealPlanRepo.findByDateRange(mealPlanId, fromDate, toDate);
+    const entries = await mealPlanRepo.findByDateRange(mealPlanId, fromDate, toDate);
+    return serializeMealSlots(entries);
   },
 
   async getEntry(id: string) {
@@ -42,10 +44,10 @@ export const mealPlanService = {
   async createEntry(input: CreateMealPlanEntryInput) {
     return mealPlanRepo.create({
       meal_plan_id: input.meal_plan_id,
-      date: new Date(input.date),
+      date: parseMealPlanDateKey(input.date),
       slot: input.slot,
       recipe_id: input.recipe_id,
-    });
+    }).then(serializeMealSlot);
   },
 
   async updateEntry(id: string, input: UpdateMealPlanEntryInput) {
@@ -55,10 +57,10 @@ export const mealPlanService = {
     }
 
     return mealPlanRepo.update(id, {
-      date: input.date ? new Date(input.date) : undefined,
+      date: input.date ? parseMealPlanDateKey(input.date) : undefined,
       slot: input.slot,
       recipe_id: input.recipe_id,
-    });
+    }).then(serializeMealSlot);
   },
 
   async deleteEntry(id: string) {

@@ -1,6 +1,7 @@
 import { requireAuth } from '../../utils/authHelpers';
 import prisma from '../../utils/prisma';
 import type { SlotType } from '../../../spec/schemas';
+import { formatMealPlanDateKey, parseMealPlanDateKey } from '../../utils/mealPlanDates';
 
 interface ApplySlot {
   date: string;
@@ -47,7 +48,7 @@ export default defineEventHandler(async (event) => {
   const results = [];
   
   for (const slot of slots) {
-    const date = new Date(slot.date);
+    const date = parseMealPlanDateKey(slot.date);
     
     // Check if slot already has an entry
     const existing = await prisma.meal_slot.findUnique({
@@ -90,7 +91,7 @@ export default defineEventHandler(async (event) => {
       results.push({
         id: created.id,
         meal_plan_id: created.meal_plan_id,
-        date: created.date.toISOString().split('T')[0],
+        date: formatMealPlanDateKey(created.date),
         slot: created.slot,
         recipe_id: created.recipe_id,
         recipe: created.recipe,

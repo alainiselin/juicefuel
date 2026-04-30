@@ -1,10 +1,11 @@
 import { mealPlanRepo } from '../repos/mealPlanRepo';
 import type { ShoppingListItem } from '../../spec/schemas';
+import { parseMealPlanDateKey } from '../utils/mealPlanDates';
 
 export const shoppingListService = {
   async generateShoppingList(mealPlanId: string, from: string, to: string) {
-    const fromDate = new Date(from);
-    const toDate = new Date(to);
+    const fromDate = parseMealPlanDateKey(from);
+    const toDate = parseMealPlanDateKey(to);
 
     const entries = await mealPlanRepo.findByDateRange(mealPlanId, fromDate, toDate);
 

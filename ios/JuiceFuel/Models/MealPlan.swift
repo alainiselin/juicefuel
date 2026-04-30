@@ -64,7 +64,7 @@ struct MealSlot: Codable, Identifiable, Hashable {
         mealPlanId = try container.decode(String.self, forKey: .mealPlanId)
 
         let rawDate = try container.decode(String.self, forKey: .date)
-        dateKey = String(rawDate.prefix(10))
+        dateKey = MealPlanDate.key(fromAPIValue: rawDate)
         date = MealPlanDate.date(from: dateKey) ?? Date()
 
         slot = try container.decode(SlotType.self, forKey: .slot)
@@ -84,6 +84,17 @@ struct MealSlot: Codable, Identifiable, Hashable {
 }
 
 enum MealPlanDate {
+    static func key(fromAPIValue value: String) -> String {
+        if value.count == 10, !value.contains("T") {
+            return value
+        }
+        if let date = timestampWithFractionalSeconds.date(from: value)
+            ?? timestamp.date(from: value) {
+            return key(from: date)
+        }
+        return String(value.prefix(10))
+    }
+
     static func date(from key: String) -> Date? {
         formatter.date(from: key)
     }
@@ -107,6 +118,18 @@ enum MealPlanDate {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.timeZone = TimeZone.current
         formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    private static let timestampWithFractionalSeconds: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
+
+    private static let timestamp: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
         return formatter
     }()
 }

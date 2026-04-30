@@ -198,13 +198,12 @@ const mealsByDaySlot = computed(() => {
   
   for (const entry of props.entries) {
     const dateKey = apiDateKey(entry.date);
-    if (!lookup[dateKey]) {
-      lookup[dateKey] = {};
-    }
-    if (!lookup[dateKey][entry.slot]) {
-      lookup[dateKey][entry.slot] = [];
-    }
-    lookup[dateKey][entry.slot].push(entry);
+    const dayLookup = lookup[dateKey] ?? {};
+    lookup[dateKey] = dayLookup;
+
+    const slotEntries = dayLookup[entry.slot] ?? [];
+    dayLookup[entry.slot] = slotEntries;
+    slotEntries.push(entry);
   }
   
   return lookup;
