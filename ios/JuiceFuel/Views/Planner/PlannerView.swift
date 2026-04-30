@@ -210,8 +210,17 @@ struct PlannerView: View {
             errorMessage = nil
             phase = .loaded
         } catch {
+            if Self.isCancellation(error) {
+                return
+            }
             phase = .error(error.localizedDescription)
         }
+    }
+
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError { return true }
+        if let urlError = error as? URLError, urlError.code == .cancelled { return true }
+        return false
     }
 
     private func createMealPlan() async {
