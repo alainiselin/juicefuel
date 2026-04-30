@@ -193,9 +193,10 @@ The iOS app now supports the core manual shopping workflow against the same API:
 
 Backend response shaping was tightened so `PATCH /api/shopping-list/[id]` returns article-backed and ingredient-backed items consistently. This matters for native decoding because iOS has separate models for `ingredient` and `article` shopping rows.
 
+One-tap generation from the active meal plan is also supported on iOS — see [generate-from-meal-plan](./generate-from-meal-plan.md).
+
 Still missing on iOS:
 
-- One-tap generation from the active meal plan.
 - Offline shopping mode.
 - Shared-household conflict handling and presence.
 
@@ -226,7 +227,6 @@ Need to manually tag common ingredients with AISLE tags via:
 ## Future Enhancements
 
 ### Phase 2 (Suggested)
-- Generate shopping list from meal plan (use existing endpoint)
 - Merge duplicate ingredients across lists
 - Share shopping lists with household members
 - Barcode scanning for item addition
