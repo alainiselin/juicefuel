@@ -44,6 +44,7 @@ struct MealSlot: Codable, Identifiable, Hashable {
     let id: String
     let mealPlanId: String
     let date: Date
+    let dateKey: String
     let slot: SlotType
     let recipeId: String
     let recipe: Recipe?
@@ -56,6 +57,58 @@ struct MealSlot: Codable, Identifiable, Hashable {
         case recipeId = "recipe_id"
         case recipe
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        mealPlanId = try container.decode(String.self, forKey: .mealPlanId)
+
+        let rawDate = try container.decode(String.self, forKey: .date)
+        dateKey = String(rawDate.prefix(10))
+        date = MealPlanDate.date(from: dateKey) ?? Date()
+
+        slot = try container.decode(SlotType.self, forKey: .slot)
+        recipeId = try container.decode(String.self, forKey: .recipeId)
+        recipe = try container.decodeIfPresent(Recipe.self, forKey: .recipe)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(mealPlanId, forKey: .mealPlanId)
+        try container.encode(dateKey, forKey: .date)
+        try container.encode(slot, forKey: .slot)
+        try container.encode(recipeId, forKey: .recipeId)
+        try container.encodeIfPresent(recipe, forKey: .recipe)
+    }
+}
+
+enum MealPlanDate {
+    static func date(from key: String) -> Date? {
+        formatter.date(from: key)
+    }
+
+    static func key(from date: Date) -> String {
+        formatter.string(from: date)
+    }
+
+    static func display(_ key: String, format: String = "EEEE, MMM d") -> String {
+        guard let date = date(from: key) else { return key }
+        let displayFormatter = DateFormatter()
+        displayFormatter.calendar = Calendar.current
+        displayFormatter.locale = Locale.current
+        displayFormatter.dateFormat = format
+        return displayFormatter.string(from: date)
+    }
+
+    private static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 }
 
 /// Lightweight view of a household used to discover the meal-plan id and recipe libraries.

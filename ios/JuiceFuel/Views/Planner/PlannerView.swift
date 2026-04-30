@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PlannerView: View {
-    @State private var slotsByDay: [Date: [MealSlot]] = [:]
+    @State private var slotsByDay: [String: [MealSlot]] = [:]
     @State private var weekStart: Date = PlannerView.startOfWeek(for: Date())
     @State private var phase: Phase = .loading
     @State private var householdId: String?
@@ -13,8 +13,8 @@ struct PlannerView: View {
     @State private var errorMessage: String?
 
     struct AddTarget: Identifiable {
-        let date: Date
-        var id: TimeInterval { date.timeIntervalSince1970 }
+        let dateKey: String
+        var id: String { dateKey }
     }
 
     enum Phase {
@@ -47,7 +47,7 @@ struct PlannerView: View {
                 .task { await load() }
                 .sheet(item: $addingFor) { target in
                     if let mealPlanId {
-                        AddMealSheet(mealPlanId: mealPlanId, date: target.date) {
+                        AddMealSheet(mealPlanId: mealPlanId, dateKey: target.dateKey) {
                             Task { await load() }
                         }
                     }
@@ -56,7 +56,7 @@ struct PlannerView: View {
                     if let mealPlanId {
                         AddMealSheet(
                             mealPlanId: mealPlanId,
-                            date: slot.date,
+                            dateKey: slot.dateKey,
                             existingSlot: slot
                         ) {
                             Task { await load() }
@@ -129,7 +129,7 @@ struct PlannerView: View {
 
     @ViewBuilder
     private func daySlots(for day: Date) -> some View {
-        let dayKey = Calendar.current.startOfDay(for: day)
+        let dayKey = ymd(day)
         let entries = slotsByDay[dayKey] ?? []
         ForEach(entries) { entry in
             entryRow(entry: entry)
@@ -148,7 +148,7 @@ struct PlannerView: View {
                 }
         }
         Button {
-            addingFor = AddTarget(date: day)
+            addingFor = AddTarget(dateKey: dayKey)
         } label: {
             Label(entries.isEmpty ? "Plan a meal" : "Add another", systemImage: "plus")
         }
@@ -204,7 +204,7 @@ struct PlannerView: View {
                 "GET",
                 path: "/api/meal-plan?meal_plan_id=\(plan.id)&from=\(from)&to=\(to)"
             )
-            slotsByDay = Dictionary(grouping: slots) { Calendar.current.startOfDay(for: $0.date) }
+            slotsByDay = Dictionary(grouping: slots) { $0.dateKey }
             errorMessage = nil
             phase = .loaded
         } catch {
@@ -234,7 +234,7 @@ struct PlannerView: View {
         }
     }
 
-    private func removeSlot(id: String, dayKey: Date) async {
+    private func removeSlot(id: String, dayKey: String) async {
         // Optimistic remove.
         let previous = slotsByDay[dayKey] ?? []
         slotsByDay[dayKey] = previous.filter { $0.id != id }
@@ -279,10 +279,7 @@ struct PlannerView: View {
     }
 
     private func ymd(_ d: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        f.timeZone = TimeZone(identifier: "UTC")
-        return f.string(from: d)
+        MealPlanDate.key(from: d)
     }
 }
 
@@ -505,10 +502,7 @@ private struct MealPlanGeneratorSheet: View {
     }
 
     private func ymd(_ d: Date) -> String {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        f.timeZone = TimeZone(identifier: "UTC")
-        return f.string(from: d)
+        MealPlanDate.key(from: d)
     }
 }
 

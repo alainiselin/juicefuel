@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AddMealSheet: View {
     let mealPlanId: String
-    let date: Date
+    let dateKey: String
     let existingSlot: MealSlot?
 
     var onAdded: () -> Void
@@ -19,13 +19,13 @@ struct AddMealSheet: View {
 
     init(
         mealPlanId: String,
-        date: Date,
+        dateKey: String,
         existingSlot: MealSlot? = nil,
         defaultSlot: SlotType = .dinner,
         onAdded: @escaping () -> Void
     ) {
         self.mealPlanId = mealPlanId
-        self.date = date
+        self.dateKey = dateKey
         self.existingSlot = existingSlot
         self.onAdded = onAdded
         _slot = State(initialValue: existingSlot?.slot ?? defaultSlot)
@@ -104,9 +104,7 @@ struct AddMealSheet: View {
     }
 
     private var formattedDate: String {
-        let f = DateFormatter()
-        f.dateFormat = "EEEE, MMM d"
-        return f.string(from: date)
+        MealPlanDate.display(dateKey)
     }
 
     private func loadRecipes() async {
@@ -125,11 +123,6 @@ struct AddMealSheet: View {
         errorMessage = nil
         defer { saving = false }
 
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        f.timeZone = TimeZone(identifier: "UTC")
-        let dateString = f.string(from: date)
-
         do {
             let path = existingSlot.map { "/api/meal-plan/\($0.id)" } ?? "/api/meal-plan"
             let method = existingSlot == nil ? "POST" : "PATCH"
@@ -138,7 +131,7 @@ struct AddMealSheet: View {
                 path: path,
                 body: [
                     "meal_plan_id": mealPlanId,
-                    "date": dateString,
+                    "date": dateKey,
                     "slot": slot.rawValue,
                     "recipe_id": recipeId,
                 ]
