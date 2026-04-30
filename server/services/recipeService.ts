@@ -124,6 +124,10 @@ export const recipeService = {
     if (input.source_url !== undefined) {
       updateData.source_url = input.source_url || null;
     }
+
+    if (input.base_servings !== undefined) {
+      updateData.base_servings = input.base_servings || null;
+    }
     
     if (input.instructions_markdown !== undefined) {
       updateData.instructions_markdown = input.instructions_markdown || null;

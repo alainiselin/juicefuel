@@ -5,6 +5,7 @@ struct RecipesListView: View {
     @State private var phase: Phase = .loading
     @State private var searchText = ""
     @State private var showingAddSheet = false
+    @State private var showingAISheet = false
 
     enum Phase {
         case loading, loaded, empty, error(String)
@@ -18,6 +19,13 @@ struct RecipesListView: View {
                 .refreshable { await load() }
                 .task { await load() }
                 .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button {
+                            showingAISheet = true
+                        } label: {
+                            Image(systemName: "wand.and.stars")
+                        }
+                    }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button {
                             showingAddSheet = true
@@ -29,6 +37,9 @@ struct RecipesListView: View {
                 .sheet(isPresented: $showingAddSheet) {
                     AddRecipeSheet { Task { await load() } }
                 }
+                .sheet(isPresented: $showingAISheet) {
+                    AIRecipeSheet { Task { await load() } }
+                }
         }
     }
 
@@ -36,14 +47,18 @@ struct RecipesListView: View {
     private var content: some View {
         switch phase {
         case .loading:
-            ProgressView()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            BrandedLoadingView(title: "Loading recipes", subtitle: "Pulling your household library")
         case .empty:
-            ContentUnavailableView(
-                "No recipes yet",
-                systemImage: "book.closed",
-                description: Text("Add a recipe in the web app at juicefuel.juicecrew.vip — it will show up here.")
-            )
+            ContentUnavailableView {
+                Label("No recipes yet", systemImage: "book.closed")
+            } description: {
+                Text("Create one manually or generate a draft with the magic wand.")
+            } actions: {
+                Button("New Recipe") { showingAddSheet = true }
+                    .buttonStyle(.borderedProminent)
+                Button("Generate") { showingAISheet = true }
+                    .buttonStyle(.bordered)
+            }
         case .error(let message):
             ContentUnavailableView(
                 "Couldn't load recipes",
@@ -63,7 +78,9 @@ struct RecipesListView: View {
         }
         .listStyle(.plain)
         .navigationDestination(for: Recipe.self) { recipe in
-            RecipeDetailView(recipe: recipe)
+            RecipeDetailView(recipe: recipe) {
+                Task { await load() }
+            }
         }
     }
 
@@ -117,4 +134,231 @@ private struct RecipeRow: View {
 
 #Preview {
     RecipesListView()
+}
+
+private struct AIRecipeSheet: View {
+    var onSaved: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var prompt = ""
+    @State private var servings = ""
+    @State private var householdId: String?
+    @State private var libraries: [RecipeLibrary] = []
+    @State private var selectedLibraryId: String?
+    @State private var draft: AIRecipeDraft?
+    @State private var loading = true
+    @State private var generating = false
+    @State private var saving = false
+    @State private var errorMessage: String?
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                if loading {
+                    Section {
+                        HStack {
+                            ProgressView()
+                            Text("Preparing...")
+                        }
+                    }
+                } else {
+                    Section("Idea") {
+                        TextField("e.g. quick high-protein pasta", text: $prompt, axis: .vertical)
+                            .lineLimit(2...4)
+                        TextField("Servings", text: $servings)
+                            .keyboardType(.numberPad)
+                    }
+
+                    Section("Library") {
+                        if libraries.isEmpty {
+                            Text("No writable library found")
+                                .foregroundStyle(.secondary)
+                        } else {
+                            Picker("Save to", selection: Binding(
+                                get: { selectedLibraryId ?? "" },
+                                set: { selectedLibraryId = $0 }
+                            )) {
+                                ForEach(libraries) { library in
+                                    Text(library.name).tag(library.id)
+                                }
+                            }
+                        }
+                    }
+
+                    if let draft {
+                        Section("Preview") {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(draft.title)
+                                    .font(.headline)
+                                Text(draft.description)
+                                    .foregroundStyle(.secondary)
+                                HStack(spacing: 16) {
+                                    Label("\(draft.servings)", systemImage: "person.2")
+                                    Label("\(draft.times.totalMin) min", systemImage: "clock")
+                                    Label("\(draft.ingredients.count)", systemImage: "list.bullet")
+                                }
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            }
+                        }
+
+                        Section("Ingredients") {
+                            ForEach(draft.ingredients.indices, id: \.self) { index in
+                                let ingredient = draft.ingredients[index]
+                                HStack {
+                                    Text(ingredient.name)
+                                    Spacer()
+                                    if let amount = ingredient.amount {
+                                        Text(amount, format: .number)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    if let unit = ingredient.unit {
+                                        Text(unit)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                }
+                            }
+                        }
+
+                        Section("Steps") {
+                            ForEach(draft.steps, id: \.order) { step in
+                                Text("\(step.order). \(step.text)")
+                            }
+                        }
+
+                        if let warnings = draft.warnings, !warnings.isEmpty {
+                            Section("Warnings") {
+                                ForEach(warnings, id: \.self) { warning in
+                                    Text(warning)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if let errorMessage {
+                    Section {
+                        Text(errorMessage)
+                            .font(.footnote)
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
+            .navigationTitle("AI recipe")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    if draft == nil {
+                        Button {
+                            Task { await generate() }
+                        } label: {
+                            if generating { ProgressView() } else { Text("Generate") }
+                        }
+                        .disabled(!canGenerate || generating || loading)
+                    } else {
+                        Button {
+                            Task { await save() }
+                        } label: {
+                            if saving { ProgressView() } else { Text("Save") }
+                        }
+                        .disabled(selectedLibraryId == nil || saving)
+                    }
+                }
+            }
+            .task { await loadContext() }
+        }
+    }
+
+    private var canGenerate: Bool {
+        !prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            && householdId != nil
+            && selectedLibraryId != nil
+            && parsedServings != nil
+    }
+
+    private var parsedServings: Int? {
+        let trimmed = servings.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return 4 }
+        guard let value = Int(trimmed), value > 0 else { return nil }
+        return value
+    }
+
+    private func loadContext() async {
+        loading = true
+        errorMessage = nil
+        defer { loading = false }
+
+        do {
+            async let household: ActiveHouseholdResponse = APIClient.shared.send("GET", path: "/api/households/me")
+            async let libs: [RecipeLibrary] = APIClient.shared.send("GET", path: "/api/recipe-libraries")
+            let (householdResponse, librariesResponse) = try await (household, libs)
+            householdId = householdResponse.household.id
+            libraries = librariesResponse.filter { $0.isOwnHousehold != false }
+            selectedLibraryId = libraries.first?.id
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func generate() async {
+        guard let householdId, let parsedServings else { return }
+        generating = true
+        errorMessage = nil
+        defer { generating = false }
+
+        struct Body: Encodable {
+            let household_id: String
+            let query: String
+            let servings: Int
+        }
+
+        do {
+            let response: AIRecipeGenerationResponse = try await APIClient.shared.send(
+                "POST",
+                path: "/api/recipes/generate",
+                body: Body(
+                    household_id: householdId,
+                    query: prompt.trimmingCharacters(in: .whitespacesAndNewlines),
+                    servings: parsedServings
+                )
+            )
+            draft = response.draft
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func save() async {
+        guard let householdId, let selectedLibraryId, let draft else { return }
+        saving = true
+        errorMessage = nil
+        defer { saving = false }
+
+        struct Body: Encodable {
+            let household_id: String
+            let recipe_library_id: String
+            let draft: AIRecipeDraft
+        }
+
+        do {
+            _ = try await APIClient.shared.sendVoid(
+                "POST",
+                path: "/api/recipes/generate/save",
+                body: Body(
+                    household_id: householdId,
+                    recipe_library_id: selectedLibraryId,
+                    draft: draft
+                )
+            )
+            onSaved()
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 }

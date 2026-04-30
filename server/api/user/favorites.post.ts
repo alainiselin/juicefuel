@@ -1,5 +1,6 @@
 import prisma from '../../utils/prisma';
 import { requireAuth } from '../../utils/authHelpers';
+import { recipeService } from '../../services/recipeService';
 
 export default defineEventHandler(async (event) => {
   const userId = await requireAuth(event);
@@ -9,6 +10,12 @@ export default defineEventHandler(async (event) => {
 
   if (!recipe_id) {
     throw createError({ statusCode: 400, message: 'recipe_id is required' });
+  }
+
+  const recipe = await recipeService.getRecipe(recipe_id);
+  const accessibleLibraryIds = await recipeService.getUserAccessibleLibraryIds(userId);
+  if (!recipe || !accessibleLibraryIds.includes(recipe.recipe_library_id)) {
+    throw createError({ statusCode: 404, message: 'Recipe not found' });
   }
 
   try {

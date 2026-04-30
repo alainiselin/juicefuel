@@ -141,6 +141,7 @@ export const recipeRepo = {
     data: {
       title?: string;
       description?: string | null;
+      base_servings?: number | null;
       source_url?: string | null;
       instructions_markdown?: string | null;
       prep_time_minutes?: number | null;

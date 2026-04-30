@@ -17,6 +17,8 @@
     "dedup:ingredients": "tsx scripts/dedup-ingredients.ts",
     "seed:ingredients": "tsx scripts/seed-core-ingredients.ts",
     "setup:aisle-tags": "tsx scripts/setup-aisle-tags.ts",
+    "seed:mvp-data": "npm run import:tags && npm run seed:ingredients && npm run setup:aisle-tags",
+    "seed:catalog-data": "npm run import:tags && npm run seed:ingredients && npm run setup:aisle-tags",
     "build:tags-seed": "tsx scripts/build-tags-seed.ts",
     "import:tags": "tsx scripts/import-tags.ts"
   },

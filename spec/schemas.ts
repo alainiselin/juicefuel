@@ -63,9 +63,9 @@ export type RecipeTag = z.infer<typeof RecipeTagSchema>;
 export const CreateRecipeSchema = z.object({
   recipe_library_id: z.string().uuid(),
   title: z.string().min(1, 'Recipe title required'),
-  description: z.string().max(240).optional().or(z.literal('')),
-  source_url: z.string().url().optional().or(z.literal('')),
-  instructions_markdown: z.string().optional(),
+  description: z.string().max(240).optional().or(z.literal('')).or(z.null()),
+  source_url: z.string().url().optional().or(z.literal('')).or(z.null()),
+  instructions_markdown: z.string().optional().or(z.null()),
   ingredients: z.array(RecipeIngredientInputSchema).default([]),
 });
 export type CreateRecipeInput = z.infer<typeof CreateRecipeSchema>;

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import pg from 'pg';
@@ -171,13 +172,22 @@ async function main() {
         it => it.tag.kind === 'AISLE'
       );
       
-      // Infer best aisle for this ingredient
-      const inferredAisle = inferAisle(ingredient.name);
+      // Prefer curated aisle metadata from the seed; infer only for legacy/imported rows.
+      const inferredAisle = ingredient.aisle && aisleTagMap.has(ingredient.aisle)
+        ? ingredient.aisle
+        : inferAisle(ingredient.name);
       const targetTagId = aisleTagMap.get(inferredAisle);
       
       if (!targetTagId) {
         console.warn(`   ⚠️  No tag ID for aisle "${inferredAisle}"`);
         continue;
+      }
+
+      if (ingredient.aisle !== inferredAisle) {
+        await prisma.ingredient.update({
+          where: { id: ingredient.id },
+          data: { aisle: inferredAisle },
+        });
       }
       
       // If ingredient already has the correct AISLE tag, skip

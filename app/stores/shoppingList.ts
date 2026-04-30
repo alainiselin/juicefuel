@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { ShoppingListResponse, ShoppingListDetail } from '../../spec/schemas';
+import type { ShoppingListResponse, ShoppingListDetail, ShoppingListStatus, Unit } from '../../spec/schemas';
 
 export const useShoppingListStore = defineStore('shoppingList', () => {
   const shoppingList = ref<ShoppingListResponse | null>(null);
@@ -53,7 +53,7 @@ export const useShoppingListStore = defineStore('shoppingList', () => {
     }
   };
 
-  const updateShoppingList = async (id: string, data: { title?: string; status?: string }) => {
+  const updateShoppingList = async (id: string, data: { title?: string; status?: ShoppingListStatus; store_hint?: string | null }) => {
     loading.value = true;
     try {
       const updated = await api.updateShoppingList(id, data);
@@ -88,7 +88,7 @@ export const useShoppingListStore = defineStore('shoppingList', () => {
     }
   };
 
-  const addItem = async (listId: string, ingredientId?: string, quantity?: number, unit?: string, articleId?: string) => {
+  const addItem = async (listId: string, ingredientId?: string, quantity?: number, unit?: Unit, articleId?: string) => {
     const item = await api.addShoppingListItem(listId, {
       shopping_list_id: listId,
       ingredient_id: ingredientId,

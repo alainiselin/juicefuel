@@ -3,11 +3,12 @@ import SwiftUI
 struct AddMealSheet: View {
     let mealPlanId: String
     let date: Date
+    let existingSlot: MealSlot?
 
     var onAdded: () -> Void
 
     @Environment(\.dismiss) private var dismiss
-    @State private var slot: SlotType = .dinner
+    @State private var slot: SlotType
     @State private var recipes: [Recipe] = []
     @State private var selectedRecipeId: String?
     @State private var phase: Phase = .loading
@@ -15,6 +16,21 @@ struct AddMealSheet: View {
     @State private var saving = false
 
     enum Phase { case loading, loaded, error(String) }
+
+    init(
+        mealPlanId: String,
+        date: Date,
+        existingSlot: MealSlot? = nil,
+        defaultSlot: SlotType = .dinner,
+        onAdded: @escaping () -> Void
+    ) {
+        self.mealPlanId = mealPlanId
+        self.date = date
+        self.existingSlot = existingSlot
+        self.onAdded = onAdded
+        _slot = State(initialValue: existingSlot?.slot ?? defaultSlot)
+        _selectedRecipeId = State(initialValue: existingSlot?.recipeId)
+    }
 
     var body: some View {
         NavigationStack {
@@ -68,7 +84,7 @@ struct AddMealSheet: View {
                     }
                 }
             }
-            .navigationTitle("Add to plan")
+            .navigationTitle(existingSlot == nil ? "Add to plan" : "Edit meal")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -78,7 +94,7 @@ struct AddMealSheet: View {
                     Button {
                         Task { await save() }
                     } label: {
-                        if saving { ProgressView() } else { Text("Add") }
+                        if saving { ProgressView() } else { Text(existingSlot == nil ? "Add" : "Save") }
                     }
                     .disabled(selectedRecipeId == nil || saving)
                 }
@@ -115,9 +131,11 @@ struct AddMealSheet: View {
         let dateString = f.string(from: date)
 
         do {
+            let path = existingSlot.map { "/api/meal-plan/\($0.id)" } ?? "/api/meal-plan"
+            let method = existingSlot == nil ? "POST" : "PATCH"
             _ = try await APIClient.shared.sendVoid(
-                "POST",
-                path: "/api/meal-plan",
+                method,
+                path: path,
                 body: [
                     "meal_plan_id": mealPlanId,
                     "date": dateString,

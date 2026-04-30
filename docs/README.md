@@ -49,6 +49,8 @@ How-to documentation:
 - [Seeding Test Data](./guides/seeding-test-data.md)
 - [Deployment](./guides/deployment.md)
 - [iOS Development](./guides/ios-development.md)
+- [iOS Parity Roadmap](./guides/ios-parity-roadmap.md)
+- [iOS TestFlight Readiness](./guides/ios-testflight-readiness.md)
 
 ### 📦 [Archive](./archive/)
 Historical notes and deprecated documentation:
@@ -119,6 +121,8 @@ When adding new documentation:
 - **How does auth work?** → [Authentication Overview](./domains/authentication/auth-system-overview.md)
 - **How are shopping lists organized?** → [Rubric-Based Organization](./concepts/rubric-based-organization.md)
 - **Why one active household?** → [Active Household Pattern](./concepts/active-household-pattern.md)
+- **What is the current iOS app status?** → [iOS Parity Roadmap](./guides/ios-parity-roadmap.md)
+- **What remains before TestFlight?** → [iOS TestFlight Readiness](./guides/ios-testflight-readiness.md)
 
 ### Finding Information
 - Browse by domain in `/domains/`

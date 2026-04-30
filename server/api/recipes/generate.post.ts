@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { requireAuth } from '../../utils/authHelpers';
 import prisma from '../../utils/prisma';
 import { generateRecipe } from '../../services/aiRecipeGenerator';
+import type { GenerateRecipeInput } from '../../services/aiRecipeGenerator';
 
 const GenerateRequestSchema = z.object({
   household_id: z.string().uuid(),
@@ -110,7 +111,7 @@ export default defineEventHandler(async (event) => {
   });
 
   // Group tags by kind
-  const tagAllowlist: Record<string, string[]> = {
+  const tagAllowlist: GenerateRecipeInput['tagAllowlist'] = {
     CUISINE: [],
     FLAVOR: [],
     DIET: [],
@@ -121,18 +122,54 @@ export default defineEventHandler(async (event) => {
   };
 
   for (const tag of tags) {
-    if (tag.kind && tagAllowlist[tag.kind]) {
-      tagAllowlist[tag.kind].push(tag.slug);
+    const kind = tag.kind as keyof GenerateRecipeInput['tagAllowlist'] | null;
+    if (kind && kind in tagAllowlist) {
+      tagAllowlist[kind].push(tag.slug);
     }
   }
 
   // Generate recipe
-  const result = await generateRecipe({
-    query,
-    servings: servings ?? null,
-    constraints: constraints ?? undefined,
-    tagAllowlist,
-  });
+  let result;
+  try {
+    result = await generateRecipe({
+      query,
+      servings: servings ?? null,
+      constraints: constraints ?? undefined,
+      tagAllowlist,
+    });
+  } catch (error: any) {
+    console.error('[AI Recipe Gen] generation failed', {
+      userId,
+      household_id,
+      status: error?.status,
+      code: error?.code,
+      message: error?.message,
+    });
+
+    const isMissingKey = error?.message === 'OPENAI_API_KEY environment variable is not set';
+    const isModelConfig = error?.status === 404 || error?.code === 'model_not_found';
+    const isRateLimited = error?.status === 429;
+
+    throw createError({
+      statusCode: isRateLimited ? 429 : 503,
+      message: isMissingKey
+        ? 'AI recipe generation is not configured yet.'
+        : isModelConfig
+          ? 'AI recipe generation is configured with an unavailable model.'
+          : isRateLimited
+            ? 'AI recipe generation is temporarily rate limited. Please try again shortly.'
+            : 'AI recipe generation is temporarily unavailable. Please try again shortly.',
+      data: {
+        code: isMissingKey
+          ? 'AI_NOT_CONFIGURED'
+          : isModelConfig
+            ? 'AI_MODEL_UNAVAILABLE'
+            : isRateLimited
+              ? 'AI_RATE_LIMITED'
+              : 'AI_PROVIDER_UNAVAILABLE',
+      },
+    });
+  }
 
   // Log usage
   console.log('[API] Recipe generated', {

@@ -78,7 +78,16 @@ export const shoppingListRepo = {
       include: {
         items: {
           include: {
-            ingredient: true,
+            ingredient: {
+              include: {
+                ingredient_tag: {
+                  include: {
+                    tag: true,
+                  },
+                },
+              },
+            },
+            article: true,
             shopping_list_item_tag: {
               include: {
                 tag: true,
@@ -104,7 +113,16 @@ export const shoppingListRepo = {
       include: {
         items: {
           include: {
-            ingredient: true,
+            ingredient: {
+              include: {
+                ingredient_tag: {
+                  include: {
+                    tag: true,
+                  },
+                },
+              },
+            },
+            article: true,
             shopping_list_item_tag: {
               include: {
                 tag: true,

@@ -7,7 +7,10 @@ struct ContentView: View {
     var body: some View {
         Group {
             if !didRestore {
-                ProgressView()
+                BrandedLoadingView(
+                    title: "JuiceFuel",
+                    subtitle: "Getting your kitchen ready"
+                )
             } else if auth.isSignedIn {
                 AppTabView(auth: auth)
             } else {

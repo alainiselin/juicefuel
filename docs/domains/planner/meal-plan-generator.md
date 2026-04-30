@@ -137,6 +137,20 @@ Test Files  1 passed (1)
 9. On apply, empty slots are filled with generated suggestions
 10. Modal closes and planner refreshes
 
+## Native iOS Support
+
+The iOS planner can now call the same generator endpoints:
+
+- Load the active household.
+- Ensure a meal plan exists for that household.
+- Choose number of days.
+- Pick breakfast, lunch, and/or dinner.
+- Set diet, favorite ratio, and avoid-repeat preferences.
+- Preview generated slots.
+- Apply generated suggestions to the planner.
+
+The native generator intentionally starts with a smaller control surface than the web modal. Advanced web controls such as detailed protein and effort filters should be added later if mobile testing shows they are useful on a small screen.
+
 ## Files Created/Modified
 
 ### Created:

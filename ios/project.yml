@@ -25,6 +25,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: vip.juicecrew.juicefuel
         PRODUCT_NAME: JuiceFuel
+        DEVELOPMENT_TEAM: 5P58Q2KW74
+        CODE_SIGN_STYLE: Automatic
         CODE_SIGN_ENTITLEMENTS: JuiceFuel/JuiceFuel.entitlements
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon

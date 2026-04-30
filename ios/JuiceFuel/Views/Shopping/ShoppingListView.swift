@@ -3,6 +3,7 @@ import SwiftUI
 struct ShoppingListView: View {
     @State private var lists: [ShoppingList] = []
     @State private var phase: Phase = .loading
+    @State private var showingCreateList = false
 
     enum Phase {
         case loading, loaded, empty, error(String)
@@ -14,6 +15,21 @@ struct ShoppingListView: View {
                 .navigationTitle("Shopping")
                 .refreshable { await load() }
                 .task { await load() }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            showingCreateList = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingCreateList) {
+                    CreateShoppingListSheet { list in
+                        lists.insert(list, at: 0)
+                        phase = .loaded
+                    }
+                }
         }
     }
 
@@ -21,13 +37,18 @@ struct ShoppingListView: View {
     private var content: some View {
         switch phase {
         case .loading:
-            ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+            BrandedLoadingView(title: "Loading shopping", subtitle: "Gathering your active lists")
         case .empty:
-            ContentUnavailableView(
-                "No shopping lists",
-                systemImage: "cart",
-                description: Text("Generate a shopping list from the planner in the web app.")
-            )
+            ContentUnavailableView {
+                Label("No shopping lists", systemImage: "cart")
+            } description: {
+                Text("Create a list here, then add grocery and household items as you shop.")
+            } actions: {
+                Button("Create List") {
+                    showingCreateList = true
+                }
+                .buttonStyle(.borderedProminent)
+            }
         case .error(let message):
             ContentUnavailableView(
                 "Couldn't load lists",
@@ -52,28 +73,79 @@ struct ShoppingListView: View {
                         }
                     }
                 }
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button {
+                        Task { await updateList(list, status: .completed) }
+                    } label: {
+                        Label("Finish", systemImage: "checkmark.circle")
+                    }
+                    .tint(.green)
+                }
             }
         }
-        .navigationDestination(for: ShoppingList.self) { ShoppingListDetailView(list: $0) }
+        .navigationDestination(for: ShoppingList.self) { list in
+            ShoppingListDetailView(list: list) { updated in
+                if let index = lists.firstIndex(where: { $0.id == updated.id }) {
+                    lists[index] = updated
+                }
+            }
+        }
     }
 
     private func load() async {
         do {
             let result: [ShoppingList] = try await APIClient.shared.send("GET", path: "/api/shopping-list")
-            lists = result
+            lists = result.filter { $0.status == .active }
             phase = result.isEmpty ? .empty : .loaded
         } catch {
             phase = .error(error.localizedDescription)
+        }
+    }
+
+    private func updateList(_ list: ShoppingList, status: ShoppingListStatus) async {
+        struct Body: Encodable { let status: ShoppingListStatus }
+        do {
+            let updated: ShoppingList = try await APIClient.shared.send(
+                "PATCH",
+                path: "/api/shopping-list/\(list.id)",
+                body: Body(status: status)
+            )
+            if status == .completed {
+                lists.removeAll { $0.id == updated.id }
+                phase = lists.isEmpty ? .empty : .loaded
+            } else if let index = lists.firstIndex(where: { $0.id == updated.id }) {
+                lists[index] = updated
+            }
+        } catch {
+            // Keep the existing list visible; detail screens surface richer errors.
         }
     }
 }
 
 private struct ShoppingListDetailView: View {
     @State var list: ShoppingList
+    var onChange: (ShoppingList) -> Void = { _ in }
+
     @State private var errorMessage: String?
+    @State private var showingAddItem = false
+    @State private var editingItem: ShoppingListItem?
 
     var body: some View {
         List {
+            if list.items.isEmpty {
+                ContentUnavailableView {
+                    Label("No items", systemImage: "cart.badge.plus")
+                } description: {
+                    Text("Add ingredients or custom household items to this list.")
+                } actions: {
+                    Button("Add Item") {
+                        showingAddItem = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .listRowBackground(Color.clear)
+            }
+
             ForEach(grouped, id: \.0) { (aisle, items) in
                 Section(header: Text(aisle)) {
                     ForEach(items) { item in
@@ -83,6 +155,19 @@ private struct ShoppingListDetailView: View {
                             itemRow(item)
                         }
                         .buttonStyle(.plain)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                Task { await delete(item) }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                            Button {
+                                editingItem = item
+                            } label: {
+                                Label("Edit", systemImage: "slider.horizontal.3")
+                            }
+                            .tint(.blue)
+                        }
                     }
                 }
             }
@@ -95,6 +180,26 @@ private struct ShoppingListDetailView: View {
         .navigationTitle(list.title)
         .navigationBarTitleDisplayMode(.inline)
         .refreshable { await reload() }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showingAddItem = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $showingAddItem) {
+            AddShoppingItemSheet(list: $list) {
+                onChange(list)
+            }
+        }
+        .sheet(item: $editingItem) { item in
+            EditShoppingItemSheet(item: item) { updated in
+                replace(updated)
+                onChange(list)
+            }
+        }
     }
 
     private func reload() async {
@@ -105,6 +210,7 @@ private struct ShoppingListDetailView: View {
             )
             list = fresh
             errorMessage = nil
+            onChange(fresh)
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -164,6 +270,365 @@ private struct ShoppingListDetailView: View {
                 }
                 errorMessage = "Couldn't sync — \(error.localizedDescription)"
             }
+        }
+    }
+
+    private func delete(_ item: ShoppingListItem) async {
+        let previous = list.items
+        list.items.removeAll { $0.id == item.id }
+        do {
+            _ = try await APIClient.shared.sendVoid("DELETE", path: "/api/shopping-list-items/\(item.id)")
+            onChange(list)
+        } catch {
+            list.items = previous
+            errorMessage = "Couldn't delete — \(error.localizedDescription)"
+        }
+    }
+
+    private func replace(_ item: ShoppingListItem) {
+        if let index = list.items.firstIndex(where: { $0.id == item.id }) {
+            list.items[index] = item
+        }
+    }
+}
+
+private struct CreateShoppingListSheet: View {
+    var onCreated: (ShoppingList) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var title = defaultTitle
+    @State private var storeHint = ""
+    @State private var saving = false
+    @State private var errorMessage: String?
+
+    private static var defaultTitle: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return "Shopping \(formatter.string(from: Date()))"
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("List") {
+                    TextField("Title", text: $title)
+                    TextField("Store hint", text: $storeHint)
+                }
+                if let errorMessage {
+                    Section { Text(errorMessage).font(.footnote).foregroundStyle(.red) }
+                }
+            }
+            .navigationTitle("New List")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        Task { await create() }
+                    } label: {
+                        if saving { ProgressView() } else { Text("Create") }
+                    }
+                    .disabled(title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || saving)
+                }
+            }
+        }
+    }
+
+    private func create() async {
+        struct Body: Encodable {
+            let title: String
+            let status: ShoppingListStatus
+            let store_hint: String?
+        }
+
+        saving = true
+        errorMessage = nil
+        defer { saving = false }
+        do {
+            let list: ShoppingList = try await APIClient.shared.send(
+                "POST",
+                path: "/api/shopping-list",
+                body: Body(
+                    title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+                    status: .active,
+                    store_hint: storeHint.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : storeHint
+                )
+            )
+            onCreated(list)
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+
+private struct AddShoppingItemSheet: View {
+    @Binding var list: ShoppingList
+    var onChanged: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var query = ""
+    @State private var results: [ShoppingSearchItem] = []
+    @State private var searching = false
+    @State private var savingItemId: String?
+    @State private var errorMessage: String?
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    TextField("Search ingredients or items", text: $query)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .onSubmit { Task { await search() } }
+                        .onChange(of: query) { _, newValue in
+                            if newValue.count < 2 { results = [] }
+                            Task { await searchIfUseful(newValue) }
+                        }
+                }
+
+                if searching {
+                    HStack { ProgressView(); Text("Searching...") }
+                }
+
+                if !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    Button {
+                        Task { await createCustomItem() }
+                    } label: {
+                        Label("Create \"\(query.trimmingCharacters(in: .whitespacesAndNewlines))\"", systemImage: "plus.circle")
+                    }
+                }
+
+                ForEach(results) { item in
+                    Button {
+                        Task { await add(item) }
+                    } label: {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(item.name.capitalized)
+                                    .foregroundStyle(.primary)
+                                Text(item.type == .ingredient ? "Ingredient" : "Custom item")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if savingItemId == item.id {
+                                ProgressView()
+                            } else {
+                                Image(systemName: "plus")
+                                    .foregroundStyle(.tint)
+                            }
+                        }
+                    }
+                }
+
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                }
+            }
+            .navigationTitle("Add Item")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+
+    private func searchIfUseful(_ value: String) async {
+        guard value.count >= 2 else { return }
+        try? await Task.sleep(nanoseconds: 250_000_000)
+        guard value == query else { return }
+        await search()
+    }
+
+    private func search() async {
+        let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard trimmed.count >= 2 else { return }
+        searching = true
+        errorMessage = nil
+        defer { searching = false }
+        do {
+            let escaped = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? trimmed
+            results = try await APIClient.shared.send(
+                "GET",
+                path: "/api/shopping/items/search?query=\(escaped)&limit=20"
+            )
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func createCustomItem() async {
+        struct Body: Encodable { let name: String }
+        let name = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !name.isEmpty else { return }
+        savingItemId = "custom"
+        defer { savingItemId = nil }
+        do {
+            let article: ShoppingArticle = try await APIClient.shared.send(
+                "POST",
+                path: "/api/shopping/articles",
+                body: Body(name: name)
+            )
+            await add(ShoppingSearchItem(
+                type: .article,
+                id: article.id,
+                name: article.name,
+                defaultUnit: article.defaultUnit,
+                aisle: article.defaultAisle
+            ))
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func add(_ item: ShoppingSearchItem) async {
+        savingItemId = item.id
+        errorMessage = nil
+        defer { savingItemId = nil }
+
+        if let existing = list.items.first(where: {
+            item.type == .article ? $0.articleId == item.id : $0.ingredientId == item.id
+        }) {
+            await updateExisting(existing)
+            return
+        }
+
+        struct Body: Encodable {
+            let ingredient_id: String?
+            let article_id: String?
+            let quantity: Double
+            let unit: String?
+        }
+
+        do {
+            let created: ShoppingListItem = try await APIClient.shared.send(
+                "POST",
+                path: "/api/shopping-list/\(list.id)/items",
+                body: Body(
+                    ingredient_id: item.type == .ingredient ? item.id : nil,
+                    article_id: item.type == .article ? item.id : nil,
+                    quantity: 1,
+                    unit: item.defaultUnit
+                )
+            )
+            list.items.append(created)
+            onChanged()
+            query = ""
+            results = []
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func updateExisting(_ item: ShoppingListItem) async {
+        struct Body: Encodable { let quantity: Double }
+        do {
+            let updated: ShoppingListItem = try await APIClient.shared.send(
+                "PATCH",
+                path: "/api/shopping-list-items/\(item.id)",
+                body: Body(quantity: (item.quantity ?? 1) + 1)
+            )
+            if let index = list.items.firstIndex(where: { $0.id == updated.id }) {
+                list.items[index] = updated
+            }
+            onChanged()
+            query = ""
+            results = []
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+
+private struct EditShoppingItemSheet: View {
+    let item: ShoppingListItem
+    var onSaved: (ShoppingListItem) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var quantity: String
+    @State private var unit: String
+    @State private var note: String
+    @State private var saving = false
+    @State private var errorMessage: String?
+
+    init(item: ShoppingListItem, onSaved: @escaping (ShoppingListItem) -> Void) {
+        self.item = item
+        self.onSaved = onSaved
+        _quantity = State(initialValue: item.quantity.map { String(format: "%g", $0) } ?? "")
+        _unit = State(initialValue: item.unit ?? "")
+        _note = State(initialValue: item.note ?? "")
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section(item.displayName.capitalized) {
+                    TextField("Quantity", text: $quantity)
+                        .keyboardType(.decimalPad)
+                    TextField("Unit", text: $unit)
+                        .textInputAutocapitalization(.characters)
+                        .autocorrectionDisabled()
+                    TextField("Note", text: $note, axis: .vertical)
+                }
+                if let errorMessage {
+                    Section { Text(errorMessage).font(.footnote).foregroundStyle(.red) }
+                }
+            }
+            .navigationTitle("Edit Item")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        Task { await save() }
+                    } label: {
+                        if saving { ProgressView() } else { Text("Save") }
+                    }
+                }
+            }
+        }
+    }
+
+    private func save() async {
+        struct Body: Encodable {
+            let quantity: Double?
+            let unit: String?
+            let note: String?
+        }
+
+        let trimmedQuantity = quantity.trimmingCharacters(in: .whitespacesAndNewlines)
+        let parsedQuantity = trimmedQuantity.isEmpty ? nil : Double(trimmedQuantity.replacingOccurrences(of: ",", with: "."))
+        if !trimmedQuantity.isEmpty, parsedQuantity == nil {
+            errorMessage = "Quantity must be a number."
+            return
+        }
+
+        saving = true
+        errorMessage = nil
+        defer { saving = false }
+        do {
+            let updated: ShoppingListItem = try await APIClient.shared.send(
+                "PATCH",
+                path: "/api/shopping-list-items/\(item.id)",
+                body: Body(
+                    quantity: parsedQuantity,
+                    unit: unit.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : unit.uppercased(),
+                    note: note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
+                )
+            )
+            onSaved(updated)
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
         }
     }
 }

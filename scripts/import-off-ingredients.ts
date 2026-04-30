@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import pg from 'pg';
@@ -312,7 +313,7 @@ async function main() {
             },
           });
           merged++;
-        } catch (e: any) {
+        } catch {
           // Silent fail on constraint
         }
       } else {
@@ -382,7 +383,7 @@ async function main() {
               },
             });
             aliasesInserted++;
-          } catch (err: any) {
+          } catch {
             // Silent fail on constraint
           }
         }

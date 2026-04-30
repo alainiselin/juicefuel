@@ -6,20 +6,31 @@
         <div class="flex items-center justify-between">
           <div>
             <h1 class="text-2xl font-bold text-gray-900">Shopping List</h1>
-            <p v-if="currentList" class="text-sm text-gray-600 mt-1">{{ currentList.title }}</p>
+            <p v-if="currentList" class="text-sm text-gray-600 mt-1">
+              {{ currentList.store_hint || `${currentList.items.length} items` }}
+            </p>
           </div>
           <div class="flex gap-2">
             <button
               v-if="currentList && checkedItems.length > 0"
               @click="clearCheckedItems"
-              class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
             >
+              <CheckCircle2 :size="18" />
               Shopping Finished
             </button>
             <button
-              @click="createNew"
+              @click="showListManager = !showListManager"
+              class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+            >
+              <ListChecks :size="18" />
+              Manage Lists
+            </button>
+            <button
+              @click="openCreateList"
               class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
             >
+              <Plus :size="18" class="inline-block mr-1.5 align-text-bottom" />
               New List
             </button>
           </div>
@@ -27,16 +38,69 @@
 
         <!-- List Selector -->
         <div v-if="lists.length > 0" class="mt-4">
-          <select
-            v-model="selectedListId"
-            @change="onListChange"
-            class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="list in lists"
+              :key="list.id"
+              @click="selectList(list.id)"
+              class="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors"
+              :class="selectedListId === list.id
+                ? 'border-blue-600 bg-blue-50 text-blue-700'
+                : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'"
+            >
+              <span class="font-medium">{{ list.title }}</span>
+              <span class="rounded-full bg-white/80 px-2 py-0.5 text-xs text-gray-500">{{ list.items.length }}</span>
+            </button>
+          </div>
+
+          <div
+            v-if="showListManager"
+            class="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-3"
           >
-            <option value="">Select a list...</option>
-            <option v-for="list in lists" :key="list.id" :value="list.id">
-              {{ list.title }} ({{ list.items.length }} items)
-            </option>
-          </select>
+            <div class="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
+              <div
+                v-for="list in lists"
+                :key="`manage-${list.id}`"
+                class="rounded-lg border border-gray-200 bg-white p-3"
+              >
+                <div class="flex items-start justify-between gap-3">
+                  <button
+                    @click="selectList(list.id)"
+                    class="min-w-0 text-left"
+                  >
+                    <div class="truncate font-semibold text-gray-900">{{ list.title }}</div>
+                    <div class="mt-1 flex items-center gap-2 text-xs text-gray-500">
+                      <Store :size="14" />
+                      <span>{{ list.store_hint || 'Any store' }}</span>
+                      <span>{{ list.items.length }} items</span>
+                    </div>
+                  </button>
+                  <span
+                    v-if="selectedListId === list.id"
+                    class="rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700"
+                  >
+                    Active
+                  </span>
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <button
+                    @click="openRenameList(list)"
+                    class="inline-flex items-center gap-1.5 rounded-md border border-gray-200 px-2.5 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <Pencil :size="15" />
+                    Rename
+                  </button>
+                  <button
+                    @click="archiveList(list.id)"
+                    class="inline-flex items-center gap-1.5 rounded-md border border-gray-200 px-2.5 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+                  >
+                    <Archive :size="15" />
+                    Archive
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -46,7 +110,7 @@
         <h2 class="text-xl font-semibold text-gray-700 mb-2">No Shopping List</h2>
         <p class="text-gray-500 mb-4">Create a new shopping list to get started</p>
         <button
-          @click="createNew"
+          @click="openCreateList"
           class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
           Create Your First List
@@ -211,7 +275,7 @@
           <div v-if="rubricsWithItems.length === 0" class="text-center py-12 bg-white rounded-lg border border-gray-200">
             <p class="text-gray-500 mb-4">Your shopping list is empty</p>
             <button
-              @click="showAddItem = true"
+              @click="searchInput?.focus()"
               class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Add Your First Item
@@ -238,31 +302,123 @@
       @updated="onItemUpdated"
       @delete="deleteItem(selectedItem.id)"
     />
+
+    <!-- List Create/Rename Modal -->
+    <div
+      v-if="showListDialog"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900/40 px-4"
+      @click.self="closeListDialog"
+    >
+      <div class="w-full max-w-md rounded-lg bg-white shadow-xl">
+        <div class="border-b border-gray-200 px-5 py-4">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-gray-900">
+              {{ listDialogMode === 'create' ? 'New Shopping List' : 'Rename List' }}
+            </h2>
+            <button
+              @click="closeListDialog"
+              class="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+              aria-label="Close"
+            >
+              <X :size="20" />
+            </button>
+          </div>
+        </div>
+
+        <form class="space-y-4 px-5 py-5" @submit.prevent="submitListDialog">
+          <div>
+            <label for="list-title" class="block text-sm font-medium text-gray-700">Name</label>
+            <input
+              id="list-title"
+              ref="listTitleInput"
+              v-model="listFormTitle"
+              type="text"
+              maxlength="80"
+              placeholder="Weekly groceries"
+              class="mt-2 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-base focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Store</label>
+            <div class="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3">
+              <button
+                v-for="storeName in storeOptions"
+                :key="storeName"
+                type="button"
+                @click="listFormStoreHint = storeName === listFormStoreHint ? '' : storeName"
+                class="rounded-lg border px-3 py-2 text-sm font-medium transition-colors"
+                :class="listFormStoreHint === storeName
+                  ? 'border-blue-600 bg-blue-50 text-blue-700'
+                  : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'"
+              >
+                {{ storeName }}
+              </button>
+            </div>
+          </div>
+
+          <p v-if="listFormError" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+            {{ listFormError }}
+          </p>
+
+          <div class="flex justify-end gap-2 pt-1">
+            <button
+              type="button"
+              @click="closeListDialog"
+              class="rounded-lg border border-gray-300 px-4 py-2 text-gray-700 hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              :disabled="listSaving"
+              class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              <Plus v-if="listDialogMode === 'create'" :size="18" />
+              <Pencil v-else :size="18" />
+              {{ listDialogMode === 'create' ? 'Create List' : 'Save Changes' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </DesktopShell>
 </template>
 
 <script setup lang="ts">
-import { ShoppingCart, Plus, ChevronDown, ChevronRight } from 'lucide-vue-next';
+import { Archive, CheckCircle2, ChevronDown, ListChecks, Pencil, Plus, ShoppingCart, Store, X } from 'lucide-vue-next';
 import { useShoppingListStore } from '../stores/shoppingList';
 import DesktopShell from '../components/layout/DesktopShell.vue';
 import ShoppingItemCard from '../components/shopping/ShoppingItemCard.vue';
 import ShoppingItemDetailModal from '../components/shopping/ShoppingItemDetailModal.vue';
 import { SHOPPING_RUBRICS, getRubricForItem, type RubricId } from '../utils/ingredientFormatting';
-import type { ShoppingListItemDetail } from '../../spec/schemas';
+import type { ShoppingListDetail, ShoppingListItemDetail, Unit } from '../../spec/schemas';
 
 const store = useShoppingListStore();
 const selectedListId = ref('');
 const collapsedRubrics = ref(new Set<RubricId>());
-const expandedCheckedSections = ref(new Set<RubricId>());
+const expandedCheckedSections = ref(new Set<RubricId | 'all'>());
 const loading = ref(false);
+const showListManager = ref(false);
 
 // Item detail modal state
 const showItemDetailModal = ref(false);
 const selectedItem = ref<ShoppingListItemDetail | null>(null);
 
+// Shopping list modal state
+const showListDialog = ref(false);
+const listDialogMode = ref<'create' | 'rename'>('create');
+const listFormTitle = ref('');
+const listFormStoreHint = ref('');
+const listFormError = ref('');
+const listSaving = ref(false);
+const editingList = ref<ShoppingListDetail | null>(null);
+const listTitleInput = ref<HTMLInputElement>();
+const storeOptions = ['Aldi', 'Migros', 'Coop', 'Lidl', 'Denner', 'Online'];
+
 // Inline search state
 const searchQuery = ref('');
-const searchResults = ref<Array<{ id: string; name: string; default_unit?: string }>>([]);
+const searchResults = ref<Array<{ type?: string; id: string; name: string; default_unit?: Unit }>>([]);
 const searchLoading = ref(false);
 const searchInput = ref<HTMLInputElement>();
 const highlightedIndex = ref(0);
@@ -320,33 +476,110 @@ onMounted(async () => {
   loading.value = true;
   try {
     await store.fetchShoppingLists('ACTIVE');
-    if (lists.value.length > 0) {
-      selectedListId.value = lists.value[0].id;
-      await store.fetchShoppingListById(selectedListId.value);
+    const firstList = lists.value[0];
+    if (firstList) {
+      selectedListId.value = firstList.id;
+      await store.fetchShoppingListById(firstList.id);
     }
   } finally {
     loading.value = false;
   }
 });
 
-const onListChange = async () => {
-  if (selectedListId.value) {
-    loading.value = true;
-    try {
-      await store.fetchShoppingListById(selectedListId.value);
-    } finally {
-      loading.value = false;
-    }
+const selectList = async (listId: string) => {
+  if (!listId || selectedListId.value === listId) return;
+
+  selectedListId.value = listId;
+  loading.value = true;
+  try {
+    await store.fetchShoppingListById(listId);
+  } finally {
+    loading.value = false;
   }
 };
 
-const createNew = async () => {
-  const title = prompt('Enter shopping list name:');
-  if (title) {
-    const list = await store.createShoppingList(title);
-    if (list) {
+const openCreateList = () => {
+  listDialogMode.value = 'create';
+  editingList.value = null;
+  listFormTitle.value = '';
+  listFormStoreHint.value = '';
+  listFormError.value = '';
+  showListDialog.value = true;
+  nextTick(() => listTitleInput.value?.focus());
+};
+
+const openRenameList = (list: ShoppingListDetail) => {
+  listDialogMode.value = 'rename';
+  editingList.value = list;
+  listFormTitle.value = list.title;
+  listFormStoreHint.value = list.store_hint || '';
+  listFormError.value = '';
+  showListDialog.value = true;
+  nextTick(() => listTitleInput.value?.focus());
+};
+
+const closeListDialog = () => {
+  showListDialog.value = false;
+  listSaving.value = false;
+  listFormError.value = '';
+};
+
+const submitListDialog = async () => {
+  const title = listFormTitle.value.trim();
+  if (!title) {
+    listFormError.value = 'Enter a list name.';
+    return;
+  }
+
+  listSaving.value = true;
+  listFormError.value = '';
+
+  try {
+    if (listDialogMode.value === 'create') {
+      const list = await store.createShoppingList(title);
+      if (!list) {
+        listFormError.value = 'Could not create the list.';
+        return;
+      }
+
       selectedListId.value = list.id;
+      if (listFormStoreHint.value) {
+        await store.updateShoppingList(list.id, { store_hint: listFormStoreHint.value });
+      }
       await store.fetchShoppingLists('ACTIVE');
+      await store.fetchShoppingListById(list.id);
+    } else if (editingList.value) {
+      const updated = await store.updateShoppingList(editingList.value.id, {
+        title,
+        store_hint: listFormStoreHint.value || null,
+      });
+      if (!updated) {
+        listFormError.value = 'Could not save the list.';
+        return;
+      }
+      await store.fetchShoppingLists('ACTIVE');
+    }
+
+    showListDialog.value = false;
+  } finally {
+    listSaving.value = false;
+  }
+};
+
+const archiveList = async (listId: string) => {
+  const archived = await store.updateShoppingList(listId, { status: 'ARCHIVED' });
+  if (!archived) return;
+
+  await store.fetchShoppingLists('ACTIVE');
+
+  if (selectedListId.value === listId) {
+    const nextList = lists.value[0];
+    if (nextList) {
+      selectedListId.value = nextList.id;
+      await store.fetchShoppingListById(nextList.id);
+    } else {
+      selectedListId.value = '';
+      store.currentList = null;
     }
   }
 };
@@ -359,7 +592,7 @@ const toggleRubric = (rubricId: RubricId) => {
   }
 };
 
-const toggleCheckedSection = (rubricId: RubricId) => {
+const toggleCheckedSection = (rubricId: RubricId | 'all') => {
   if (expandedCheckedSections.value.has(rubricId)) {
     expandedCheckedSections.value.delete(rubricId);
   } else {
@@ -501,7 +734,7 @@ const performSearch = async () => {
       type: 'INGREDIENT' | 'ARTICLE';
       id: string; 
       name: string;
-      default_unit?: string;
+      default_unit?: Unit;
       aisle?: string;
     }>;
     
@@ -533,12 +766,13 @@ const navigateResults = (direction: number) => {
 };
 
 const selectHighlightedResult = () => {
-  if (searchResults.value.length > 0 && highlightedIndex.value >= 0) {
-    addItemToList(searchResults.value[highlightedIndex.value]);
+  const result = searchResults.value[highlightedIndex.value];
+  if (result) {
+    addItemToList(result);
   }
 };
 
-const addItemToList = async (item: { type?: string; id: string; name: string; default_unit?: string }) => {
+const addItemToList = async (item: { type?: string; id: string; name: string; default_unit?: Unit }) => {
   if (!currentList.value) return;
   
   const isArticle = item.type === 'ARTICLE';
@@ -626,7 +860,7 @@ const createAndAddCustomItem = async () => {
       body: {
         name: searchQuery.value,
       },
-    }) as { id: string; name: string; default_unit?: string; default_aisle: string };
+    }) as { id: string; name: string; default_unit?: Unit; default_aisle: string };
     
     // Add to shopping list immediately
     await addItemToList({

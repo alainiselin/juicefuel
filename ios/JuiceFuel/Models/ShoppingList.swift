@@ -86,3 +86,38 @@ struct ShoppingItemTag: Codable, Hashable, Identifiable {
     let label: String
     let kind: String?
 }
+
+enum ShoppingSearchItemType: String, Codable {
+    case ingredient = "INGREDIENT"
+    case article = "ARTICLE"
+}
+
+struct ShoppingSearchItem: Codable, Identifiable, Hashable {
+    let type: ShoppingSearchItemType
+    let id: String
+    let name: String
+    let defaultUnit: String?
+    let aisle: String?
+
+    enum CodingKeys: String, CodingKey {
+        case type
+        case id
+        case name
+        case defaultUnit = "default_unit"
+        case aisle
+    }
+}
+
+struct ShoppingArticle: Codable, Identifiable, Hashable {
+    let id: String
+    let name: String
+    let defaultUnit: String?
+    let defaultAisle: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case defaultUnit = "default_unit"
+        case defaultAisle = "default_aisle"
+    }
+}

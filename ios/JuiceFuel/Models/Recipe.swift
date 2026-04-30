@@ -31,13 +31,20 @@ struct Recipe: Codable, Identifiable, Hashable {
     }
 }
 
-struct RecipeIngredient: Codable, Hashable {
+struct RecipeIngredient: Codable, Hashable, Identifiable {
     let recipeId: String?
     let ingredientId: String
     let quantity: Decimal?
     let unit: String?
     let note: String?
     let ingredient: Ingredient?
+
+    var id: String {
+        if let recipeId {
+            return "\(recipeId)-\(ingredientId)"
+        }
+        return ingredientId
+    }
 
     enum CodingKeys: String, CodingKey {
         case recipeId = "recipe_id"
@@ -61,6 +68,48 @@ struct Ingredient: Codable, Hashable {
     }
 }
 
+struct IngredientSearchResult: Codable, Identifiable, Hashable {
+    let id: String
+    let canonicalName: String
+    let defaultUnit: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case canonicalName = "canonical_name"
+        case defaultUnit = "default_unit"
+    }
+}
+
+struct RecipeLibrary: Codable, Identifiable, Hashable {
+    let id: String
+    let name: String
+    let householdId: String?
+    let isPublic: Bool?
+    let recipeCount: Int?
+    let isOwnHousehold: Bool?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case householdId = "household_id"
+        case isPublic = "is_public"
+        case recipeCount = "recipe_count"
+        case isOwnHousehold = "is_own_household"
+    }
+}
+
+struct RecipeFavorite: Codable, Identifiable, Hashable {
+    let id: String
+    let recipeId: String
+    let createdAt: Date?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case recipeId = "recipe_id"
+        case createdAt = "created_at"
+    }
+}
+
 struct RecipeTagJoin: Codable, Hashable {
     let tag: Tag
 }
@@ -70,4 +119,70 @@ struct Tag: Codable, Hashable, Identifiable {
     let name: String
     let slug: String?
     let kind: String?
+    let scope: String?
+}
+
+struct AIRecipeGenerationResponse: Codable, Hashable {
+    let draft: AIRecipeDraft
+}
+
+struct AIRecipeDraft: Codable, Hashable {
+    let title: String
+    let description: String
+    let servings: Int
+    let times: AIRecipeTimes
+    let ingredients: [AIRecipeDraftIngredient]
+    let steps: [AIRecipeDraftStep]
+    let tags: AIRecipeDraftTags
+    let warnings: [String]?
+    let ai: AIRecipeMetadata
+}
+
+struct AIRecipeTimes: Codable, Hashable {
+    let prepMin: Int
+    let cookMin: Int
+    let totalMin: Int
+
+    enum CodingKeys: String, CodingKey {
+        case prepMin = "prep_min"
+        case cookMin = "cook_min"
+        case totalMin = "total_min"
+    }
+}
+
+struct AIRecipeDraftIngredient: Codable, Hashable {
+    let name: String
+    let amount: Double?
+    let unit: String?
+    let note: String?
+}
+
+struct AIRecipeDraftStep: Codable, Hashable {
+    let order: Int
+    let text: String
+}
+
+struct AIRecipeDraftTags: Codable, Hashable {
+    let cuisine: [String]
+    let flavor: [String]
+    let diet: [String]
+    let allergen: [String]
+    let technique: [String]
+    let time: [String]
+    let cost: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case cuisine = "CUISINE"
+        case flavor = "FLAVOR"
+        case diet = "DIET"
+        case allergen = "ALLERGEN"
+        case technique = "TECHNIQUE"
+        case time = "TIME"
+        case cost = "COST"
+    }
+}
+
+struct AIRecipeMetadata: Codable, Hashable {
+    let generated: Bool
+    let model: String
 }

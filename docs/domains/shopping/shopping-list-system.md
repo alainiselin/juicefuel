@@ -179,6 +179,26 @@ Each rubric is:
 - Visual item organization
 - Quick check/uncheck
 
+## Native iOS Support
+
+The iOS app now supports the core manual shopping workflow against the same API:
+
+- Create new shopping lists.
+- Finish active shopping lists.
+- Add existing ingredients and article-backed items.
+- Create custom articles from the add-item flow.
+- Edit item quantity, unit, and notes.
+- Check/uncheck items with optimistic UI updates.
+- Delete list items.
+
+Backend response shaping was tightened so `PATCH /api/shopping-list/[id]` returns article-backed and ingredient-backed items consistently. This matters for native decoding because iOS has separate models for `ingredient` and `article` shopping rows.
+
+Still missing on iOS:
+
+- One-tap generation from the active meal plan.
+- Offline shopping mode.
+- Shared-household conflict handling and presence.
+
 ## Testing
 
 ### Manual Testing Steps

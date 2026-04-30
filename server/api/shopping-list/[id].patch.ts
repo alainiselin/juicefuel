@@ -34,31 +34,83 @@ export default defineEventHandler(async (event) => {
     store_hint: list.store_hint,
     created_at: list.created_at.toISOString(),
     updated_at: list.updated_at.toISOString(),
-    items: list.items.map((item) => ({
-      id: item.id,
-      shopping_list_id: item.shopping_list_id,
-      ingredient_id: item.ingredient_id,
-      quantity: item.quantity,
-      unit: item.unit,
-      is_checked: item.is_checked,
-      created_at: item.created_at.toISOString(),
-      updated_at: item.updated_at.toISOString(),
-      ingredient: {
-        id: item.ingredient.id,
-        name: item.ingredient.name,
-        default_unit: item.ingredient.default_unit,
-        created_at: item.ingredient.created_at.toISOString(),
-        updated_at: item.ingredient.updated_at.toISOString(),
-      },
-      tags: item.shopping_list_item_tag.map((t) => ({
-        id: t.tag.id,
-        label: t.tag.name,
-        slug: t.tag.slug,
-        kind: t.tag.kind || '',
-        scope: t.tag.scope || 'GLOBAL',
-        household_id: t.tag.household_id,
-        created_at: t.tag.created_at.toISOString(),
-      })),
-    })),
+    items: list.items.map((item) => {
+      const baseItem = {
+        id: item.id,
+        shopping_list_id: item.shopping_list_id,
+        ingredient_id: item.ingredient_id,
+        article_id: item.article_id,
+        quantity: item.quantity,
+        unit: item.unit,
+        note: item.note,
+        is_checked: item.is_checked,
+        created_at: item.created_at.toISOString(),
+        updated_at: item.updated_at.toISOString(),
+      };
+
+      if (item.ingredient) {
+        return {
+          ...baseItem,
+          ingredient: {
+            id: item.ingredient.id,
+            name: item.ingredient.name,
+            default_unit: item.ingredient.default_unit,
+            created_at: item.ingredient.created_at.toISOString(),
+            updated_at: item.ingredient.updated_at.toISOString(),
+          },
+          tags: [
+            ...(item.ingredient.ingredient_tag || []).map((t) => ({
+              id: t.tag.id,
+              label: t.tag.name,
+              slug: t.tag.slug,
+              kind: t.tag.kind || '',
+              scope: t.tag.scope || 'GLOBAL',
+              household_id: t.tag.household_id,
+              created_at: t.tag.created_at.toISOString(),
+            })),
+            ...item.shopping_list_item_tag.map((t) => ({
+              id: t.tag.id,
+              label: t.tag.name,
+              slug: t.tag.slug,
+              kind: t.tag.kind || '',
+              scope: t.tag.scope || 'GLOBAL',
+              household_id: t.tag.household_id,
+              created_at: t.tag.created_at.toISOString(),
+            })),
+          ],
+        };
+      } else if (item.article) {
+        return {
+          ...baseItem,
+          article: {
+            id: item.article.id,
+            name: item.article.name,
+            default_unit: item.article.default_unit,
+          },
+          tags: [
+            {
+              id: `aisle-${item.article.default_aisle}`,
+              label: item.article.default_aisle.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
+              slug: item.article.default_aisle,
+              kind: 'AISLE',
+              scope: 'GLOBAL',
+              household_id: null,
+              created_at: item.article.created_at.toISOString(),
+            },
+            ...item.shopping_list_item_tag.map((t) => ({
+              id: t.tag.id,
+              label: t.tag.name,
+              slug: t.tag.slug,
+              kind: t.tag.kind || '',
+              scope: t.tag.scope || 'GLOBAL',
+              household_id: t.tag.household_id,
+              created_at: t.tag.created_at.toISOString(),
+            })),
+          ],
+        };
+      }
+
+      return baseItem;
+    }),
   };
 });

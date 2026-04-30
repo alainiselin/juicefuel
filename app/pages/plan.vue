@@ -182,6 +182,14 @@ const slots = [
   { value: 'DINNER' as const, label: 'Dinner' },
 ];
 
+const getMondayWeekStart = (date: Date) => {
+  const start = new Date(date);
+  const daysSinceMonday = (start.getDay() + 6) % 7;
+  start.setDate(start.getDate() - daysSinceMonday);
+  start.setHours(0, 0, 0, 0);
+  return start;
+};
+
 // Computed
 const currentHousehold = computed(() => {
   return households.value.find(h => h.id === selectedHouseholdId.value);
@@ -325,18 +333,12 @@ const nextPeriod = () => {
 const setMobileViewDays = (days: number) => {
   mobileViewDays.value = days;
   // Reset to a week start when changing views
-  const today = new Date();
-  weekStartDate.value = new Date(today);
-  weekStartDate.value.setDate(today.getDate() - today.getDay());
-  weekStartDate.value.setHours(0, 0, 0, 0);
+  weekStartDate.value = getMondayWeekStart(new Date());
   loadEntries();
 };
 
 const isCurrentWeek = (date: Date) => {
-  const today = new Date();
-  const todayWeekStart = new Date(today);
-  todayWeekStart.setDate(today.getDate() - today.getDay());
-  todayWeekStart.setHours(0, 0, 0, 0);
+  const todayWeekStart = getMondayWeekStart(new Date());
   
   const compareDate = new Date(date);
   compareDate.setHours(0, 0, 0, 0);
@@ -372,11 +374,7 @@ onMounted(async () => {
     isMobile.value = window.innerWidth < 640;
   });
 
-  const today = new Date();
-  const weekStart = new Date(today);
-  weekStart.setDate(today.getDate() - today.getDay()); // Sunday
-  weekStart.setHours(0, 0, 0, 0);
-  weekStartDate.value = weekStart;
+  weekStartDate.value = getMondayWeekStart(new Date());
 
   await loadHouseholds();
   await loadRecipes();

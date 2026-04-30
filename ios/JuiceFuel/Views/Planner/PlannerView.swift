@@ -4,8 +4,13 @@ struct PlannerView: View {
     @State private var slotsByDay: [Date: [MealSlot]] = [:]
     @State private var weekStart: Date = PlannerView.startOfWeek(for: Date())
     @State private var phase: Phase = .loading
+    @State private var householdId: String?
     @State private var mealPlanId: String?
     @State private var addingFor: AddTarget?
+    @State private var editingSlot: MealSlot?
+    @State private var showingGenerator = false
+    @State private var creatingPlan = false
+    @State private var errorMessage: String?
 
     struct AddTarget: Identifiable {
         let date: Date
@@ -27,7 +32,14 @@ struct PlannerView: View {
                     ToolbarItem(placement: .topBarLeading) {
                         Button { shiftWeek(by: -1) } label: { Image(systemName: "chevron.left") }
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        if mealPlanId != nil {
+                            Button {
+                                showingGenerator = true
+                            } label: {
+                                Image(systemName: "wand.and.stars")
+                            }
+                        }
                         Button { shiftWeek(by: 1) } label: { Image(systemName: "chevron.right") }
                     }
                 }
@@ -40,6 +52,24 @@ struct PlannerView: View {
                         }
                     }
                 }
+                .sheet(item: $editingSlot) { slot in
+                    if let mealPlanId {
+                        AddMealSheet(
+                            mealPlanId: mealPlanId,
+                            date: slot.date,
+                            existingSlot: slot
+                        ) {
+                            Task { await load() }
+                        }
+                    }
+                }
+                .sheet(isPresented: $showingGenerator) {
+                    if let mealPlanId {
+                        MealPlanGeneratorSheet(mealPlanId: mealPlanId, startDate: weekStart) {
+                            Task { await load() }
+                        }
+                    }
+                }
         }
     }
 
@@ -47,13 +77,21 @@ struct PlannerView: View {
     private var content: some View {
         switch phase {
         case .loading:
-            ProgressView().frame(maxWidth: .infinity, maxHeight: .infinity)
+            BrandedLoadingView(title: "Loading planner", subtitle: "Checking this week's meals")
         case .noPlan:
-            ContentUnavailableView(
-                "No meal plan yet",
-                systemImage: "calendar.badge.plus",
-                description: Text("Create a meal plan in the web app — it will sync here.")
-            )
+            ContentUnavailableView {
+                Label("No meal plan yet", systemImage: "calendar.badge.plus")
+            } description: {
+                Text("Create a meal plan for your active household and start planning on iPhone.")
+            } actions: {
+                Button {
+                    Task { await createMealPlan() }
+                } label: {
+                    if creatingPlan { ProgressView() } else { Text("Create Meal Plan") }
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(creatingPlan || householdId == nil)
+            }
         case .error(let message):
             ContentUnavailableView(
                 "Couldn't load plan",
@@ -61,7 +99,17 @@ struct PlannerView: View {
                 description: Text(message)
             )
         case .loaded:
-            weekList
+            VStack(spacing: 0) {
+                if let errorMessage {
+                    Text(errorMessage)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                }
+                weekList
+            }
         }
     }
 
@@ -91,6 +139,12 @@ struct PlannerView: View {
                     } label: {
                         Label("Remove", systemImage: "trash")
                     }
+                    Button {
+                        editingSlot = entry
+                    } label: {
+                        Label("Edit", systemImage: "slider.horizontal.3")
+                    }
+                    .tint(.blue)
                 }
         }
         Button {
@@ -132,8 +186,13 @@ struct PlannerView: View {
     private func load() async {
         phase = .loading
         do {
+            let active: ActiveHouseholdResponse = try await APIClient.shared.send("GET", path: "/api/households/me")
+            householdId = active.household.id
             let households: [HouseholdSummary] = try await APIClient.shared.send("GET", path: "/api/households")
-            guard let plan = households.first?.mealPlan else {
+            let household = households.first(where: { $0.id == active.household.id }) ?? households.first
+            guard let plan = household?.mealPlan else {
+                mealPlanId = nil
+                slotsByDay = [:]
                 phase = .noPlan
                 return
             }
@@ -146,9 +205,32 @@ struct PlannerView: View {
                 path: "/api/meal-plan?meal_plan_id=\(plan.id)&from=\(from)&to=\(to)"
             )
             slotsByDay = Dictionary(grouping: slots) { Calendar.current.startOfDay(for: $0.date) }
+            errorMessage = nil
             phase = .loaded
         } catch {
             phase = .error(error.localizedDescription)
+        }
+    }
+
+    private func createMealPlan() async {
+        guard let householdId else { return }
+        struct Body: Encodable { let household_id: String }
+
+        creatingPlan = true
+        errorMessage = nil
+        defer { creatingPlan = false }
+        do {
+            let plan: MealPlanRef = try await APIClient.shared.send(
+                "POST",
+                path: "/api/households/meal-plan",
+                body: Body(household_id: householdId)
+            )
+            mealPlanId = plan.id
+            phase = .loaded
+            await load()
+        } catch {
+            errorMessage = error.localizedDescription
+            phase = .noPlan
         }
     }
 
@@ -194,6 +276,232 @@ struct PlannerView: View {
         let f = DateFormatter()
         f.dateFormat = "EEEE, MMM d"
         return f.string(from: d)
+    }
+
+    private func ymd(_ d: Date) -> String {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd"
+        f.timeZone = TimeZone(identifier: "UTC")
+        return f.string(from: d)
+    }
+}
+
+private struct MealPlanGeneratorSheet: View {
+    let mealPlanId: String
+    let startDate: Date
+    var onApplied: () -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var days = 7.0
+    @State private var mealTypes: Set<SlotType> = [.breakfast, .lunch, .dinner]
+    @State private var diet = Diet.none
+    @State private var favoriteRatio = 30.0
+    @State private var avoidSameRecipe = true
+    @State private var generated: MealPlanGenerationResult?
+    @State private var recipesById: [String: Recipe] = [:]
+    @State private var loading = false
+    @State private var errorMessage: String?
+
+    enum Diet: String, CaseIterable, Identifiable {
+        case none
+        case vegetarian
+        case vegan
+
+        var id: String { rawValue }
+        var label: String { rawValue.capitalized }
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Range") {
+                    Stepper("Days: \(Int(days))", value: $days, in: 1...14, step: 1)
+                    mealTypeToggle(.breakfast)
+                    mealTypeToggle(.lunch)
+                    mealTypeToggle(.dinner)
+                }
+
+                Section("Preferences") {
+                    Picker("Diet", selection: $diet) {
+                        ForEach(Diet.allCases) { diet in
+                            Text(diet.label).tag(diet)
+                        }
+                    }
+                    Slider(value: $favoriteRatio, in: 0...100, step: 10) {
+                        Text("Favorites")
+                    } minimumValueLabel: {
+                        Text("0%")
+                    } maximumValueLabel: {
+                        Text("100%")
+                    }
+                    Text("Mix in favorites: \(Int(favoriteRatio))%")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Toggle("Avoid repeating recipes", isOn: $avoidSameRecipe)
+                }
+
+                if let generated {
+                    Section("Preview") {
+                        Text("\(generated.suggestion.count) meals. Empty slots only will be filled.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                        ForEach(generated.suggestion) { slot in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(recipesById[slot.recipeId]?.title ?? "Recipe")
+                                        .font(.body.weight(.medium))
+                                    Text("\(slot.date) · \(slot.mealType.label)")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                            }
+                        }
+                    }
+
+                    if !generated.relaxedConstraints.isEmpty {
+                        Section("Relaxed") {
+                            Text(generated.relaxedConstraints.joined(separator: ", "))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+
+                if let errorMessage {
+                    Section {
+                        Text(errorMessage)
+                            .font(.footnote)
+                            .foregroundStyle(.red)
+                    }
+                }
+            }
+            .navigationTitle("Generate Plan")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    if generated == nil {
+                        Button {
+                            Task { await generate() }
+                        } label: {
+                            if loading { ProgressView() } else { Text("Roll") }
+                        }
+                        .disabled(loading || mealTypes.isEmpty)
+                    } else {
+                        Button {
+                            Task { await apply() }
+                        } label: {
+                            if loading { ProgressView() } else { Text("Apply") }
+                        }
+                        .disabled(loading)
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    if generated != nil {
+                        Button("Reroll") {
+                            Task { await generate() }
+                        }
+                        .disabled(loading)
+                    }
+                }
+            }
+            .task { await loadRecipes() }
+        }
+    }
+
+    private func mealTypeToggle(_ type: SlotType) -> some View {
+        Toggle(type.label, isOn: Binding(
+            get: { mealTypes.contains(type) },
+            set: { isOn in
+                if isOn {
+                    mealTypes.insert(type)
+                } else if mealTypes.count > 1 {
+                    mealTypes.remove(type)
+                }
+            }
+        ))
+    }
+
+    private func loadRecipes() async {
+        do {
+            let recipes: [Recipe] = try await APIClient.shared.send("GET", path: "/api/recipes")
+            recipesById = Dictionary(uniqueKeysWithValues: recipes.map { ($0.id, $0) })
+        } catch {
+            // Preview names are optional; generation can still run.
+        }
+    }
+
+    private func generate() async {
+        struct Body: Encodable {
+            let days: Int
+            let mealTypes: [SlotType]
+            let diet: String
+            let favoriteRatio: Int
+            let proteinFilters: [String]
+            let effort: String
+            let libraryIds: [String]
+            let avoidSameRecipe: Bool
+            let avoidBackToBackCuisine: Bool
+            let avoidBackToBackProtein: Bool
+            let seed: Int
+        }
+
+        loading = true
+        errorMessage = nil
+        defer { loading = false }
+        do {
+            var result: MealPlanGenerationResult = try await APIClient.shared.send(
+                "POST",
+                path: "/api/meal-plan/generate",
+                body: Body(
+                    days: Int(days),
+                    mealTypes: [.breakfast, .lunch, .dinner].filter { mealTypes.contains($0) },
+                    diet: diet.rawValue,
+                    favoriteRatio: Int(favoriteRatio),
+                    proteinFilters: [],
+                    effort: "any",
+                    libraryIds: [],
+                    avoidSameRecipe: avoidSameRecipe,
+                    avoidBackToBackCuisine: false,
+                    avoidBackToBackProtein: false,
+                    seed: Int(Date().timeIntervalSince1970)
+                )
+            )
+            let orderedTypes = [.breakfast, .lunch, .dinner].filter { mealTypes.contains($0) }
+            result.suggestion = result.suggestion.enumerated().map { index, slot in
+                let dayOffset = orderedTypes.isEmpty ? 0 : index / orderedTypes.count
+                let date = Calendar.current.date(byAdding: .day, value: dayOffset, to: startDate) ?? startDate
+                return MealPlanGeneratedSlot(date: ymd(date), mealType: slot.mealType, recipeId: slot.recipeId)
+            }
+            generated = result
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func apply() async {
+        guard let generated else { return }
+        struct Body: Encodable {
+            let mealPlanId: String
+            let slots: [MealPlanGeneratedSlot]
+        }
+
+        loading = true
+        errorMessage = nil
+        defer { loading = false }
+        do {
+            _ = try await APIClient.shared.sendVoid(
+                "POST",
+                path: "/api/meal-plan/apply",
+                body: Body(mealPlanId: mealPlanId, slots: generated.suggestion)
+            )
+            onApplied()
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 
     private func ymd(_ d: Date) -> String {

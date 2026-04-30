@@ -6,7 +6,7 @@ const AddIngredientSchema = z.object({
   ingredient_id: z.string().uuid(),
   quantity: z.number().positive(),
   unit: z.string(),
-  note: z.string().optional(),
+  note: z.string().optional().nullable(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -67,6 +67,7 @@ export default defineEventHandler(async (event) => {
         select: {
           id: true,
           name: true,
+          default_unit: true,
         },
       },
     },
@@ -81,7 +82,9 @@ export default defineEventHandler(async (event) => {
     note: recipeIngredient.note,
     ingredient: {
       id: recipeIngredient.ingredient.id,
+      name: recipeIngredient.ingredient.name,
       canonical_name: recipeIngredient.ingredient.name,
+      default_unit: recipeIngredient.ingredient.default_unit,
     },
   };
 });

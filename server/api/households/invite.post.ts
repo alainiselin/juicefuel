@@ -12,16 +12,31 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const authOrigin = config.authOrigin || process.env.AUTH_ORIGIN || 'http://localhost:3000';
 
-  // Get user's first household (active household for MVP)
-  const membership = await prisma.household_member.findFirst({
-    where: { user_id: userId },
-    orderBy: { joined_at: 'asc' },
+  const user = await prisma.user_profile.findUnique({
+    where: { id: userId },
+    select: { active_household_id: true },
+  });
+
+  if (!user?.active_household_id) {
+    throw createError({
+      statusCode: 404,
+      message: 'No active household',
+    });
+  }
+
+  const membership = await prisma.household_member.findUnique({
+    where: {
+      household_id_user_id: {
+        household_id: user.active_household_id,
+        user_id: userId,
+      },
+    },
   });
 
   if (!membership) {
     throw createError({
       statusCode: 404,
-      message: 'No household found',
+      message: 'Active household not found',
     });
   }
 

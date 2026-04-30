@@ -78,6 +78,7 @@ export default defineEventHandler(async (event) => {
         select: {
           id: true,
           name: true,
+          default_unit: true,
         },
       },
     },
@@ -92,7 +93,9 @@ export default defineEventHandler(async (event) => {
     note: recipeIngredient.note,
     ingredient: {
       id: recipeIngredient.ingredient.id,
+      name: recipeIngredient.ingredient.name,
       canonical_name: recipeIngredient.ingredient.name,
+      default_unit: recipeIngredient.ingredient.default_unit,
     },
   };
 });

@@ -97,6 +97,17 @@ Returns single meal entry with recipe and ingredients included.
 - Print meal plan
 - Keyboard shortcuts
 
+## Native iOS Companion
+
+The iOS planner now covers a compact version of the planning workflow:
+
+- It loads the active household instead of requiring a manual meal plan ID.
+- It creates the household meal plan if it is missing.
+- It can add, edit, and remove planned meals.
+- It can generate and apply meal-plan suggestions.
+
+The desktop planner remains the richer grid-first planning surface. The native app is currently optimized for quick on-device edits, checking the week, and generating a simple plan while away from the desktop.
+
 ## Technical Notes
 
 ### Known Issue (Pre-existing):

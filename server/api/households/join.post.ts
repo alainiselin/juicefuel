@@ -58,6 +58,11 @@ export default defineEventHandler(async (event) => {
     },
   });
 
+  await prisma.user_profile.update({
+    where: { id: userId },
+    data: { active_household_id: household.id },
+  });
+
   return {
     success: true,
     household: {

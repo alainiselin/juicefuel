@@ -17,7 +17,7 @@ struct LoginView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
+            VStack(spacing: 22) {
                 header
 
                 Picker("Mode", selection: $mode) {
@@ -74,22 +74,23 @@ struct LoginView: View {
 
                 Spacer()
             }
-            .padding()
+            .padding(20)
+            .background(JuiceFuelTheme.surface)
             .navigationTitle("JuiceFuel")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
 
     private var header: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "fork.knife")
-                .font(.system(size: 56))
-                .foregroundStyle(.tint)
+        VStack(spacing: 12) {
+            JuiceFuelMark(size: 92)
+            Text("JuiceFuel")
+                .font(.largeTitle.bold())
             Text("Plan meals. Shop smart.")
                 .font(.title3)
                 .foregroundStyle(.secondary)
         }
-        .padding(.top, 32)
+        .padding(.top, 24)
     }
 
     @ViewBuilder

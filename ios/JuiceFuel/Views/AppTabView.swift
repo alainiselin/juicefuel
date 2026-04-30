@@ -14,27 +14,9 @@ struct AppTabView: View {
             ShoppingListView()
                 .tabItem { Label("Shopping", systemImage: "cart") }
 
-            profileTab
+            ProfileView(auth: auth)
                 .tabItem { Label("Me", systemImage: "person.crop.circle") }
         }
-    }
-
-    private var profileTab: some View {
-        NavigationStack {
-            List {
-                Section("Account") {
-                    if let user = auth.currentUser {
-                        LabeledContent("Name", value: user.displayName ?? "—")
-                        LabeledContent("Email", value: user.email ?? "—")
-                    }
-                }
-                Section {
-                    Button("Sign out", role: .destructive) {
-                        auth.signOut()
-                    }
-                }
-            }
-            .navigationTitle("Me")
-        }
+        .tint(JuiceFuelTheme.primary)
     }
 }

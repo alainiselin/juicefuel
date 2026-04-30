@@ -64,16 +64,59 @@ struct HouseholdSummary: Codable, Identifiable, Hashable {
     let name: String
     let mealPlan: MealPlanRef?
     let recipeLibraries: [RecipeLibraryRef]?
+    let userRole: String?
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case mealPlan = "meal_plan"
         case recipeLibraries = "recipe_libraries"
+        case userRole
     }
 }
 
 struct RecipeLibraryRef: Codable, Identifiable, Hashable {
     let id: String
     let name: String
+}
+
+struct ActiveHouseholdResponse: Codable, Hashable {
+    let household: ActiveHousehold
+}
+
+struct ActiveHousehold: Codable, Identifiable, Hashable {
+    let id: String
+    let name: String
+    let inviteCode: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case inviteCode = "invite_code"
+    }
+}
+
+struct MealPlanGenerationResult: Codable, Hashable {
+    var suggestion: [MealPlanGeneratedSlot]
+    let relaxedConstraints: [String]
+}
+
+struct MealPlanGeneratedSlot: Codable, Identifiable, Hashable {
+    var date: String
+    let mealType: SlotType
+    let recipeId: String
+
+    var id: String { "\(date)-\(mealType.rawValue)-\(recipeId)" }
+
+    enum CodingKeys: String, CodingKey {
+        case date
+        case mealType
+        case recipeId
+    }
+}
+
+struct MealPlanApplyResult: Codable, Hashable {
+    let applied: Int
+    let skipped: Int
+    let entries: [MealSlot]
 }

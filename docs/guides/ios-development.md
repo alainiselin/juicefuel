@@ -74,9 +74,17 @@ ContentView (auth gate)
 │   └── Continue with Google  → ASWebAuthenticationSession
 │
 └── AppTabView                ← shown when signed in
-    ├── RecipesListView ─→ RecipeDetailView
-    ├── PlannerView ─→ AddMealSheet, swipe-to-delete
-    ├── ShoppingListView ─→ ShoppingListDetailView (optimistic checkmarks)
+    ├── RecipesListView ─→ AddRecipeSheet, RecipeDetailView
+    ├── PlannerView
+    │   ├── creates the active household meal plan when missing
+    │   ├── AddMealSheet for adding/editing slots
+    │   ├── MealPlanGeneratorSheet for generating suggestions
+    │   └── swipe-to-delete planned meals
+    ├── ShoppingListView
+    │   ├── CreateShoppingListSheet
+    │   ├── AddShoppingItemSheet
+    │   ├── EditShoppingItemSheet
+    │   └── ShoppingListDetailView with optimistic checkmarks
     └── Profile (sign out)
 ```
 
@@ -101,13 +109,50 @@ Single file, ~120 lines, no dependencies. Everything is async/await + URLSession
 
 See [Authentication overview](../domains/authentication/auth-system-overview.md) for the full picture.
 
+## Current parity status
+
+The iOS app is now a useful native companion, not only a login shell. It still trails the web app in recipe and household administration depth.
+
+| Area | Native iOS status | Remaining gap |
+|---|---|---|
+| Auth | Email/password, Apple, Google callback, Keychain restore | No account/profile editing beyond sign out |
+| Shopping | Create/finish lists, add existing ingredients/articles, create custom articles, edit quantity/unit/notes, check/uncheck, delete items | No generate-from-planner action yet, no household sharing controls, no offline sync |
+| Planner | Loads active household, creates meal plan if missing, add/edit/remove meals, generate/apply meal suggestions | Generator UI is simpler than web advanced mode, no drag/drop or rich desktop grid controls |
+| Recipes | List/detail/create/edit/delete, add/edit/delete ingredients, favorite toggle, tags, library selection/create, AI generate/save | Deeper library admin can still improve |
+| Households | Active household view, switcher, owner rename, invite generation/share, join-by-code, members list, member role/removal, leave/delete flows | Deeper diagnostics and onboarding polish still missing |
+
 ## Bundle ID, signing, capabilities
 
 - **Bundle ID:** `vip.juicecrew.juicefuel`
 - **`APPLE_BUNDLE_ID` env on Vercel** must match — the Apple Sign In endpoint uses it as the JWT audience
-- **Signing & Capabilities:** open the project in Xcode (`make open`) and pick your Apple Developer team in the dropdown. Xcode auto-creates the App ID with Sign in with Apple enabled. This is required for device installs and for SIWA to round-trip on a real device.
+- **Signing & Capabilities:** `project.yml` pins automatic signing to team `5P58Q2KW74`, so `make gen` preserves the local signing setup. If another developer builds the app, update `DEVELOPMENT_TEAM` or override it locally before generating the project. Xcode auto-creates the App ID with Sign in with Apple enabled. This is required for device installs and for SIWA to round-trip on a real device.
 
 The entitlements file at `JuiceFuel/JuiceFuel.entitlements` requests `com.apple.developer.applesignin = ['Default']`.
+
+## Device install and TestFlight notes
+
+Direct device installs are the fastest development loop on the current work Mac:
+
+```bash
+cd ios
+make gen
+make open
+```
+
+Then select the physical iPhone target in Xcode and press Run. The app can also be built from the CLI with:
+
+```bash
+xcodebuild \
+  -project JuiceFuel.xcodeproj \
+  -scheme JuiceFuel \
+  -destination 'id=<DEVICE_IDENTIFIER>' \
+  -configuration Debug \
+  -allowProvisioningUpdates \
+  -allowProvisioningDeviceRegistration \
+  build
+```
+
+For TestFlight, use App Store Connect and upload an archive signed with an Apple Distribution certificate. The current work Mac is intentionally kept on macOS 15.2; if Apple's upload tooling requires a newer Xcode than this OS can run, use a separate newer build machine or CI runner for archive upload while keeping this Mac for day-to-day direct installs.
 
 ## URL scheme
 
@@ -149,3 +194,4 @@ let recipes: [Recipe] = try await APIClient.shared.send("GET", path: "/api/recip
 - **No real app icon.** `Assets.xcassets/AppIcon.appiconset/` is intentionally empty — drop a 1024×1024 PNG in to fix.
 - **No push notifications.** Would require an APNs auth key in Apple Developer portal + server-side scheduling.
 - **No offline cache.** Every screen refetches from the server on appear. Fine for an MVP; a later iteration could add persistent caching.
+- **Household/profile parity is functionally covered.** The native Me tab now covers the requested account and household tasks. Richer diagnostics and onboarding polish remain for the polish phase.
