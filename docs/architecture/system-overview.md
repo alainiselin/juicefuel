@@ -130,7 +130,7 @@ All components use types from `spec/schemas.ts`:
 ## Key Design Decisions
 
 1. **Desktop-First**: No mobile optimization yet (min-width: 1024px)
-2. **Week-Based Navigation**: Sunday-Saturday weeks, not calendar months
+2. **Week-Based Navigation**: Monday-Sunday weeks, not calendar months
 3. **Slot Filtering**: Client-side filtering for instant response
 4. **Horizontal Cards**: Better for scanning meal options
 5. **Navigation to Detail**: Click card → full page detail view

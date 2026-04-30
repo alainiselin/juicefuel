@@ -70,7 +70,7 @@ Returns single meal entry with recipe and ingredients included.
 
 **UX**:
 - Click meal card → navigate to detail view
-- Week-based navigation (Sunday-Saturday)
+- Week-based navigation (Monday-Sunday)
 - Slot filtering without page reload
 - Confirmation dialogs for destructive actions
 - Clear visual hierarchy
