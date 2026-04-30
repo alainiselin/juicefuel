@@ -54,6 +54,50 @@ struct RecipeIngredient: Codable, Hashable, Identifiable {
         case note
         case ingredient
     }
+
+    init(
+        recipeId: String?,
+        ingredientId: String,
+        quantity: Decimal?,
+        unit: String?,
+        note: String?,
+        ingredient: Ingredient?
+    ) {
+        self.recipeId = recipeId
+        self.ingredientId = ingredientId
+        self.quantity = quantity
+        self.unit = unit
+        self.note = note
+        self.ingredient = ingredient
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        recipeId = try container.decodeIfPresent(String.self, forKey: .recipeId)
+        ingredientId = try container.decode(String.self, forKey: .ingredientId)
+        quantity = try container.decodeFlexibleDecimalIfPresent(forKey: .quantity)
+        unit = try container.decodeIfPresent(String.self, forKey: .unit)
+        note = try container.decodeIfPresent(String.self, forKey: .note)
+        ingredient = try container.decodeIfPresent(Ingredient.self, forKey: .ingredient)
+    }
+}
+
+private extension KeyedDecodingContainer {
+    func decodeFlexibleDecimalIfPresent(forKey key: Key) throws -> Decimal? {
+        if try decodeNil(forKey: key) {
+            return nil
+        }
+        if let decimal = try? decode(Decimal.self, forKey: key) {
+            return decimal
+        }
+        if let double = try? decode(Double.self, forKey: key) {
+            return Decimal(double)
+        }
+        if let string = try? decode(String.self, forKey: key), !string.isEmpty {
+            return Decimal(string: string, locale: Locale(identifier: "en_US_POSIX"))
+        }
+        return nil
+    }
 }
 
 struct Ingredient: Codable, Hashable {
