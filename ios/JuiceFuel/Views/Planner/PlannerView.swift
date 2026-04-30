@@ -43,7 +43,7 @@ struct PlannerView: View {
                         Button { shiftWeek(by: 1) } label: { Image(systemName: "chevron.right") }
                     }
                 }
-                .refreshable { await load() }
+                .refreshable { await load(showsLoadingIndicator: false) }
                 .task { await load() }
                 .sheet(item: $addingFor) { target in
                     if let mealPlanId {
@@ -183,8 +183,10 @@ struct PlannerView: View {
 
     // MARK: - Data
 
-    private func load() async {
-        phase = .loading
+    private func load(showsLoadingIndicator: Bool = true) async {
+        if showsLoadingIndicator {
+            phase = .loading
+        }
         do {
             let active: ActiveHouseholdResponse = try await APIClient.shared.send("GET", path: "/api/households/me")
             householdId = active.household.id
