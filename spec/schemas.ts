@@ -124,6 +124,7 @@ export type MealPlanEntry = z.infer<typeof MealPlanEntrySchema>;
 
 // Shopping list schemas (aggregated, read-only)
 export const ShoppingListItemSchema = z.object({
+  ingredient_id: z.string().uuid(),
   ingredient_name: z.string(),
   total_quantity: z.number().nullable(),
   unit: UnitSchema.nullable(),

@@ -26,17 +26,18 @@ export function aggregateIngredients(
     recipe: {
       title: string;
       ingredients: Array<{
-        ingredient: { name: string };
+        ingredient: { id: string; name: string };
         quantity: number | null;
         unit: string | null;
       }>;
     };
   }>
 ): ShoppingListItem[] {
-  // Build aggregation map: key = "ingredient_name|unit"
+  // Build aggregation map: key = "ingredient_id|unit"
   const map = new Map<
     string,
     {
+      ingredient_id: string;
       ingredient_name: string;
       total_quantity: number | null;
       unit: string | null;
@@ -48,10 +49,11 @@ export function aggregateIngredients(
     const recipeTitle = entry.recipe.title;
 
     for (const ing of entry.recipe.ingredients) {
-      const key = `${ing.ingredient.name}|${ing.unit ?? 'null'}`;
+      const key = `${ing.ingredient.id}|${ing.unit ?? 'null'}`;
 
       if (!map.has(key)) {
         map.set(key, {
+          ingredient_id: ing.ingredient.id,
           ingredient_name: ing.ingredient.name,
           total_quantity: null,
           unit: ing.unit,
@@ -76,6 +78,7 @@ export function aggregateIngredients(
   // Convert to array and sort
   return Array.from(map.values())
     .map((item) => ({
+      ingredient_id: item.ingredient_id,
       ingredient_name: item.ingredient_name,
       total_quantity: item.total_quantity,
       unit: item.unit,

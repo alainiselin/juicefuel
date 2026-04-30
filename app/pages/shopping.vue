@@ -20,6 +20,14 @@
               Shopping Finished
             </button>
             <button
+              v-if="lists.length > 0"
+              @click="showGeneratorModal = true"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <Sparkles :size="18" />
+              Generate from Meal Plan
+            </button>
+            <button
               @click="showListManager = !showListManager"
               class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
             >
@@ -303,6 +311,15 @@
       @delete="deleteItem(selectedItem.id)"
     />
 
+    <!-- Generator Modal -->
+    <ShoppingListGeneratorModal
+      v-model="showGeneratorModal"
+      :lists="lists"
+      :default-list-id="selectedListId"
+      :meal-plan-id="mealPlanId"
+      @generated="onGenerated"
+    />
+
     <!-- List Create/Rename Modal -->
     <div
       v-if="showListDialog"
@@ -386,11 +403,12 @@
 </template>
 
 <script setup lang="ts">
-import { Archive, CheckCircle2, ChevronDown, ListChecks, Pencil, Plus, ShoppingCart, Store, X } from 'lucide-vue-next';
+import { Archive, CheckCircle2, ChevronDown, ListChecks, Pencil, Plus, ShoppingCart, Sparkles, Store, X } from 'lucide-vue-next';
 import { useShoppingListStore } from '../stores/shoppingList';
 import DesktopShell from '../components/layout/DesktopShell.vue';
 import ShoppingItemCard from '../components/shopping/ShoppingItemCard.vue';
 import ShoppingItemDetailModal from '../components/shopping/ShoppingItemDetailModal.vue';
+import ShoppingListGeneratorModal from '../components/shopping/ShoppingListGeneratorModal.vue';
 import { SHOPPING_RUBRICS, getRubricForItem, type RubricId } from '../utils/ingredientFormatting';
 import type { ShoppingListDetail, ShoppingListItemDetail, Unit } from '../../spec/schemas';
 
@@ -404,6 +422,10 @@ const showListManager = ref(false);
 // Item detail modal state
 const showItemDetailModal = ref(false);
 const selectedItem = ref<ShoppingListItemDetail | null>(null);
+
+// Generator modal state
+const showGeneratorModal = ref(false);
+const mealPlanId = ref<string | null>(null);
 
 // Shopping list modal state
 const showListDialog = ref(false);
@@ -481,10 +503,26 @@ onMounted(async () => {
       selectedListId.value = firstList.id;
       await store.fetchShoppingListById(firstList.id);
     }
+    // Resolve the household's meal plan id so the generator modal can use it.
+    try {
+      const households = await $fetch<Array<{ id: string; meal_plan?: { id: string } | null }>>('/api/households');
+      const withPlan = households.find((h) => h.meal_plan?.id);
+      mealPlanId.value = withPlan?.meal_plan?.id ?? null;
+    } catch (err) {
+      console.error('Failed to load meal plan:', err);
+    }
   } finally {
     loading.value = false;
   }
 });
+
+const onGenerated = async (listId: string) => {
+  if (selectedListId.value !== listId) {
+    selectedListId.value = listId;
+  }
+  await store.fetchShoppingListById(listId);
+  await store.fetchShoppingLists('ACTIVE');
+};
 
 const selectList = async (listId: string) => {
   if (!listId || selectedListId.value === listId) return;

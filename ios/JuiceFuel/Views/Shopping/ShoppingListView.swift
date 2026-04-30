@@ -4,6 +4,7 @@ struct ShoppingListView: View {
     @State private var lists: [ShoppingList] = []
     @State private var phase: Phase = .loading
     @State private var showingCreateList = false
+    @State private var showingGenerator = false
 
     enum Phase {
         case loading, loaded, empty, error(String)
@@ -16,7 +17,14 @@ struct ShoppingListView: View {
                 .refreshable { await load() }
                 .task { await load() }
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        if !lists.isEmpty {
+                            Button {
+                                showingGenerator = true
+                            } label: {
+                                Image(systemName: "wand.and.stars")
+                            }
+                        }
                         Button {
                             showingCreateList = true
                         } label: {
@@ -28,6 +36,13 @@ struct ShoppingListView: View {
                     CreateShoppingListSheet { list in
                         lists.insert(list, at: 0)
                         phase = .loaded
+                    }
+                }
+                .sheet(isPresented: $showingGenerator) {
+                    GenerateShoppingListSheet(currentListId: lists.first?.id ?? "") { updated in
+                        if let index = lists.firstIndex(where: { $0.id == updated.id }) {
+                            lists[index] = updated
+                        }
                     }
                 }
         }
@@ -129,6 +144,7 @@ private struct ShoppingListDetailView: View {
     @State private var errorMessage: String?
     @State private var showingAddItem = false
     @State private var editingItem: ShoppingListItem?
+    @State private var showingGenerator = false
 
     var body: some View {
         List {
@@ -181,7 +197,12 @@ private struct ShoppingListDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .refreshable { await reload() }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button {
+                    showingGenerator = true
+                } label: {
+                    Image(systemName: "wand.and.stars")
+                }
                 Button {
                     showingAddItem = true
                 } label: {
@@ -198,6 +219,16 @@ private struct ShoppingListDetailView: View {
             EditShoppingItemSheet(item: item) { updated in
                 replace(updated)
                 onChange(list)
+            }
+        }
+        .sheet(isPresented: $showingGenerator) {
+            GenerateShoppingListSheet(currentListId: list.id) { updatedList in
+                if updatedList.id == list.id {
+                    list = updatedList
+                    onChange(updatedList)
+                } else {
+                    Task { await reload() }
+                }
             }
         }
     }
@@ -627,6 +658,160 @@ private struct EditShoppingItemSheet: View {
             )
             onSaved(updated)
             dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+
+private struct GenerateShoppingListSheet: View {
+    let currentListId: String
+    var onCompleted: (ShoppingList) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+
+    @State private var lists: [ShoppingList] = []
+    @State private var targetListId: String
+    @State private var mealPlanId: String?
+    @State private var days: Int = 7
+    @State private var loading = true
+    @State private var generating = false
+    @State private var errorMessage: String?
+    @State private var resultMessage: String?
+
+    init(currentListId: String, onCompleted: @escaping (ShoppingList) -> Void) {
+        self.currentListId = currentListId
+        self.onCompleted = onCompleted
+        _targetListId = State(initialValue: currentListId)
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                if loading {
+                    HStack { ProgressView(); Text("Loading…") }
+                } else if mealPlanId == nil {
+                    Section {
+                        Text("Create a meal plan first to generate a shopping list.")
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Section("Add to list") {
+                        Picker("List", selection: $targetListId) {
+                            ForEach(lists) { list in
+                                Text(list.title).tag(list.id)
+                            }
+                        }
+                    }
+
+                    Section {
+                        Stepper(value: $days, in: 1...14) {
+                            Text("\(days) day\(days == 1 ? "" : "s") ahead")
+                        }
+                        Text("From \(formatted(fromDate)) to \(formatted(toDate))")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } header: {
+                        Text("Period")
+                    }
+                }
+
+                if let resultMessage {
+                    Section { Text(resultMessage).font(.footnote).foregroundStyle(.green) }
+                }
+                if let errorMessage {
+                    Section { Text(errorMessage).font(.footnote).foregroundStyle(.red) }
+                }
+            }
+            .navigationTitle("Generate List")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        Task { await generate() }
+                    } label: {
+                        if generating { ProgressView() } else { Text("Generate") }
+                    }
+                    .disabled(loading || generating || mealPlanId == nil || targetListId.isEmpty)
+                }
+            }
+            .task { await loadContext() }
+        }
+    }
+
+    private var fromDate: Date {
+        Calendar.current.startOfDay(for: Date())
+    }
+
+    private var toDate: Date {
+        Calendar.current.date(byAdding: .day, value: days - 1, to: fromDate) ?? fromDate
+    }
+
+    private func formatted(_ date: Date) -> String {
+        let f = DateFormatter()
+        f.dateFormat = "MMM d"
+        return f.string(from: date)
+    }
+
+    private func ymd(_ date: Date) -> String {
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .gregorian)
+        f.dateFormat = "yyyy-MM-dd"
+        return f.string(from: date)
+    }
+
+    private func loadContext() async {
+        loading = true
+        defer { loading = false }
+        do {
+            async let listsTask: [ShoppingList] = APIClient.shared.send("GET", path: "/api/shopping-list")
+            async let active: ActiveHouseholdResponse = APIClient.shared.send("GET", path: "/api/households/me")
+            async let households: [HouseholdSummary] = APIClient.shared.send("GET", path: "/api/households")
+
+            let (loadedLists, activeHousehold, allHouseholds) = try await (listsTask, active, households)
+            lists = loadedLists.filter { $0.status == .active }
+            if !lists.contains(where: { $0.id == targetListId }), let first = lists.first {
+                targetListId = first.id
+            }
+            let household = allHouseholds.first(where: { $0.id == activeHousehold.household.id }) ?? allHouseholds.first
+            mealPlanId = household?.mealPlan?.id
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func generate() async {
+        guard let mealPlanId else { return }
+        struct Body: Encodable {
+            let meal_plan_id: String
+            let from: String
+            let to: String
+        }
+        struct Response: Decodable {
+            let added: Int
+            let merged: Int
+            let list: ShoppingList
+        }
+
+        generating = true
+        errorMessage = nil
+        resultMessage = nil
+        defer { generating = false }
+        do {
+            let response: Response = try await APIClient.shared.send(
+                "POST",
+                path: "/api/shopping-list/\(targetListId)/generate-from-meal-plan",
+                body: Body(
+                    meal_plan_id: mealPlanId,
+                    from: ymd(fromDate),
+                    to: ymd(toDate)
+                )
+            )
+            resultMessage = "Added \(response.added), merged \(response.merged)."
+            onCompleted(response.list)
         } catch {
             errorMessage = error.localizedDescription
         }
