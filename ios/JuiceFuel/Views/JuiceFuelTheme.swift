@@ -26,7 +26,7 @@ struct JuiceFuelMark: View {
                 .font(.system(size: size * 0.42, weight: .bold))
                 .foregroundStyle(.white)
                 .offset(x: -size * 0.06, y: -size * 0.05)
-            Image(systemName: "bowl.fill")
+            Image(systemName: "fork.knife")
                 .font(.system(size: size * 0.34, weight: .semibold))
                 .foregroundStyle(.white.opacity(0.94))
                 .offset(y: size * 0.18)

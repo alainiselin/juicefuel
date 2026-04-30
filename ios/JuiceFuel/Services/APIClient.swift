@@ -12,7 +12,7 @@ enum APIError: Error, LocalizedError {
         case .badStatus(let code, let body):
             if let body, !body.isEmpty { return "HTTP \(code): \(body)" }
             return "HTTP \(code)"
-        case .decoding(let err): return "Decoding failed: \(err.localizedDescription)"
+        case .decoding(let err): return "Decoding failed: \(APIClientDecoding.describe(err))"
         case .transport(let err): return err.localizedDescription
         }
     }
@@ -78,6 +78,7 @@ struct APIClient {
         do {
             return try JSONDecoder.api.decode(T.self, from: data)
         } catch {
+            APIClientDecoding.log(error, method: method, path: path, data: data)
             throw APIError.decoding(error)
         }
     }
@@ -159,6 +160,44 @@ private enum APIClientDateFormatters {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
+}
+
+private enum APIClientDecoding {
+    static func describe(_ error: Error) -> String {
+        guard let decodingError = error as? DecodingError else {
+            return error.localizedDescription
+        }
+
+        switch decodingError {
+        case .typeMismatch(let type, let context):
+            return "type mismatch for \(type) at \(path(context.codingPath)): \(context.debugDescription)"
+        case .valueNotFound(let type, let context):
+            return "missing value for \(type) at \(path(context.codingPath)): \(context.debugDescription)"
+        case .keyNotFound(let key, let context):
+            return "missing key '\(key.stringValue)' at \(path(context.codingPath)): \(context.debugDescription)"
+        case .dataCorrupted(let context):
+            return "corrupt data at \(path(context.codingPath)): \(context.debugDescription)"
+        @unknown default:
+            return error.localizedDescription
+        }
+    }
+
+    static func log(_ error: Error, method: String, path: String, data: Data) {
+        print("[API Decode] \(method) \(path) failed: \(describe(error))")
+        if let body = String(data: data.prefix(1200), encoding: .utf8) {
+            print("[API Decode] Response preview: \(body)")
+        }
+    }
+
+    private static func path(_ codingPath: [CodingKey]) -> String {
+        guard !codingPath.isEmpty else { return "<root>" }
+        return codingPath.map { key in
+            if let index = key.intValue {
+                return "[\(index)]"
+            }
+            return ".\(key.stringValue)"
+        }.joined()
+    }
 }
 
 // Erases the Encodable existential so it can be encoded directly.
