@@ -6,18 +6,19 @@
     ]"
     @click="handleClick"
   >
-    <!-- Recipe Title -->
+    <!-- Title (recipe.title for recipe-backed slots, slot.title for free-text) -->
     <h3 :class="[
       'font-semibold text-gray-900 mb-2 line-clamp-2 flex-grow',
       compact ? 'text-sm' : 'text-lg'
     ]">
-      {{ entry.recipe?.title || 'Untitled Recipe' }}
+      {{ displayTitle }}
     </h3>
-    
+
     <!-- Quick Info -->
     <div :class="['mt-auto pt-2 border-t border-gray-100', compact ? 'text-xs' : 'text-sm']">
       <div class="flex items-center justify-between text-gray-600">
-        <span>{{ ingredientCount }} ingredients</span>
+        <span v-if="entry.recipe">{{ ingredientCount }} ingredients</span>
+        <span v-else class="italic text-gray-400">No recipe</span>
         <button
           @click.stop="$emit('delete', entry.id)"
           class="text-red-600 hover:text-red-700 text-xs"
@@ -44,6 +45,10 @@ const emit = defineEmits<{
 }>();
 
 const router = useRouter();
+
+const displayTitle = computed(() => {
+  return props.entry.recipe?.title || props.entry.title || 'Untitled meal';
+});
 
 const ingredientCount = computed(() => {
   return props.entry.recipe?.ingredients?.length || 0;

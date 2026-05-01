@@ -106,9 +106,10 @@ model meal_slot {
   meal_plan_id String    @db.Uuid
   date         DateTime  @db.Date
   slot         SlotType
-  recipe_id    String    @db.Uuid
+  recipe_id    String?   @db.Uuid
+  title        String?
   meal_plan    meal_plan @relation(fields: [meal_plan_id], references: [id], onDelete: Cascade)
-  recipe       recipe    @relation(fields: [recipe_id], references: [id])
+  recipe       recipe?   @relation(fields: [recipe_id], references: [id])
 
   @@unique([meal_plan_id, date, slot])
   @@index([recipe_id])

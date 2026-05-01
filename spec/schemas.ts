@@ -97,18 +97,24 @@ export const RecipeSchema = z.object({
 export type Recipe = z.infer<typeof RecipeSchema>;
 
 // MealPlanEntry (meal_slot) schemas
-export const CreateMealPlanEntrySchema = z.object({
-  meal_plan_id: z.string().uuid(),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD'),
-  slot: SlotTypeSchema,
-  recipe_id: z.string().uuid(),
-});
+export const CreateMealPlanEntrySchema = z
+  .object({
+    meal_plan_id: z.string().uuid(),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM-DD'),
+    slot: SlotTypeSchema,
+    recipe_id: z.string().uuid().optional().nullable(),
+    title: z.string().min(1).max(200).optional().nullable(),
+  })
+  .refine((d) => !!d.recipe_id || !!d.title, {
+    message: 'Either recipe_id or title must be provided',
+  });
 export type CreateMealPlanEntryInput = z.infer<typeof CreateMealPlanEntrySchema>;
 
 export const UpdateMealPlanEntrySchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
   slot: SlotTypeSchema.optional(),
-  recipe_id: z.string().uuid().optional(),
+  recipe_id: z.string().uuid().optional().nullable(),
+  title: z.string().min(1).max(200).optional().nullable(),
 });
 export type UpdateMealPlanEntryInput = z.infer<typeof UpdateMealPlanEntrySchema>;
 
@@ -117,8 +123,9 @@ export const MealPlanEntrySchema = z.object({
   meal_plan_id: z.string().uuid(),
   date: z.string(),
   slot: SlotTypeSchema,
-  recipe_id: z.string().uuid(),
-  recipe: RecipeSchema.optional(),
+  recipe_id: z.string().uuid().nullable(),
+  title: z.string().nullable(),
+  recipe: RecipeSchema.optional().nullable(),
 });
 export type MealPlanEntry = z.infer<typeof MealPlanEntrySchema>;
 

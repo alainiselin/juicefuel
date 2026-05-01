@@ -61,8 +61,10 @@ export default defineEventHandler(async (event) => {
 
   // mealPlanRepo includes recipe.ingredients[*].ingredient with default_unit. Build a
   // lookup so we can resolve null units to the ingredient's default before matching.
+  // Title-only slots have no recipe, so skip them.
   const defaultUnitById = new Map<string, string>();
   for (const slot of entries) {
+    if (!slot.recipe) continue;
     for (const ing of slot.recipe.ingredients) {
       if (!defaultUnitById.has(ing.ingredient.id)) {
         defaultUnitById.set(ing.ingredient.id, ing.ingredient.default_unit ?? 'PIECE');
@@ -72,14 +74,16 @@ export default defineEventHandler(async (event) => {
 
   const aggregated = aggregateIngredients(
     entries.map((slot) => ({
-      recipe: {
-        title: slot.recipe.title,
-        ingredients: slot.recipe.ingredients.map((ing) => ({
-          ingredient: { id: ing.ingredient.id, name: ing.ingredient.name },
-          quantity: ing.quantity === null ? null : Number(ing.quantity),
-          unit: ing.unit,
-        })),
-      },
+      recipe: slot.recipe
+        ? {
+            title: slot.recipe.title,
+            ingredients: slot.recipe.ingredients.map((ing) => ({
+              ingredient: { id: ing.ingredient.id, name: ing.ingredient.name },
+              quantity: ing.quantity === null ? null : Number(ing.quantity),
+              unit: ing.unit,
+            })),
+          }
+        : null,
     }))
   );
 

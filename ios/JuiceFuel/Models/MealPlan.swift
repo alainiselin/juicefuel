@@ -46,7 +46,8 @@ struct MealSlot: Codable, Identifiable, Hashable {
     let date: Date
     let dateKey: String
     let slot: SlotType
-    let recipeId: String
+    let recipeId: String?
+    let title: String?
     let recipe: Recipe?
 
     enum CodingKeys: String, CodingKey {
@@ -55,6 +56,7 @@ struct MealSlot: Codable, Identifiable, Hashable {
         case date
         case slot
         case recipeId = "recipe_id"
+        case title
         case recipe
     }
 
@@ -68,7 +70,8 @@ struct MealSlot: Codable, Identifiable, Hashable {
         date = MealPlanDate.date(from: dateKey) ?? Date()
 
         slot = try container.decode(SlotType.self, forKey: .slot)
-        recipeId = try container.decode(String.self, forKey: .recipeId)
+        recipeId = try container.decodeIfPresent(String.self, forKey: .recipeId)
+        title = try container.decodeIfPresent(String.self, forKey: .title)
         recipe = try container.decodeIfPresent(Recipe.self, forKey: .recipe)
     }
 
@@ -78,8 +81,14 @@ struct MealSlot: Codable, Identifiable, Hashable {
         try container.encode(mealPlanId, forKey: .mealPlanId)
         try container.encode(dateKey, forKey: .date)
         try container.encode(slot, forKey: .slot)
-        try container.encode(recipeId, forKey: .recipeId)
+        try container.encodeIfPresent(recipeId, forKey: .recipeId)
+        try container.encodeIfPresent(title, forKey: .title)
         try container.encodeIfPresent(recipe, forKey: .recipe)
+    }
+
+    /// What to show as the slot's name: recipe title if attached, else the free-text title.
+    var displayTitle: String {
+        recipe?.title ?? title ?? "Untitled meal"
     }
 }
 

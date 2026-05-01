@@ -30,7 +30,7 @@ export function aggregateIngredients(
         quantity: number | null;
         unit: string | null;
       }>;
-    };
+    } | null;
   }>
 ): ShoppingListItem[] {
   // Build aggregation map: key = "ingredient_id|unit"
@@ -46,6 +46,7 @@ export function aggregateIngredients(
   >();
 
   for (const entry of entries) {
+    if (!entry.recipe) continue; // Title-only slots contribute no ingredients.
     const recipeTitle = entry.recipe.title;
 
     for (const ing of entry.recipe.ingredients) {

@@ -46,7 +46,8 @@ export const mealPlanService = {
       meal_plan_id: input.meal_plan_id,
       date: parseMealPlanDateKey(input.date),
       slot: input.slot,
-      recipe_id: input.recipe_id,
+      recipe_id: input.recipe_id ?? null,
+      title: input.title ?? null,
     }).then(serializeMealSlot);
   },
 
@@ -60,6 +61,7 @@ export const mealPlanService = {
       date: input.date ? parseMealPlanDateKey(input.date) : undefined,
       slot: input.slot,
       recipe_id: input.recipe_id,
+      title: input.title,
     }).then(serializeMealSlot);
   },
 

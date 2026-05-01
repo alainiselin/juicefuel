@@ -52,7 +52,8 @@ export const mealPlanRepo = {
     meal_plan_id: string;
     date: Date;
     slot: string;
-    recipe_id: string;
+    recipe_id?: string | null;
+    title?: string | null;
   }) {
     return prisma.meal_slot.create({
       data,
@@ -75,7 +76,8 @@ export const mealPlanRepo = {
     data: {
       date?: Date;
       slot?: string;
-      recipe_id?: string;
+      recipe_id?: string | null;
+      title?: string | null;
     }
   ) {
     return prisma.meal_slot.update({

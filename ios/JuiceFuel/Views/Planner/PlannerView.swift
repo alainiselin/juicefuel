@@ -159,24 +159,29 @@ struct PlannerView: View {
     private func entryRow(entry: MealSlot) -> some View {
         if let recipe = entry.recipe {
             NavigationLink(value: recipe) {
-                slotRow(slot: entry.slot, recipe: recipe)
+                slotRow(entry: entry)
             }
         } else {
-            slotRow(slot: entry.slot, recipe: nil)
+            slotRow(entry: entry)
         }
     }
 
-    private func slotRow(slot: SlotType, recipe: Recipe?) -> some View {
+    private func slotRow(entry: MealSlot) -> some View {
         HStack(spacing: 12) {
-            Image(systemName: slot.symbol)
+            Image(systemName: entry.slot.symbol)
                 .foregroundStyle(.tint)
                 .frame(width: 24)
             VStack(alignment: .leading, spacing: 2) {
-                Text(slot.label)
+                Text(entry.slot.label)
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                Text(recipe?.title ?? "—")
+                Text(entry.displayTitle)
                     .font(.body)
+                if entry.recipe == nil {
+                    Text("No recipe")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
             }
         }
     }

@@ -9,13 +9,25 @@ struct AddMealSheet: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var slot: SlotType
+    @State private var mode: Mode
     @State private var recipes: [Recipe] = []
     @State private var selectedRecipeId: String?
+    @State private var customTitle: String
     @State private var phase: Phase = .loading
     @State private var errorMessage: String?
     @State private var saving = false
 
     enum Phase { case loading, loaded, error(String) }
+    enum Mode: String, CaseIterable, Identifiable {
+        case recipe, title
+        var id: String { rawValue }
+        var label: String {
+            switch self {
+            case .recipe: return "Recipe"
+            case .title: return "Just a title"
+            }
+        }
+    }
 
     init(
         mealPlanId: String,
@@ -30,6 +42,10 @@ struct AddMealSheet: View {
         self.onAdded = onAdded
         _slot = State(initialValue: existingSlot?.slot ?? defaultSlot)
         _selectedRecipeId = State(initialValue: existingSlot?.recipeId)
+        _customTitle = State(initialValue: existingSlot?.title ?? "")
+        // If editing a title-only slot, start in title mode.
+        let initialMode: Mode = (existingSlot?.recipeId == nil && existingSlot?.title != nil) ? .title : .recipe
+        _mode = State(initialValue: initialMode)
     }
 
     var body: some View {
@@ -48,28 +64,44 @@ struct AddMealSheet: View {
                     .pickerStyle(.segmented)
                 }
 
-                Section("Recipe") {
-                    switch phase {
-                    case .loading:
-                        HStack { ProgressView(); Text("Loading recipes…") }
-                    case .error(let msg):
-                        Text(msg).foregroundStyle(.red)
-                    case .loaded:
-                        if recipes.isEmpty {
-                            Text("No recipes yet. Add one first.")
-                                .foregroundStyle(.secondary)
-                        } else {
-                            ForEach(recipes) { recipe in
-                                Button {
-                                    selectedRecipeId = recipe.id
-                                } label: {
-                                    HStack {
-                                        Text(recipe.title)
-                                            .foregroundStyle(.primary)
-                                        Spacer()
-                                        if selectedRecipeId == recipe.id {
-                                            Image(systemName: "checkmark")
-                                                .foregroundStyle(.tint)
+                Section {
+                    Picker("Mode", selection: $mode) {
+                        ForEach(Mode.allCases) { m in
+                            Text(m.label).tag(m)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+
+                if mode == .title {
+                    Section("Title") {
+                        TextField("e.g. Pizza takeout", text: $customTitle)
+                            .textInputAutocapitalization(.sentences)
+                    }
+                } else {
+                    Section("Recipe") {
+                        switch phase {
+                        case .loading:
+                            HStack { ProgressView(); Text("Loading recipes…") }
+                        case .error(let msg):
+                            Text(msg).foregroundStyle(.red)
+                        case .loaded:
+                            if recipes.isEmpty {
+                                Text("No recipes yet. Add one first.")
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                ForEach(recipes) { recipe in
+                                    Button {
+                                        selectedRecipeId = recipe.id
+                                    } label: {
+                                        HStack {
+                                            Text(recipe.title)
+                                                .foregroundStyle(.primary)
+                                            Spacer()
+                                            if selectedRecipeId == recipe.id {
+                                                Image(systemName: "checkmark")
+                                                    .foregroundStyle(.tint)
+                                            }
                                         }
                                     }
                                 }
@@ -96,10 +128,17 @@ struct AddMealSheet: View {
                     } label: {
                         if saving { ProgressView() } else { Text(existingSlot == nil ? "Add" : "Save") }
                     }
-                    .disabled(selectedRecipeId == nil || saving)
+                    .disabled(!canSubmit || saving)
                 }
             }
             .task { await loadRecipes() }
+        }
+    }
+
+    private var canSubmit: Bool {
+        switch mode {
+        case .recipe: return selectedRecipeId != nil
+        case .title: return !customTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
     }
 
@@ -118,28 +157,94 @@ struct AddMealSheet: View {
     }
 
     private func save() async {
-        guard let recipeId = selectedRecipeId else { return }
+        guard canSubmit else { return }
         saving = true
         errorMessage = nil
         defer { saving = false }
 
+        let trimmedTitle = customTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let recipeId = mode == .recipe ? selectedRecipeId : nil
+        let title = mode == .title ? trimmedTitle : nil
+
         do {
-            let path = existingSlot.map { "/api/meal-plan/\($0.id)" } ?? "/api/meal-plan"
-            let method = existingSlot == nil ? "POST" : "PATCH"
-            _ = try await APIClient.shared.sendVoid(
-                method,
-                path: path,
-                body: [
-                    "meal_plan_id": mealPlanId,
-                    "date": dateKey,
-                    "slot": slot.rawValue,
-                    "recipe_id": recipeId,
-                ]
-            )
+            if let existingSlot {
+                // PATCH: send both fields explicitly so a mode switch clears the previous one.
+                let body = UpdateBody(
+                    date: dateKey,
+                    slot: slot.rawValue,
+                    recipeId: recipeId,
+                    title: title
+                )
+                _ = try await APIClient.shared.sendVoid(
+                    "PATCH",
+                    path: "/api/meal-plan/\(existingSlot.id)",
+                    body: body
+                )
+            } else {
+                // POST: include only the chosen field; the schema requires exactly one.
+                let body = CreateBody(
+                    mealPlanId: mealPlanId,
+                    date: dateKey,
+                    slot: slot.rawValue,
+                    recipeId: recipeId,
+                    title: title
+                )
+                _ = try await APIClient.shared.sendVoid("POST", path: "/api/meal-plan", body: body)
+            }
             onAdded()
             dismiss()
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+}
+
+/// POST body for `/api/meal-plan`. Omits nil keys (server schema requires exactly one of recipe_id / title).
+private struct CreateBody: Encodable {
+    let mealPlanId: String
+    let date: String
+    let slot: String
+    let recipeId: String?
+    let title: String?
+
+    enum CodingKeys: String, CodingKey {
+        case mealPlanId = "meal_plan_id"
+        case date
+        case slot
+        case recipeId = "recipe_id"
+        case title
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(mealPlanId, forKey: .mealPlanId)
+        try c.encode(date, forKey: .date)
+        try c.encode(slot, forKey: .slot)
+        if let recipeId { try c.encode(recipeId, forKey: .recipeId) }
+        if let title { try c.encode(title, forKey: .title) }
+    }
+}
+
+/// PATCH body for `/api/meal-plan/[id]`. Always emits recipe_id and title — explicit null clears the field
+/// server-side, which is what mode switches require.
+private struct UpdateBody: Encodable {
+    let date: String
+    let slot: String
+    let recipeId: String?
+    let title: String?
+
+    enum CodingKeys: String, CodingKey {
+        case date
+        case slot
+        case recipeId = "recipe_id"
+        case title
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(date, forKey: .date)
+        try c.encode(slot, forKey: .slot)
+        try c.encode(recipeId, forKey: .recipeId)
+        try c.encode(title, forKey: .title)
     }
 }

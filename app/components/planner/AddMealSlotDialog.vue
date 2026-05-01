@@ -33,8 +33,45 @@
         </div>
       </div>
 
-      <!-- Search & Filter Bar -->
-      <div class="mb-4 space-y-3">
+      <!-- Mode toggle: pick a recipe vs free-text title -->
+      <div class="mb-4 flex gap-2">
+        <button
+          type="button"
+          @click="setMode('recipe')"
+          class="flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors"
+          :class="mode === 'recipe'
+            ? 'border-blue-600 bg-blue-50 text-blue-700'
+            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'"
+        >
+          Pick a recipe
+        </button>
+        <button
+          type="button"
+          @click="setMode('title')"
+          class="flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors"
+          :class="mode === 'title'
+            ? 'border-blue-600 bg-blue-50 text-blue-700'
+            : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50'"
+        >
+          Just a title
+        </button>
+      </div>
+
+      <!-- Title-only mode -->
+      <div v-if="mode === 'title'" class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+        <input
+          v-model="form.title"
+          type="text"
+          placeholder="e.g. Pizza takeout, Mom's lasagna"
+          maxlength="200"
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        />
+        <p class="text-xs text-gray-500 mt-1">No recipe is attached. The meal won't contribute to generated shopping lists.</p>
+      </div>
+
+      <!-- Search & Filter Bar (recipe mode only) -->
+      <div v-if="mode === 'recipe'" class="mb-4 space-y-3">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">Search Recipes</label>
           <input
@@ -67,7 +104,7 @@
       </div>
 
       <!-- Recipe Selection Grid -->
-      <div class="flex-1 overflow-y-auto mb-4 border-t border-gray-200 pt-4">
+      <div v-if="mode === 'recipe'" class="flex-1 overflow-y-auto mb-4 border-t border-gray-200 pt-4">
         <div v-if="loadingRecipes" class="text-center py-8">
           <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
           <p class="text-gray-600 mt-2">Loading recipes...</p>
@@ -133,7 +170,7 @@
         <button
           @click="handleSubmit"
           class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-          :disabled="loading || !form.recipe_id"
+          :disabled="loading || !canSubmit"
         >
           {{ loading ? 'Adding...' : 'Add Meal' }}
         </button>
@@ -180,11 +217,23 @@ const toLocalDateKey = (date: Date) => {
   return `${year}-${month}-${day}`;
 };
 
+const mode = ref<'recipe' | 'title'>('recipe');
+
 const form = ref({
   date: props.defaultDate || toLocalDateKey(new Date()),
   slot: props.defaultSlot || 'DINNER',
   recipe_id: '',
+  title: '',
 });
+
+const canSubmit = computed(() => {
+  if (mode.value === 'recipe') return !!form.value.recipe_id;
+  return form.value.title.trim().length > 0;
+});
+
+function setMode(next: 'recipe' | 'title') {
+  mode.value = next;
+}
 
 const filteredRecipes = computed(() => {
   let recipes = allRecipes.value;
@@ -271,32 +320,34 @@ function getRecipeLibrary(libraryId: string) {
 }
 
 const handleSubmit = async () => {
-  if (!form.value.recipe_id) {
-    alert('Please select a recipe');
-    return;
+  if (!canSubmit.value) return;
+
+  const body: Record<string, unknown> = {
+    meal_plan_id: props.mealPlanId,
+    date: form.value.date,
+    slot: form.value.slot,
+  };
+  if (mode.value === 'recipe') {
+    body.recipe_id = form.value.recipe_id;
+  } else {
+    body.title = form.value.title.trim();
   }
 
   loading.value = true;
   try {
-    await $fetch('/api/meal-plan', {
-      method: 'POST',
-      body: {
-        meal_plan_id: props.mealPlanId,
-        date: form.value.date,
-        slot: form.value.slot,
-        recipe_id: form.value.recipe_id,
-      },
-    });
+    await $fetch('/api/meal-plan', { method: 'POST', body });
 
     emit('success');
     emit('update:modelValue', false);
-    
+
     // Reset form
     form.value = {
       date: props.defaultDate || toLocalDateKey(new Date()),
       slot: props.defaultSlot || 'DINNER',
       recipe_id: '',
+      title: '',
     };
+    mode.value = 'recipe';
     searchQuery.value = '';
     selectedLibraryId.value = '';
   } catch (error: any) {
