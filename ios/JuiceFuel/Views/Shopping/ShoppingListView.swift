@@ -395,47 +395,61 @@ private struct ShoppingListDetailView: View {
 }
 
 /// Card view for a single shopping item — name + amount, dimmed/strikethrough when checked.
+///
+/// Layout note: a `Color.clear.aspectRatio(1, .fit)` is the canonical SwiftUI trick to make a
+/// LazyVGrid cell square. Content sits in an overlay on top, so its intrinsic height never
+/// affects the slot size — every card is exactly column-width × column-width.
 private struct ShoppingItemCard: View {
     let item: ShoppingListItem
 
     var body: some View {
+        Color.clear
+            .aspectRatio(1, contentMode: .fit)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color(.secondarySystemBackground))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .stroke(Color(.separator).opacity(0.5), lineWidth: 0.5)
+            )
+            .overlay(alignment: .topLeading) {
+                content
+                    .padding(10)
+            }
+            .opacity(item.isChecked ? 0.55 : 1)
+            .contentShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+    }
+
+    private var content: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(item.displayName)
                 .font(.subheadline.weight(.semibold))
                 .strikethrough(item.isChecked)
                 .foregroundStyle(item.isChecked ? .secondary : .primary)
                 .lineLimit(2)
+                .minimumScaleFactor(0.85)
+                .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
+
+            Spacer(minLength: 0)
 
             if let amount {
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(amount.value)
                         .font(.title3.weight(.semibold))
                         .foregroundStyle(item.isChecked ? Color.secondary : Color.accentColor)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
                     if !amount.unit.isEmpty {
                         Text(amount.unit)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
-            } else {
-                Text(" ")  // keep card heights consistent
-                    .font(.title3)
             }
         }
-        .padding(10)
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-        .aspectRatio(1, contentMode: .fit)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color(.secondarySystemBackground))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .stroke(Color(.separator).opacity(0.5), lineWidth: 0.5)
-        )
-        .opacity(item.isChecked ? 0.55 : 1)
-        .contentShape(RoundedRectangle(cornerRadius: 12))
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private var amount: (value: String, unit: String)? {
