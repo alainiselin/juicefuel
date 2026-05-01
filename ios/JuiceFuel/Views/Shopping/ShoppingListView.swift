@@ -147,7 +147,9 @@ private struct ShoppingListDetailView: View {
     @State private var showingGenerator = false
     @State private var confirmFinishShopping = false
 
-    private let cardColumns = [GridItem(.adaptive(minimum: 150), spacing: 10)]
+    // 3 equal-width columns on the iPhone width — paired with a 1:1 aspect ratio on
+    // each card for a tidy square grid like the web mobile layout.
+    private let cardColumns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 3)
 
     var body: some View {
         Group {
@@ -421,8 +423,9 @@ private struct ShoppingItemCard: View {
                     .font(.title3)
             }
         }
-        .padding(12)
-        .frame(maxWidth: .infinity, minHeight: 90, alignment: .topLeading)
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .aspectRatio(1, contentMode: .fit)
         .background(
             RoundedRectangle(cornerRadius: 12, style: .continuous)
                 .fill(Color(.secondarySystemBackground))

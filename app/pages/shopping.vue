@@ -228,7 +228,7 @@
               class="bg-white rounded-b-lg border-x border-b border-gray-200 p-4"
             >
               <!-- Items Grid -->
-              <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
+              <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
                 <ShoppingItemCard
                   v-for="item in rubric.items"
                   :key="item.id"
@@ -265,7 +265,7 @@
               v-show="expandedCheckedSections.has('all')"
               class="bg-white rounded-b-lg border-x border-b border-gray-200 p-4"
             >
-              <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
+              <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
                 <ShoppingItemCard
                   v-for="item in checkedItems"
                   :key="item.id"
