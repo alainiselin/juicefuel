@@ -84,6 +84,7 @@ struct ShoppingItemArticle: Codable, Hashable {
 struct ShoppingItemTag: Codable, Hashable, Identifiable {
     let id: String
     let label: String
+    let slug: String?
     let kind: String?
 }
 

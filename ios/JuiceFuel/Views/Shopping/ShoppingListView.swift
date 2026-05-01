@@ -145,59 +145,67 @@ private struct ShoppingListDetailView: View {
     @State private var showingAddItem = false
     @State private var editingItem: ShoppingListItem?
     @State private var showingGenerator = false
+    @State private var confirmFinishShopping = false
+
+    private let cardColumns = [GridItem(.adaptive(minimum: 150), spacing: 10)]
 
     var body: some View {
-        List {
+        Group {
             if list.items.isEmpty {
                 ContentUnavailableView {
                     Label("No items", systemImage: "cart.badge.plus")
                 } description: {
                     Text("Add ingredients or custom household items to this list.")
                 } actions: {
-                    Button("Add Item") {
-                        showingAddItem = true
-                    }
-                    .buttonStyle(.borderedProminent)
+                    Button("Add Item") { showingAddItem = true }
+                        .buttonStyle(.borderedProminent)
                 }
-                .listRowBackground(Color.clear)
-            }
+            } else {
+                ScrollView {
+                    LazyVStack(alignment: .leading, spacing: 20) {
+                        if let errorMessage {
+                            Text(errorMessage)
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                                .padding(.horizontal)
+                        }
 
-            ForEach(grouped, id: \.0) { (aisle, items) in
-                Section(header: Text(aisle)) {
-                    ForEach(items) { item in
-                        Button {
-                            toggle(item)
-                        } label: {
-                            itemRow(item)
+                        // Active rubric sections (only those that have unchecked items).
+                        ForEach(activeRubrics, id: \.id) { rubric in
+                            sectionView(
+                                title: rubric.name,
+                                count: itemsByRubric[rubric.id]?.count ?? 0,
+                                items: itemsByRubric[rubric.id] ?? []
+                            )
                         }
-                        .buttonStyle(.plain)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button(role: .destructive) {
-                                Task { await delete(item) }
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                            Button {
-                                editingItem = item
-                            } label: {
-                                Label("Edit", systemImage: "slider.horizontal.3")
-                            }
-                            .tint(.blue)
+
+                        // Checked items go to the bottom in their own collapsible section.
+                        if !checkedItems.isEmpty {
+                            sectionView(
+                                title: "Checked Items",
+                                count: checkedItems.count,
+                                items: checkedItems
+                            )
                         }
                     }
+                    .padding(.vertical)
                 }
-            }
-            if let errorMessage {
-                Text(errorMessage)
-                    .font(.footnote)
-                    .foregroundStyle(.red)
+                .refreshable { await reload() }
             }
         }
         .navigationTitle(list.title)
         .navigationBarTitleDisplayMode(.inline)
-        .refreshable { await reload() }
         .toolbar {
             ToolbarItemGroup(placement: .topBarTrailing) {
+                if !checkedItems.isEmpty {
+                    Button {
+                        confirmFinishShopping = true
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(.green)
+                    }
+                    .accessibilityLabel("Shopping finished")
+                }
                 Button {
                     showingGenerator = true
                 } label: {
@@ -209,6 +217,16 @@ private struct ShoppingListDetailView: View {
                     Image(systemName: "plus")
                 }
             }
+        }
+        .confirmationDialog(
+            "Remove \(checkedItems.count) checked item\(checkedItems.count == 1 ? "" : "s")?",
+            isPresented: $confirmFinishShopping,
+            titleVisibility: .visible
+        ) {
+            Button("Shopping finished", role: .destructive) {
+                Task { await clearCheckedItems() }
+            }
+            Button("Cancel", role: .cancel) {}
         }
         .sheet(isPresented: $showingAddItem) {
             AddShoppingItemSheet(list: $list) {
@@ -233,6 +251,63 @@ private struct ShoppingListDetailView: View {
         }
     }
 
+    @ViewBuilder
+    private func sectionView(title: String, count: Int, items: [ShoppingListItem]) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline) {
+                Text(title)
+                    .font(.headline)
+                Text("\(count)")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                Spacer()
+            }
+            .padding(.horizontal)
+
+            LazyVGrid(columns: cardColumns, spacing: 10) {
+                ForEach(items) { item in
+                    ShoppingItemCard(item: item)
+                        .onTapGesture { toggle(item) }
+                        .contextMenu {
+                            Button {
+                                editingItem = item
+                            } label: {
+                                Label("Edit", systemImage: "slider.horizontal.3")
+                            }
+                            Button(role: .destructive) {
+                                Task { await delete(item) }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+
+    // MARK: - Derived state
+
+    /// Unchecked items grouped by rubric id, preserving the fixed rubric order.
+    private var itemsByRubric: [String: [ShoppingListItem]] {
+        var buckets: [String: [ShoppingListItem]] = [:]
+        for item in list.items where !item.isChecked {
+            let id = ShoppingRubrics.rubric(for: item).id
+            buckets[id, default: []].append(item)
+        }
+        return buckets
+    }
+
+    private var activeRubrics: [ShoppingRubric] {
+        ShoppingRubrics.all.filter { (itemsByRubric[$0.id]?.isEmpty == false) }
+    }
+
+    private var checkedItems: [ShoppingListItem] {
+        list.items.filter { $0.isChecked }
+    }
+
+    // MARK: - Networking
+
     private func reload() async {
         do {
             let fresh: ShoppingList = try await APIClient.shared.send(
@@ -245,39 +320,6 @@ private struct ShoppingListDetailView: View {
         } catch {
             errorMessage = error.localizedDescription
         }
-    }
-
-    private func itemRow(_ item: ShoppingListItem) -> some View {
-        HStack {
-            Image(systemName: item.isChecked ? "checkmark.circle.fill" : "circle")
-                .foregroundStyle(item.isChecked ? Color.green : Color.secondary)
-                .imageScale(.large)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(item.displayName)
-                    .strikethrough(item.isChecked)
-                    .foregroundStyle(item.isChecked ? .secondary : .primary)
-                if let amount = formattedAmount(item) {
-                    Text(amount).font(.caption).foregroundStyle(.secondary)
-                }
-            }
-            Spacer()
-        }
-        .contentShape(Rectangle())
-    }
-
-    private func formattedAmount(_ item: ShoppingListItem) -> String? {
-        guard let q = item.quantity else { return nil }
-        let n = NumberFormatter.localizedString(from: NSNumber(value: q), number: .decimal)
-        if let unit = item.unit { return "\(n) \(unit.lowercased())" }
-        return n
-    }
-
-    private var grouped: [(String, [ShoppingListItem])] {
-        let groups = Dictionary(grouping: list.items) { item -> String in
-            item.tags?.first(where: { $0.kind == "AISLE" })?.label ?? "Other"
-        }
-        return groups
-            .sorted { $0.key.localizedCompare($1.key) == .orderedAscending }
     }
 
     private func toggle(_ item: ShoppingListItem) {
@@ -294,8 +336,8 @@ private struct ShoppingListDetailView: View {
                     path: "/api/shopping-list-items/\(id)",
                     body: ["is_checked": newValue]
                 )
+                onChange(list)
             } catch {
-                // Revert on failure.
                 if let i = list.items.firstIndex(where: { $0.id == id }) {
                     list.items[i].isChecked = previous
                 }
@@ -320,6 +362,84 @@ private struct ShoppingListDetailView: View {
         if let index = list.items.firstIndex(where: { $0.id == item.id }) {
             list.items[index] = item
         }
+    }
+
+    private func clearCheckedItems() async {
+        let toRemove = checkedItems
+        guard !toRemove.isEmpty else { return }
+
+        let previous = list.items
+        list.items.removeAll { $0.isChecked }
+
+        // Delete in parallel; revert all on any failure.
+        do {
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for item in toRemove {
+                    group.addTask {
+                        _ = try await APIClient.shared.sendVoid(
+                            "DELETE",
+                            path: "/api/shopping-list-items/\(item.id)"
+                        )
+                    }
+                }
+                try await group.waitForAll()
+            }
+            onChange(list)
+        } catch {
+            list.items = previous
+            errorMessage = "Couldn't clear all — \(error.localizedDescription)"
+        }
+    }
+}
+
+/// Card view for a single shopping item — name + amount, dimmed/strikethrough when checked.
+private struct ShoppingItemCard: View {
+    let item: ShoppingListItem
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(item.displayName)
+                .font(.subheadline.weight(.semibold))
+                .strikethrough(item.isChecked)
+                .foregroundStyle(item.isChecked ? .secondary : .primary)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            if let amount {
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(amount.value)
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(item.isChecked ? Color.secondary : Color.accentColor)
+                    if !amount.unit.isEmpty {
+                        Text(amount.unit)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            } else {
+                Text(" ")  // keep card heights consistent
+                    .font(.title3)
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, minHeight: 90, alignment: .topLeading)
+        .background(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color(.secondarySystemBackground))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .stroke(Color(.separator).opacity(0.5), lineWidth: 0.5)
+        )
+        .opacity(item.isChecked ? 0.55 : 1)
+        .contentShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var amount: (value: String, unit: String)? {
+        let q = ShoppingFormat.quantity(item.quantity)
+        let u = ShoppingFormat.unit(item.unit)
+        if q.isEmpty && u.isEmpty { return nil }
+        return (q, u)
     }
 }
 
