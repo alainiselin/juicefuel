@@ -659,19 +659,21 @@ const toggleCheckedSection = (rubricId: RubricId | 'all') => {
 
 const toggleItem = async (itemId: string, newIsChecked: boolean) => {
   if (!currentList.value) return;
-  
+  // Item hasn't been confirmed by the server yet (optimistic add still pending) — skip.
+  if (isTempId(itemId)) return;
+
   try {
     // Update via API to get full item with tags back
     const updated = await $fetch(`/api/shopping-list-items/${itemId}`, {
       method: 'PATCH',
       body: { is_checked: newIsChecked },
     }) as ShoppingListItemDetail;
-    
+
     // Diagnostic: log if tags are missing
     if (!updated.tags || updated.tags.length === 0) {
       console.warn(`⚠️  Item ${itemId} returned without tags after toggle!`);
     }
-    
+
     // Update local state with full item (preserving tags)
     const index = currentList.value.items.findIndex(i => i.id === itemId);
     if (index !== -1) {
@@ -705,22 +707,25 @@ const onItemUpdated = async (updated: ShoppingListItemDetail, aisleChanged?: boo
 
 const deleteItem = async (itemId: string) => {
   if (!currentList.value) return;
-  
+
+  // Optimistic delete: drop locally first, then call DELETE in the background.
+  const previous = currentList.value.items.slice();
+  currentList.value.items = currentList.value.items.filter((i) => i.id !== itemId);
+  if (selectedItem.value?.id === itemId) {
+    showItemDetailModal.value = false;
+    selectedItem.value = null;
+  }
+
+  // Temp items were never persisted server-side — skip the network call.
+  if (isTempId(itemId)) return;
+
   try {
-    await $fetch(`/api/shopping-list-items/${itemId}`, {
-      method: 'DELETE',
-    });
-    
-    // Remove from local state
-    currentList.value.items = currentList.value.items.filter(i => i.id !== itemId);
-    
-    // Close modal if this was the selected item
-    if (selectedItem.value?.id === itemId) {
-      showItemDetailModal.value = false;
-      selectedItem.value = null;
-    }
+    await $fetch(`/api/shopping-list-items/${itemId}`, { method: 'DELETE' });
   } catch (error) {
+    // Revert on failure.
+    currentList.value.items = previous;
     console.error('Failed to delete item:', error);
+    alert('Failed to delete item — please try again.');
   }
 };
 
@@ -829,73 +834,154 @@ const selectHighlightedResult = () => {
   }
 };
 
-const addItemToList = async (item: { type?: string; id: string; name: string; default_unit?: Unit }) => {
+/// Add a search-result hit to the current list. Returns immediately so the input is ready
+/// for the next entry; the network call happens in the background.
+///
+/// - If the item is already on the list, increment its quantity (optimistic).
+/// - Otherwise, push a temp row that looks like the future server response and replace it
+///   with the real one when the POST returns. On failure, remove the temp / revert.
+const addItemToList = (item: { type?: string; id: string; name: string; default_unit?: Unit; aisle?: string }) => {
   if (!currentList.value) return;
-  
+  const list = currentList.value;
   const isArticle = item.type === 'ARTICLE';
-  
-  // Check if item already in list
-  const existing = currentList.value.items.find(i => 
+
+  const existing = list.items.find((i) =>
     isArticle ? i.article_id === item.id : i.ingredient_id === item.id
   );
-  
+
   if (existing) {
-    // Show subtle feedback that item is already on list
-    // For now, just increase quantity by 1
-    try {
-      const newQuantity = (existing.quantity || 1) + 1;
-      const updated = await $fetch(`/api/shopping-list-items/${existing.id}`, {
-        method: 'PATCH',
-        body: { quantity: newQuantity },
-      }) as ShoppingListItemDetail;
-      
-      const index = currentList.value.items.findIndex(i => i.id === existing.id);
-      if (index !== -1) {
-        currentList.value.items[index] = updated;
-      }
-      
-      console.log(`✓ Increased quantity of "${item.name}" to ${newQuantity}`);
-    } catch (error) {
-      console.error('Failed to update quantity:', error);
-    }
+    optimisticIncrementQuantity(existing);
   } else {
-    // Add new item with default quantity 1 and unit (backend will apply fallback if needed)
-    try {
-      const unit = item.default_unit || undefined;
-      
-      if (isArticle) {
-        // Add article
-        await store.addItem(
-          currentList.value.id,
-          undefined, // no ingredient_id
-          1,
-          unit,
-          item.id // article_id
-        );
-      } else {
-        // Add ingredient
-        await store.addItem(
-          currentList.value.id, 
-          item.id, // ingredient_id
-          1, 
-          unit
-        );
-      }
-      
-      console.log(`✓ Added "${item.name}" to shopping list`);
-    } catch (error) {
-      console.error('Failed to add item:', error);
-    }
+    optimisticAddNewItem(item, isArticle);
   }
-  
-  // Clear search and refocus
+
+  // Clear search and refocus for fast repeated entry — happens immediately, no awaiting.
   searchQuery.value = '';
   searchResults.value = [];
   highlightedIndex.value = 0;
-  
-  // Keep focus for fast repeated entry
   nextTick(() => searchInput.value?.focus());
 };
+
+const isTempId = (id: string) => id.startsWith('temp-');
+
+function optimisticIncrementQuantity(existing: ShoppingListItemDetail) {
+  if (!currentList.value) return;
+  // Don't fire a network call against an item that doesn't exist server-side yet.
+  if (isTempId(existing.id)) return;
+
+  const newQuantity = (existing.quantity || 1) + 1;
+  const prevQuantity = existing.quantity;
+  const id = existing.id;
+
+  // Apply optimistically.
+  const idx = currentList.value.items.findIndex((i) => i.id === id);
+  if (idx !== -1) {
+    currentList.value.items[idx] = { ...existing, quantity: newQuantity };
+  }
+
+  void (async () => {
+    try {
+      const updated = (await $fetch(`/api/shopping-list-items/${id}`, {
+        method: 'PATCH',
+        body: { quantity: newQuantity },
+      })) as ShoppingListItemDetail;
+
+      const cur = currentList.value;
+      if (!cur) return;
+      const i = cur.items.findIndex((x) => x.id === id);
+      if (i !== -1) cur.items[i] = updated;
+    } catch (error) {
+      // Roll back.
+      const cur = currentList.value;
+      if (!cur) return;
+      const i = cur.items.findIndex((x) => x.id === id);
+      if (i !== -1) cur.items[i] = { ...cur.items[i], quantity: prevQuantity };
+      console.error('Failed to update quantity:', error);
+    }
+  })();
+}
+
+function optimisticAddNewItem(
+  item: { id: string; name: string; default_unit?: Unit; aisle?: string },
+  isArticle: boolean
+) {
+  if (!currentList.value) return;
+  const list = currentList.value;
+  const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const now = new Date().toISOString();
+
+  // Build a fake AISLE tag from the search result's aisle so the new card lands in the
+  // right rubric immediately. Falls back to "Own Items" when aisle is unknown.
+  const tempTags = item.aisle
+    ? [
+        {
+          id: `aisle-${item.aisle}`,
+          label: item.aisle.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+          slug: item.aisle,
+          kind: 'AISLE',
+          scope: 'GLOBAL' as const,
+          household_id: null,
+          created_at: now,
+        },
+      ]
+    : [];
+
+  const tempItem: ShoppingListItemDetail = {
+    id: tempId,
+    shopping_list_id: list.id,
+    ingredient_id: isArticle ? null : item.id,
+    article_id: isArticle ? item.id : null,
+    quantity: 1,
+    unit: item.default_unit ?? null,
+    note: null,
+    is_checked: false,
+    created_at: now,
+    updated_at: now,
+    ingredient: !isArticle
+      ? {
+          id: item.id,
+          name: item.name,
+          default_unit: item.default_unit ?? null,
+          created_at: now,
+          updated_at: now,
+        }
+      : null,
+    article: isArticle
+      ? {
+          id: item.id,
+          name: item.name,
+          default_unit: item.default_unit ?? null,
+        }
+      : null,
+    tags: tempTags,
+  };
+
+  list.items.push(tempItem);
+
+  void (async () => {
+    try {
+      const real = (await $fetch(`/api/shopping-list/${list.id}/items`, {
+        method: 'POST',
+        body: {
+          ingredient_id: !isArticle ? item.id : undefined,
+          article_id: isArticle ? item.id : undefined,
+          quantity: 1,
+          unit: item.default_unit,
+        },
+      })) as ShoppingListItemDetail;
+
+      const cur = currentList.value;
+      if (!cur) return;
+      const idx = cur.items.findIndex((i) => i.id === tempId);
+      if (idx !== -1) cur.items[idx] = real;
+    } catch (error) {
+      const cur = currentList.value;
+      if (cur) cur.items = cur.items.filter((i) => i.id !== tempId);
+      console.error('Failed to add item:', error);
+      alert(`Failed to add "${item.name}" — please try again.`);
+    }
+  })();
+}
 
 const clearSearch = () => {
   searchQuery.value = '';
@@ -909,25 +995,22 @@ const clearSearch = () => {
 
 const createAndAddCustomItem = async () => {
   if (!searchQuery.value || !currentList.value) return;
-  
+
   try {
-    // Create custom article (non-food item)
+    // Article creation needs a real ID before we can attach it to the list, so this part
+    // is unavoidable. Once we have the article, the add-to-list itself is optimistic.
     const article = await $fetch('/api/shopping/articles', {
       method: 'POST',
-      body: {
-        name: searchQuery.value,
-      },
+      body: { name: searchQuery.value },
     }) as { id: string; name: string; default_unit?: Unit; default_aisle: string };
-    
-    // Add to shopping list immediately
-    await addItemToList({
+
+    addItemToList({
       type: 'ARTICLE',
       id: article.id,
       name: article.name,
       default_unit: article.default_unit,
+      aisle: article.default_aisle,
     });
-    
-    console.log(`✓ Created and added "${article.name}" to shopping list`);
   } catch (error) {
     console.error('Failed to create custom article:', error);
     alert('Failed to create custom item. Please try again.');

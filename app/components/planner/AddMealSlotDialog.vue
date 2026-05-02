@@ -189,6 +189,7 @@
 
 <script setup lang="ts">
 import type { Recipe } from '../../../spec/schemas';
+import { useMealPlanStore } from '../../stores/mealPlan';
 
 const props = defineProps<{
   modelValue: boolean;
@@ -319,42 +320,49 @@ function getRecipeLibrary(libraryId: string) {
   return libraries.value.find(lib => lib.id === libraryId);
 }
 
-const handleSubmit = async () => {
+const mealPlanStore = useMealPlanStore();
+
+const handleSubmit = () => {
   if (!canSubmit.value) return;
 
-  const body: Record<string, unknown> = {
+  const isRecipe = mode.value === 'recipe';
+  const data = {
     meal_plan_id: props.mealPlanId,
     date: form.value.date,
     slot: form.value.slot,
+    recipe_id: isRecipe ? form.value.recipe_id : null,
+    title: isRecipe ? null : form.value.title.trim(),
   };
-  if (mode.value === 'recipe') {
-    body.recipe_id = form.value.recipe_id;
-  } else {
-    body.title = form.value.title.trim();
-  }
 
-  loading.value = true;
-  try {
-    await $fetch('/api/meal-plan', { method: 'POST', body });
+  // Hand the recipe object to the store so the optimistic card renders with full data
+  // (title, ingredient count) instead of "Untitled meal".
+  const optimisticRecipe = isRecipe
+    ? allRecipes.value.find((r) => r.id === form.value.recipe_id) ?? null
+    : null;
 
-    emit('success');
-    emit('update:modelValue', false);
+  // Snapshot for form reset; close the dialog immediately.
+  const itemLabel = isRecipe ? optimisticRecipe?.title ?? 'recipe' : data.title!;
+  emit('success');
+  emit('update:modelValue', false);
+  resetForm();
 
-    // Reset form
-    form.value = {
-      date: props.defaultDate || toLocalDateKey(new Date()),
-      slot: props.defaultSlot || 'DINNER',
-      recipe_id: '',
-      title: '',
-    };
-    mode.value = 'recipe';
-    searchQuery.value = '';
-    selectedLibraryId.value = '';
-  } catch (error: any) {
+  // Background mutation. Errors surface as a toast/alert; the optimistic entry was
+  // already rolled back by the store.
+  mealPlanStore.createEntry(data, optimisticRecipe).catch((error: any) => {
     console.error('Failed to add meal:', error);
-    alert(error?.data?.message || 'Failed to add meal');
-  } finally {
-    loading.value = false;
-  }
+    alert(error?.data?.message || `Failed to add "${itemLabel}". Please try again.`);
+  });
 };
+
+function resetForm() {
+  form.value = {
+    date: props.defaultDate || toLocalDateKey(new Date()),
+    slot: props.defaultSlot || 'DINNER',
+    recipe_id: '',
+    title: '',
+  };
+  mode.value = 'recipe';
+  searchQuery.value = '';
+  selectedLibraryId.value = '';
+}
 </script>

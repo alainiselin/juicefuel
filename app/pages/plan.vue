@@ -126,6 +126,8 @@
     </div>
 
     <!-- Add Meal Dialog -->
+    <!-- The dialog now adds optimistically via the meal-plan store, so we don't
+         refetch here — that would race with the in-flight POST and lose the temp entry. -->
     <AddMealSlotDialog
       v-if="currentHousehold?.meal_plan"
       v-model="showAddMealDialog"
@@ -133,9 +135,8 @@
       :recipes="recipes"
       :default-date="defaultMealDate"
       :default-slot="defaultMealSlot"
-      @success="loadEntries"
     />
-    
+
     <!-- Meal Plan Generator Modal -->
     <MealPlanGeneratorModal
       v-if="currentHousehold?.meal_plan"
