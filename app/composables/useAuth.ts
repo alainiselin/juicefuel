@@ -4,7 +4,8 @@ export const useAuth = () => {
   
   const fetchSession = async () => {
     try {
-      const data = await $fetch('/api/auth/session');
+      const requestFetch = process.server ? useRequestFetch() : $fetch;
+      const data = await requestFetch('/api/auth/session');
       user.value = data.user;
     } catch (error) {
       user.value = null;

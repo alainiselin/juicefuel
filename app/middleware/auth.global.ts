@@ -1,7 +1,4 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  // Skip middleware on server-side
-  if (process.server) return;
-
   const { user, loading, fetchSession } = useAuth();
 
   // Fetch session on first navigation if not loaded
@@ -20,8 +17,4 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo('/plan');
   }
 
-  // Root is the app entry: authenticated users land on Plan, guests go to login.
-  if (to.path === '/') {
-    return navigateTo(user.value ? '/plan' : '/login');
-  }
 });

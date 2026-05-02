@@ -200,6 +200,7 @@ const toLocalDateKey = (date: Date) => {
 
 // Computed
 const currentHousehold = computed(() => householdStore.activeHousehold);
+const households = computed(() => householdStore.households);
 
 const weekEndDate = computed(() => {
   const end = new Date(weekStartDate.value);
