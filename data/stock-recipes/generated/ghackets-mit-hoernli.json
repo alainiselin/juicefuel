@@ -1,0 +1,153 @@
+{
+  "slug": "ghackets-mit-hoernli",
+  "source_title": "Ghackets mit Hörnli",
+  "normalized_title": "Ghackets mit Hörnli",
+  "query": "Swiss Ghackets mit Hoernli minced beef sauce with elbow pasta and apple sauce on the side",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:32:27.582Z",
+  "draft": {
+    "title": "Ghackets mit Hörnli",
+    "description": "Traditional Swiss minced beef sauce served with elbow pasta and apple sauce on the side. A comforting and hearty meal perfect for home cooking.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 40,
+      "total_min": 55
+    },
+    "ingredients": [
+      {
+        "name": "minced beef",
+        "amount": 500,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "carrot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely diced"
+      },
+      {
+        "name": "celery stalk",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely diced"
+      },
+      {
+        "name": "butter",
+        "amount": 20,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "flour",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "beef broth",
+        "amount": 500,
+        "unit": "ml",
+        "note": "preferably homemade or low-sodium"
+      },
+      {
+        "name": "tomato paste",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "bay leaf",
+        "amount": 1,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "elbow pasta",
+        "amount": 400,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "apple sauce",
+        "amount": 200,
+        "unit": "g",
+        "note": "store-bought or homemade"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat butter in a large pan over medium heat. Add chopped onion, carrot, and celery and sauté until softened, about 5 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Add minced beef to the pan, breaking it up with a spoon. Cook until browned all over, about 8 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Sprinkle flour over the meat and vegetables, stir well and cook for 1-2 minutes to remove raw flour taste."
+      },
+      {
+        "order": 4,
+        "text": "Gradually add beef broth while stirring to avoid lumps. Stir in tomato paste and add bay leaf."
+      },
+      {
+        "order": 5,
+        "text": "Reduce heat to low and simmer uncovered for 25-30 minutes until sauce thickens. Season with salt and pepper to taste."
+      },
+      {
+        "order": 6,
+        "text": "Meanwhile, bring a large pot of salted water to a boil. Cook elbow pasta according to package instructions until al dente. Drain well."
+      },
+      {
+        "order": 7,
+        "text": "Remove bay leaf from the sauce. Serve minced beef sauce hot over the cooked elbow pasta with apple sauce on the side."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "savory",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "slug": "fondue",
+  "source_title": "Fondue",
+  "normalized_title": "Cheese Fondue",
+  "query": "Swiss cheese fondue with Gruyere, Vacherin or Emmental, white wine, kirsch, and bread",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:37:09.799Z",
+  "draft": {
+    "title": "Cheese Fondue",
+    "description": "Classic Swiss cheese fondue with Gruyere, Vacherin or Emmental, white wine, kirsch, and crusty bread for dipping.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 15,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "gruyere cheese",
+        "amount": 200,
+        "unit": "g",
+        "note": "grated"
+      },
+      {
+        "name": "vacherin cheese",
+        "amount": 200,
+        "unit": "g",
+        "note": "grated"
+      },
+      {
+        "name": "emmental cheese",
+        "amount": 100,
+        "unit": "g",
+        "note": "grated"
+      },
+      {
+        "name": "dry white wine",
+        "amount": 300,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "kirsch",
+        "amount": 30,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "garlic",
+        "amount": 1,
+        "unit": "piece",
+        "note": "halved"
+      },
+      {
+        "name": "cornstarch",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "dissolved in a little wine"
+      },
+      {
+        "name": "lemon juice",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "freshly ground black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "nutmeg",
+        "amount": null,
+        "unit": null,
+        "note": "a pinch, freshly grated"
+      },
+      {
+        "name": "crusty bread",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into bite-sized cubes"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Rub the inside of a fondue pot with the cut sides of the garlic, then discard the garlic."
+      },
+      {
+        "order": 2,
+        "text": "Pour the white wine into the pot and heat gently until hot but not boiling."
+      },
+      {
+        "order": 3,
+        "text": "Gradually add the grated cheeses, stirring constantly in a figure-eight motion until melted and smooth."
+      },
+      {
+        "order": 4,
+        "text": "Mix the dissolved cornstarch with lemon juice and stir into the cheese mixture to thicken."
+      },
+      {
+        "order": 5,
+        "text": "Add kirsch, pepper, and nutmeg, stirring well and keep warm over low heat."
+      },
+      {
+        "order": 6,
+        "text": "Serve immediately with crusty bread cubes for dipping."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "rich",
+        "creamy",
+        "salty",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "premium"
+      ]
+    },
+    "warnings": [
+      "Keep the heat low to prevent cheese from burning or separating.",
+      "Use good quality Swiss cheeses for authentic flavor.",
+      "Consume fondue promptly to avoid thickening too much."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

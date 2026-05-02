@@ -1,0 +1,188 @@
+{
+  "slug": "paella",
+  "source_title": "Paella",
+  "normalized_title": "Paella",
+  "query": "Spanish paella with chicken, seafood, saffron, smoked paprika, and short grain rice",
+  "cuisine": [
+    "spanish"
+  ],
+  "generated_at": "2026-05-01T10:30:57.532Z",
+  "draft": {
+    "title": "Paella",
+    "description": "Spanish paella with chicken, seafood, saffron, smoked paprika, and short grain rice, perfect for a flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 40,
+      "total_min": 60
+    },
+    "ingredients": [
+      {
+        "name": "chicken thigh",
+        "amount": 400,
+        "unit": "g",
+        "note": "boneless, skinless, cut into pieces"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 3,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "tomato",
+        "amount": 2,
+        "unit": "piece",
+        "note": "medium, grated or finely chopped"
+      },
+      {
+        "name": "short grain rice",
+        "amount": 300,
+        "unit": "g",
+        "note": "such as bomba or arborio"
+      },
+      {
+        "name": "chicken broth",
+        "amount": 900,
+        "unit": "ml",
+        "note": "warm"
+      },
+      {
+        "name": "saffron threads",
+        "amount": 0.1,
+        "unit": "g",
+        "note": "soaked in 2 tbsp warm water"
+      },
+      {
+        "name": "smoked paprika",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "preferably Spanish pimentón"
+      },
+      {
+        "name": "seafood mix",
+        "amount": 300,
+        "unit": "g",
+        "note": "e.g. mussels, shrimp, squid"
+      },
+      {
+        "name": "frozen peas",
+        "amount": 100,
+        "unit": "g",
+        "note": "thawed"
+      },
+      {
+        "name": "lemon",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into wedges for serving"
+      },
+      {
+        "name": "fresh parsley",
+        "amount": 10,
+        "unit": "g",
+        "note": "chopped for garnish"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat olive oil in a large paella pan or wide skillet over medium heat."
+      },
+      {
+        "order": 2,
+        "text": "Add chicken pieces, season with salt and pepper, and brown on all sides, about 5-7 minutes. Remove and set aside."
+      },
+      {
+        "order": 3,
+        "text": "In the same pan, add onion and red bell pepper; sauté until softened, about 5 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Add garlic and smoked paprika; cook for 1 minute until fragrant."
+      },
+      {
+        "order": 5,
+        "text": "Stir in grated tomato and cook until the mixture thickens, about 5 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Add rice and stir to coat with the tomato mixture."
+      },
+      {
+        "order": 7,
+        "text": "Pour in warm chicken broth and saffron with its soaking water; stir gently and bring to a simmer."
+      },
+      {
+        "order": 8,
+        "text": "Return chicken to the pan, distributing evenly. Cook uncovered over medium heat without stirring for 15 minutes."
+      },
+      {
+        "order": 9,
+        "text": "Arrange seafood mix and peas on top; continue cooking until rice is tender and seafood is cooked through, about 10-15 minutes."
+      },
+      {
+        "order": 10,
+        "text": "Remove from heat and cover with a clean kitchen towel; let rest for 5 minutes."
+      },
+      {
+        "order": 11,
+        "text": "Garnish with chopped parsley and serve with lemon wedges."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "spanish"
+      ],
+      "FLAVOR": [
+        "smoky",
+        "savory",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

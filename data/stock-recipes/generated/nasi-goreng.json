@@ -1,0 +1,160 @@
+{
+  "slug": "nasi-goreng",
+  "source_title": "Fried Rice (Nasi Goreng)",
+  "normalized_title": "Nasi Goreng",
+  "query": "Indonesian nasi goreng fried rice with kecap manis, chili, egg, and vegetables",
+  "cuisine": [
+    "indonesian"
+  ],
+  "generated_at": "2026-05-01T10:35:45.627Z",
+  "draft": {
+    "title": "Nasi Goreng",
+    "description": "Indonesian fried rice with kecap manis, chili, egg, and vegetables, perfect for a quick and flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 15,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "cooked jasmine rice",
+        "amount": 600,
+        "unit": "g",
+        "note": "preferably day-old, cold"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "shallot",
+        "amount": 2,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "red chili",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced, adjust to taste"
+      },
+      {
+        "name": "carrot",
+        "amount": 100,
+        "unit": "g",
+        "note": "diced"
+      },
+      {
+        "name": "green bean",
+        "amount": 100,
+        "unit": "g",
+        "note": "cut into 2 cm pieces"
+      },
+      {
+        "name": "egg",
+        "amount": 2,
+        "unit": "piece",
+        "note": "beaten"
+      },
+      {
+        "name": "kecap manis",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "sweet soy sauce"
+      },
+      {
+        "name": "soy sauce",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "light soy sauce"
+      },
+      {
+        "name": "spring onion",
+        "amount": 2,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "white pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat 1 tbsp vegetable oil in a large wok or frying pan over medium heat."
+      },
+      {
+        "order": 2,
+        "text": "Add shallots, garlic, and red chili; stir-fry until fragrant and softened, about 2 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add diced carrot and green beans; cook for 3-4 minutes until vegetables are tender but crisp."
+      },
+      {
+        "order": 4,
+        "text": "Push vegetables to the side, add remaining oil, then pour in beaten eggs and scramble until just set."
+      },
+      {
+        "order": 5,
+        "text": "Add cooked rice, breaking up any clumps, and stir-fry to combine with vegetables and egg."
+      },
+      {
+        "order": 6,
+        "text": "Stir in kecap manis and soy sauce evenly, then season with salt and white pepper to taste."
+      },
+      {
+        "order": 7,
+        "text": "Continue to stir-fry for 3-5 minutes until rice is heated through and slightly caramelized."
+      },
+      {
+        "order": 8,
+        "text": "Remove from heat, stir in sliced spring onion, and serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "indonesian"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "sweet",
+        "umami",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

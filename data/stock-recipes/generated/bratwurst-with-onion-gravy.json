@@ -1,0 +1,143 @@
+{
+  "slug": "bratwurst-with-onion-gravy",
+  "source_title": "Bratwurst mit Zwiebelsauce",
+  "normalized_title": "Bratwurst with Onion Gravy",
+  "query": "German bratwurst with onion gravy served with potatoes or mash",
+  "cuisine": [
+    "german"
+  ],
+  "generated_at": "2026-05-01T10:33:00.148Z",
+  "draft": {
+    "title": "Bratwurst with Onion Gravy",
+    "description": "German bratwurst served with rich onion gravy, perfect with boiled potatoes or mash for a hearty meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 30,
+      "total_min": 40
+    },
+    "ingredients": [
+      {
+        "name": "bratwurst",
+        "amount": 8,
+        "unit": "piece",
+        "note": "about 80-100 g each"
+      },
+      {
+        "name": "onion",
+        "amount": 3,
+        "unit": "piece",
+        "note": "medium size, thinly sliced"
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": "30 g for onion gravy, 20 g for mash if serving with potatoes"
+      },
+      {
+        "name": "flour",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "beef broth",
+        "amount": 500,
+        "unit": "ml",
+        "note": "or vegetable broth"
+      },
+      {
+        "name": "mustard",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "optional, for flavor"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "potato",
+        "amount": 800,
+        "unit": "g",
+        "note": "for boiling or mashing"
+      },
+      {
+        "name": "milk",
+        "amount": 100,
+        "unit": "ml",
+        "note": "for mash, optional"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Peel and slice the onions thinly."
+      },
+      {
+        "order": 2,
+        "text": "Heat butter in a large pan over medium heat and sauté onions slowly until golden brown and caramelized, about 15-20 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Sprinkle flour over the onions and stir well to coat; cook for 1-2 minutes to remove raw flour taste."
+      },
+      {
+        "order": 4,
+        "text": "Gradually add beef broth while stirring continuously to avoid lumps; bring to a simmer and cook until gravy thickens, about 5 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Season gravy with salt, pepper, and mustard if using; keep warm on low heat."
+      },
+      {
+        "order": 6,
+        "text": "Meanwhile, bring a pot of salted water to boil and cook potatoes until tender, about 20 minutes."
+      },
+      {
+        "order": 7,
+        "text": "In another pan, cook bratwurst over medium heat, turning frequently, until browned and cooked through, about 15 minutes."
+      },
+      {
+        "order": 8,
+        "text": "Drain potatoes and mash with butter and milk if desired; season with salt and pepper."
+      },
+      {
+        "order": 9,
+        "text": "Serve bratwurst topped with onion gravy alongside the potatoes or mash."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german"
+      ],
+      "FLAVOR": [
+        "rich",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

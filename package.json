@@ -20,7 +20,9 @@
     "seed:mvp-data": "npm run import:tags && npm run seed:ingredients && npm run setup:aisle-tags",
     "seed:catalog-data": "npm run import:tags && npm run seed:ingredients && npm run setup:aisle-tags",
     "build:tags-seed": "tsx scripts/build-tags-seed.ts",
-    "import:tags": "tsx scripts/import-tags.ts"
+    "import:tags": "tsx scripts/import-tags.ts",
+    "generate:stock-recipes": "tsx scripts/generate-stock-recipes.ts",
+    "import:stock-recipes": "tsx scripts/import-stock-recipes.ts"
   },
   "dependencies": {
     "@auth/core": "^0.41.0",

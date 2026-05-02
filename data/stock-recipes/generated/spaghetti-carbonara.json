@@ -1,0 +1,116 @@
+{
+  "slug": "spaghetti-carbonara",
+  "source_title": "Spaghetti Carbonara",
+  "normalized_title": "Spaghetti Carbonara",
+  "query": "Roman spaghetti carbonara with guanciale, eggs, pecorino romano, and black pepper",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:35:54.741Z",
+  "draft": {
+    "title": "Spaghetti Carbonara",
+    "description": "Classic Roman spaghetti carbonara with guanciale, eggs, pecorino romano, and black pepper, perfect for a rich and savory meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 15,
+      "total_min": 25
+    },
+    "ingredients": [
+      {
+        "name": "spaghetti",
+        "amount": 400,
+        "unit": "g",
+        "note": "preferably dried"
+      },
+      {
+        "name": "guanciale",
+        "amount": 150,
+        "unit": "g",
+        "note": "cut into small strips"
+      },
+      {
+        "name": "egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "use only yolks for creaminess"
+      },
+      {
+        "name": "pecorino romano",
+        "amount": 100,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "black pepper",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "freshly ground"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "for pasta water"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Bring a large pot of salted water to a boil and cook the spaghetti until al dente, about 8-9 minutes."
+      },
+      {
+        "order": 2,
+        "text": "While pasta cooks, heat a pan over medium heat and cook the guanciale until crisp and golden, about 5-7 minutes. Remove from heat."
+      },
+      {
+        "order": 3,
+        "text": "In a bowl, whisk together the egg yolks, grated pecorino romano, and freshly ground black pepper until smooth."
+      },
+      {
+        "order": 4,
+        "text": "Reserve about 150 ml of pasta cooking water, then drain the spaghetti."
+      },
+      {
+        "order": 5,
+        "text": "Add the hot spaghetti to the pan with guanciale off the heat. Quickly pour the egg and cheese mixture over the pasta, tossing vigorously to create a creamy sauce without scrambling the eggs."
+      },
+      {
+        "order": 6,
+        "text": "Add reserved pasta water a little at a time if needed to loosen the sauce and achieve a silky texture."
+      },
+      {
+        "order": 7,
+        "text": "Serve immediately with extra pecorino and black pepper if desired."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "rich",
+        "savory",
+        "creamy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Ensure eggs are added off the heat to prevent scrambling.",
+      "Use fresh pecorino romano and guanciale for authentic flavor."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

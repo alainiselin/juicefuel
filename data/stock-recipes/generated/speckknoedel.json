@@ -1,0 +1,144 @@
+{
+  "slug": "speckknoedel",
+  "source_title": "Speck Knödel",
+  "normalized_title": "Speckknödel",
+  "query": "Austrian Tyrolean bacon bread dumplings Speckknoedel served with broth or salad",
+  "cuisine": [
+    "austrian"
+  ],
+  "generated_at": "2026-05-01T10:29:16.984Z",
+  "draft": {
+    "title": "Speckknödel",
+    "description": "Traditional Austrian Tyrolean bacon bread dumplings served with broth or salad, perfect for a hearty meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 15,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "day-old white bread",
+        "amount": 250,
+        "unit": "g",
+        "note": "cut into small cubes"
+      },
+      {
+        "name": "speck",
+        "amount": 150,
+        "unit": "g",
+        "note": "diced"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "milk",
+        "amount": 200,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "egg",
+        "amount": 1,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "parsley",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "fresh, chopped"
+      },
+      {
+        "name": "butter",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "nutmeg",
+        "amount": null,
+        "unit": null,
+        "note": "a pinch, freshly grated"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Soak the bread cubes in warm milk for about 10 minutes until softened."
+      },
+      {
+        "order": 2,
+        "text": "In a pan, melt butter and sauté the chopped onion until translucent."
+      },
+      {
+        "order": 3,
+        "text": "Add diced speck to the onions and cook for 2-3 minutes, then remove from heat."
+      },
+      {
+        "order": 4,
+        "text": "In a large bowl, combine soaked bread, speck and onion mixture, egg, chopped parsley, salt, pepper, and nutmeg."
+      },
+      {
+        "order": 5,
+        "text": "Mix thoroughly until the mixture holds together; let rest for 5 minutes."
+      },
+      {
+        "order": 6,
+        "text": "With wet hands, form the mixture into 8 equal-sized dumplings."
+      },
+      {
+        "order": 7,
+        "text": "Bring a large pot of salted water to a gentle boil, then reduce to a simmer."
+      },
+      {
+        "order": 8,
+        "text": "Carefully drop the dumplings into the simmering water and cook for 12-15 minutes until they float and are cooked through."
+      },
+      {
+        "order": 9,
+        "text": "Remove dumplings with a slotted spoon and serve hot with broth or a fresh salad."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "austrian"
+      ],
+      "FLAVOR": [
+        "savory",
+        "smoky",
+        "herbal"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

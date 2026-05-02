@@ -1,0 +1,127 @@
+{
+  "slug": "thai-beef-water-spinach-rice",
+  "source_title": "Thai Beef with Wasserspinat and Rice",
+  "normalized_title": "Thai Beef with Water Spinach and Rice",
+  "query": "Thai stir-fried beef with water spinach, garlic, chili, oyster sauce, and jasmine rice",
+  "cuisine": [
+    "thai"
+  ],
+  "generated_at": "2026-05-01T10:34:27.438Z",
+  "draft": {
+    "title": "Thai Beef with Water Spinach and Rice",
+    "description": "Thai stir-fried beef with water spinach, garlic, chili, oyster sauce, and jasmine rice, perfect for a quick and flavorful home meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 15,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "beef sirloin",
+        "amount": 400,
+        "unit": "g",
+        "note": "thinly sliced"
+      },
+      {
+        "name": "water spinach",
+        "amount": 300,
+        "unit": "g",
+        "note": "washed and chopped"
+      },
+      {
+        "name": "jasmine rice",
+        "amount": 250,
+        "unit": "g",
+        "note": "uncooked"
+      },
+      {
+        "name": "garlic",
+        "amount": 4,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "red chili",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced, adjust to taste"
+      },
+      {
+        "name": "oyster sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "soy sauce",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "preferably light soy sauce"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 500,
+        "unit": "ml",
+        "note": "for cooking rice"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Rinse jasmine rice under cold water until water runs clear. Cook rice with 500 ml water in a pot or rice cooker until tender, about 15 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large wok or frying pan over medium-high heat. Add garlic and red chili, stir-fry for 30 seconds until fragrant."
+      },
+      {
+        "order": 3,
+        "text": "Add sliced beef and stir-fry until browned and nearly cooked through, about 3-4 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Add water spinach and stir-fry for 2-3 minutes until wilted but still vibrant green."
+      },
+      {
+        "order": 5,
+        "text": "Stir in oyster sauce and soy sauce, mix well to coat all ingredients evenly. Cook for another minute."
+      },
+      {
+        "order": 6,
+        "text": "Serve the stir-fried beef and water spinach hot over the cooked jasmine rice."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "thai"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "umami",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

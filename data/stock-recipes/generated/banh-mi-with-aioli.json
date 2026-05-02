@@ -1,0 +1,165 @@
+{
+  "slug": "banh-mi-with-aioli",
+  "source_title": "Bahn Mi mit Aioli",
+  "normalized_title": "Banh Mi with Aioli",
+  "query": "Vietnamese-inspired banh mi sandwich with pickled vegetables, herbs, chili, and aioli",
+  "cuisine": [
+    "vietnamese"
+  ],
+  "generated_at": "2026-05-01T10:31:33.446Z",
+  "draft": {
+    "title": "Banh Mi with Aioli",
+    "description": "Vietnamese-inspired banh mi sandwich with pickled vegetables, herbs, chili, and creamy aioli for a fresh and flavorful meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 25,
+      "cook_min": 10,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "baguette",
+        "amount": 1,
+        "unit": "piece",
+        "note": "about 250g, cut into 4 portions"
+      },
+      {
+        "name": "carrot",
+        "amount": 100,
+        "unit": "g",
+        "note": "julienned"
+      },
+      {
+        "name": "daikon radish",
+        "amount": 100,
+        "unit": "g",
+        "note": "julienned"
+      },
+      {
+        "name": "rice vinegar",
+        "amount": 60,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "sugar",
+        "amount": 20,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 5,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "cucumber",
+        "amount": 1,
+        "unit": "piece",
+        "note": "thinly sliced"
+      },
+      {
+        "name": "fresh coriander",
+        "amount": 15,
+        "unit": "g",
+        "note": "leaves only"
+      },
+      {
+        "name": "fresh chili",
+        "amount": 1,
+        "unit": "piece",
+        "note": "thinly sliced, adjust to taste"
+      },
+      {
+        "name": "mayonnaise",
+        "amount": 80,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "garlic",
+        "amount": 1,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "lime juice",
+        "amount": 10,
+        "unit": "ml",
+        "note": "freshly squeezed"
+      },
+      {
+        "name": "soy sauce",
+        "amount": 10,
+        "unit": "ml",
+        "note": "optional, for aioli"
+      },
+      {
+        "name": "pork loin",
+        "amount": 400,
+        "unit": "g",
+        "note": "thinly sliced"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 15,
+        "unit": "ml",
+        "note": "for cooking pork"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Prepare pickled vegetables: combine rice vinegar, sugar, and salt in a bowl until dissolved. Add carrot and daikon, soak for at least 15 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Make aioli by mixing mayonnaise, minced garlic, lime juice, and soy sauce in a small bowl. Adjust seasoning and refrigerate."
+      },
+      {
+        "order": 3,
+        "text": "Heat vegetable oil in a pan over medium heat. Cook pork slices until browned and cooked through, about 5-7 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Slice baguette pieces lengthwise without cutting all the way through. Lightly toast if desired."
+      },
+      {
+        "order": 5,
+        "text": "Spread aioli inside each baguette portion. Layer cooked pork, pickled vegetables, cucumber slices, fresh coriander, and chili."
+      },
+      {
+        "order": 6,
+        "text": "Serve immediately and enjoy your fresh Vietnamese-inspired banh mi with aioli."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "vietnamese"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "sour",
+        "creamy",
+        "herbal",
+        "refreshing"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

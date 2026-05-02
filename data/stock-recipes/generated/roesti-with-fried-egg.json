@@ -1,0 +1,114 @@
+{
+  "slug": "roesti-with-fried-egg",
+  "source_title": "Rösti mit Spiegelei",
+  "normalized_title": "Rösti with Fried Egg",
+  "query": "Swiss roesti potato cake with a fried egg on top",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:37:18.193Z",
+  "draft": {
+    "title": "Rösti with Fried Egg",
+    "description": "Crispy Swiss rösti potato cakes topped with a perfectly fried egg, a simple and hearty meal for any time of day.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 20,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "potato",
+        "amount": 800,
+        "unit": "g",
+        "note": "waxy or all-purpose, peeled"
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": "for frying"
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "fresh"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Grate the peeled potatoes coarsely and squeeze out excess moisture using a clean kitchen towel."
+      },
+      {
+        "order": 2,
+        "text": "Season the grated potatoes with salt and black pepper and mix well."
+      },
+      {
+        "order": 3,
+        "text": "Heat half the butter in a large non-stick frying pan over medium heat."
+      },
+      {
+        "order": 4,
+        "text": "Add the grated potatoes, pressing them down evenly to form a flat cake about 1.5 cm thick."
+      },
+      {
+        "order": 5,
+        "text": "Cook for about 10 minutes until the bottom is golden and crispy."
+      },
+      {
+        "order": 6,
+        "text": "Carefully flip the rösti using a plate or lid and slide it back into the pan."
+      },
+      {
+        "order": 7,
+        "text": "Add the remaining butter around the edges and cook for another 8-10 minutes until golden and cooked through."
+      },
+      {
+        "order": 8,
+        "text": "In a separate pan, fry the eggs sunny side up or to your preference."
+      },
+      {
+        "order": 9,
+        "text": "Cut the rösti into quarters and serve each piece topped with a fried egg."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "savory",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

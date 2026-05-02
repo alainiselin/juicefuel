@@ -1,0 +1,128 @@
+{
+  "slug": "tuna-steak-ponzu-potatoes-romanesco",
+  "source_title": "Tuna Steak mit ponzu sauce mit Kartoffeln & Romanesco",
+  "normalized_title": "Tuna Steak with Ponzu, Potatoes, and Romanesco",
+  "query": "seared tuna steak with ponzu sauce, roasted potatoes, and romanesco",
+  "cuisine": [
+    "japanese"
+  ],
+  "generated_at": "2026-05-01T10:38:59.394Z",
+  "draft": {
+    "title": "Tuna Steak with Ponzu, Potatoes, and Romanesco",
+    "description": "Seared tuna steak served with tangy ponzu sauce, roasted potatoes, and steamed romanesco for a balanced Japanese-inspired meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 25,
+      "total_min": 40
+    },
+    "ingredients": [
+      {
+        "name": "tuna steak",
+        "amount": 600,
+        "unit": "g",
+        "note": "about 150g per steak"
+      },
+      {
+        "name": "ponzu sauce",
+        "amount": 60,
+        "unit": "ml",
+        "note": "store-bought or homemade"
+      },
+      {
+        "name": "potato",
+        "amount": 600,
+        "unit": "g",
+        "note": "waxy variety, cut into chunks"
+      },
+      {
+        "name": "romanesco",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium head, cut into florets"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "for roasting and searing"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "garlic",
+        "amount": 2,
+        "unit": "clove",
+        "note": "crushed, for potatoes"
+      },
+      {
+        "name": "lemon",
+        "amount": 0.5,
+        "unit": "piece",
+        "note": "optional, for garnish and extra citrus"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Preheat oven to 200°C. Toss potato chunks with 2 tbsp olive oil, crushed garlic, salt, and pepper. Spread on a baking tray and roast for 20-25 minutes until golden and tender."
+      },
+      {
+        "order": 2,
+        "text": "While potatoes roast, bring a pot of salted water to boil. Steam romanesco florets for 5-7 minutes until just tender but still crisp. Drain and set aside."
+      },
+      {
+        "order": 3,
+        "text": "Pat tuna steaks dry and season with salt and pepper. Heat 1 tbsp olive oil in a heavy skillet over medium-high heat."
+      },
+      {
+        "order": 4,
+        "text": "Sear tuna steaks for 1.5-2 minutes per side for rare, or longer to desired doneness. Remove from heat and let rest for 2 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Slice tuna steaks against the grain. Arrange on plates with roasted potatoes and romanesco."
+      },
+      {
+        "order": 6,
+        "text": "Drizzle ponzu sauce over tuna and vegetables. Garnish with a squeeze of lemon if desired and serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "japanese"
+      ],
+      "FLAVOR": [
+        "tangy",
+        "umami",
+        "savory",
+        "citrusy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "quick"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

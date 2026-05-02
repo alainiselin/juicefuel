@@ -1,0 +1,145 @@
+{
+  "slug": "saffron-risotto",
+  "source_title": "Saffron Risotto",
+  "normalized_title": "Saffron Risotto",
+  "query": "risotto alla Milanese saffron risotto with parmesan and butter",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:28:52.232Z",
+  "draft": {
+    "title": "Saffron Risotto",
+    "description": "Classic Italian risotto alla Milanese with fragrant saffron, creamy parmesan, and butter, perfect for a rich and savory meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 30,
+      "total_min": 40
+    },
+    "ingredients": [
+      {
+        "name": "arborio rice",
+        "amount": 320,
+        "unit": "g",
+        "note": "short-grain risotto rice"
+      },
+      {
+        "name": "chicken stock",
+        "amount": 1.2,
+        "unit": "l",
+        "note": "hot"
+      },
+      {
+        "name": "dry white wine",
+        "amount": 150,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "unsalted butter",
+        "amount": 60,
+        "unit": "g",
+        "note": "divided"
+      },
+      {
+        "name": "parmesan cheese",
+        "amount": 80,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "saffron threads",
+        "amount": 0.1,
+        "unit": "g",
+        "note": "steeped in warm stock"
+      },
+      {
+        "name": "olive oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat the chicken stock in a saucepan and keep it hot on low heat."
+      },
+      {
+        "order": 2,
+        "text": "In a large pan, heat olive oil and half the butter over medium heat. Add the chopped onion and cook until translucent, about 5 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add the arborio rice to the pan and stir for 2 minutes until the rice is well coated and slightly toasted."
+      },
+      {
+        "order": 4,
+        "text": "Pour in the white wine and cook, stirring, until it has mostly evaporated."
+      },
+      {
+        "order": 5,
+        "text": "Add the saffron threads soaked in a small amount of warm stock to the rice."
+      },
+      {
+        "order": 6,
+        "text": "Begin adding the hot stock one ladle at a time, stirring frequently and allowing the liquid to absorb before adding more."
+      },
+      {
+        "order": 7,
+        "text": "Continue this process for about 18-20 minutes until the rice is creamy and al dente."
+      },
+      {
+        "order": 8,
+        "text": "Remove the pan from heat, stir in the remaining butter and grated parmesan cheese. Season with salt and freshly ground black pepper to taste."
+      },
+      {
+        "order": 9,
+        "text": "Cover the risotto for 2 minutes, then serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "rich",
+        "creamy",
+        "umami",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

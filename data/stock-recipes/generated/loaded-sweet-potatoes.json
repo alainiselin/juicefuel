@@ -1,0 +1,140 @@
+{
+  "slug": "loaded-sweet-potatoes",
+  "source_title": "Loaded Sweet Potatoes",
+  "normalized_title": "Loaded Sweet Potatoes",
+  "query": "loaded baked sweet potatoes with black beans, avocado, yogurt sauce, and herbs",
+  "cuisine": [],
+  "generated_at": "2026-05-01T10:31:22.913Z",
+  "draft": {
+    "title": "Loaded Sweet Potatoes",
+    "description": "Baked sweet potatoes loaded with black beans, avocado, yogurt sauce, and fresh herbs for a creamy, savory, and nutritious meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 45,
+      "total_min": 60
+    },
+    "ingredients": [
+      {
+        "name": "sweet potato",
+        "amount": 4,
+        "unit": "piece",
+        "note": "medium size"
+      },
+      {
+        "name": "black bean",
+        "amount": 400,
+        "unit": "g",
+        "note": "canned, drained and rinsed"
+      },
+      {
+        "name": "avocado",
+        "amount": 1,
+        "unit": "piece",
+        "note": "ripe"
+      },
+      {
+        "name": "natural yogurt",
+        "amount": 150,
+        "unit": "g",
+        "note": "plain"
+      },
+      {
+        "name": "lime",
+        "amount": 1,
+        "unit": "piece",
+        "note": "juiced"
+      },
+      {
+        "name": "fresh coriander",
+        "amount": 15,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "olive oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "ground cumin",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Preheat the oven to 200°C (fan 180°C)."
+      },
+      {
+        "order": 2,
+        "text": "Wash sweet potatoes and prick them several times with a fork."
+      },
+      {
+        "order": 3,
+        "text": "Place sweet potatoes on a baking tray and bake for 45 minutes or until tender."
+      },
+      {
+        "order": 4,
+        "text": "While sweet potatoes bake, heat olive oil in a pan over medium heat."
+      },
+      {
+        "order": 5,
+        "text": "Add black beans, ground cumin, salt, and pepper; cook for 5 minutes until warmed through."
+      },
+      {
+        "order": 6,
+        "text": "Mix natural yogurt with lime juice and half the chopped coriander; season with salt and pepper to taste."
+      },
+      {
+        "order": 7,
+        "text": "When sweet potatoes are done, cut a slit lengthwise and gently fluff the inside with a fork."
+      },
+      {
+        "order": 8,
+        "text": "Top each sweet potato with the spiced black beans, diced avocado, and a dollop of the yogurt sauce."
+      },
+      {
+        "order": 9,
+        "text": "Garnish with remaining coriander and serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [],
+      "FLAVOR": [
+        "savory",
+        "creamy",
+        "herbal"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

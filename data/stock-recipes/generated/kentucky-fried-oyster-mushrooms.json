@@ -1,0 +1,138 @@
+{
+  "slug": "kentucky-fried-oyster-mushrooms",
+  "source_title": "Kentucky Fried Oyster Mushrooms",
+  "normalized_title": "Kentucky Fried Oyster Mushrooms",
+  "query": "crispy Southern-style fried oyster mushrooms with spiced buttermilk-style coating",
+  "cuisine": [],
+  "generated_at": "2026-05-01T10:28:26.523Z",
+  "draft": {
+    "title": "Kentucky Fried Oyster Mushrooms",
+    "description": "Crispy Southern-style fried oyster mushrooms with a spiced buttermilk-style coating for a crunchy, flavorful vegetarian treat.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 15,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "oyster mushroom",
+        "amount": 400,
+        "unit": "g",
+        "note": "cleaned and trimmed"
+      },
+      {
+        "name": "buttermilk",
+        "amount": 250,
+        "unit": "ml",
+        "note": "or soured milk substitute"
+      },
+      {
+        "name": "all-purpose flour",
+        "amount": 150,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "cornstarch",
+        "amount": 30,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "paprika",
+        "amount": 2,
+        "unit": "tsp",
+        "note": "smoked if available"
+      },
+      {
+        "name": "cayenne pepper",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "garlic powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "onion powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 1.5,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "black pepper",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "freshly ground"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 500,
+        "unit": "ml",
+        "note": "for frying"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "In a bowl, combine buttermilk with half the salt, black pepper, and half the paprika. Add oyster mushrooms and soak for 15 minutes."
+      },
+      {
+        "order": 2,
+        "text": "In a separate shallow dish, mix flour, cornstarch, remaining salt, paprika, cayenne, garlic powder, onion powder, and black pepper."
+      },
+      {
+        "order": 3,
+        "text": "Heat vegetable oil in a deep pan or fryer to 175°C."
+      },
+      {
+        "order": 4,
+        "text": "Remove mushrooms from buttermilk, letting excess drip off, then dredge in the seasoned flour mixture, pressing to coat well."
+      },
+      {
+        "order": 5,
+        "text": "Fry mushrooms in batches for 3-4 minutes until golden brown and crispy. Drain on paper towels."
+      },
+      {
+        "order": 6,
+        "text": "Serve hot with your choice of dipping sauce."
+      }
+    ],
+    "tags": {
+      "CUISINE": [],
+      "FLAVOR": [
+        "spicy",
+        "savory",
+        "umami"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Be cautious when frying with hot oil to avoid burns.",
+      "Ensure oil temperature is maintained to prevent greasy coating."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

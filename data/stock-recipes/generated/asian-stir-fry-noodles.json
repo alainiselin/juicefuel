@@ -1,0 +1,149 @@
+{
+  "slug": "asian-stir-fry-noodles",
+  "source_title": "Stir Fry Noodles Asian Style",
+  "normalized_title": "Asian-Style Stir-Fry Noodles",
+  "query": "weeknight Asian-style stir-fry noodles with vegetables, soy sauce, sesame, and ginger",
+  "cuisine": [
+    "chinese"
+  ],
+  "generated_at": "2026-05-01T10:36:04.856Z",
+  "draft": {
+    "title": "Asian-Style Stir-Fry Noodles",
+    "description": "Weeknight Asian-style stir-fry noodles with vegetables, soy sauce, sesame, and ginger, ready in 25 minutes.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 15,
+      "total_min": 25
+    },
+    "ingredients": [
+      {
+        "name": "egg noodles",
+        "amount": 300,
+        "unit": "g",
+        "note": "fresh or dried"
+      },
+      {
+        "name": "carrot",
+        "amount": 150,
+        "unit": "g",
+        "note": "julienned"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "broccoli florets",
+        "amount": 150,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "spring onion",
+        "amount": 2,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "fresh ginger",
+        "amount": 20,
+        "unit": "g",
+        "note": "grated"
+      },
+      {
+        "name": "soy sauce",
+        "amount": 60,
+        "unit": "ml",
+        "note": "preferably low sodium"
+      },
+      {
+        "name": "sesame oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "for stir-frying"
+      },
+      {
+        "name": "sesame seeds",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "toasted, for garnish"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Cook the egg noodles according to package instructions until al dente. Drain and set aside."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large wok or frying pan over medium-high heat."
+      },
+      {
+        "order": 3,
+        "text": "Add minced garlic and grated ginger; stir-fry for 30 seconds until fragrant."
+      },
+      {
+        "order": 4,
+        "text": "Add carrot, red bell pepper, and broccoli florets. Stir-fry for 5-7 minutes until vegetables are tender-crisp."
+      },
+      {
+        "order": 5,
+        "text": "Add cooked noodles to the pan along with soy sauce and sesame oil. Toss everything together to combine and heat through."
+      },
+      {
+        "order": 6,
+        "text": "Stir in sliced spring onions and season with freshly ground black pepper to taste."
+      },
+      {
+        "order": 7,
+        "text": "Serve immediately, garnished with toasted sesame seeds."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "chinese"
+      ],
+      "FLAVOR": [
+        "umami",
+        "savory",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

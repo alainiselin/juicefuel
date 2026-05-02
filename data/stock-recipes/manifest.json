@@ -1,0 +1,376 @@
+[
+  {
+    "slug": "osso-buco-with-saffron-risotto",
+    "source_title": "Osobucco mit Safran Risotto",
+    "title": "Osso Buco with Saffron Risotto",
+    "query": "traditional Milanese osso buco with saffron risotto for a home kitchen",
+    "cuisine": ["italian"],
+    "notes": "Normalize spelling from Osobucco to Osso Buco; keep the risotto pairing."
+  },
+  {
+    "slug": "jamaican-oxtail",
+    "source_title": "Jamaican Oxtail",
+    "title": "Jamaican Oxtail",
+    "query": "Jamaican oxtail stew with butter beans, allspice, thyme, and rice-friendly gravy",
+    "cuisine": ["jamaican"]
+  },
+  {
+    "slug": "turkish-eggs-cilbir",
+    "source_title": "Turkish Eggs",
+    "title": "Turkish Eggs (Cilbir)",
+    "query": "Turkish cilbir poached eggs with garlicky yogurt and Aleppo pepper butter",
+    "cuisine": ["turkish"]
+  },
+  {
+    "slug": "rahmspinat",
+    "source_title": "Rahmspinat",
+    "title": "Rahmspinat",
+    "query": "German style creamed spinach side dish with onion, garlic, cream, and nutmeg",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "kentucky-fried-oyster-mushrooms",
+    "source_title": "Kentucky Fried Oyster Mushrooms",
+    "title": "Kentucky Fried Oyster Mushrooms",
+    "query": "crispy Southern-style fried oyster mushrooms with spiced buttermilk-style coating",
+    "cuisine": []
+  },
+  {
+    "slug": "mushroom-risotto",
+    "source_title": "Mushroom Risotto",
+    "title": "Mushroom Risotto",
+    "query": "Italian mushroom risotto with arborio rice, white wine, parmesan, and mixed mushrooms",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "saffron-risotto",
+    "source_title": "Saffron Risotto",
+    "title": "Saffron Risotto",
+    "query": "risotto alla Milanese saffron risotto with parmesan and butter",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "eierpfannkuchen-omelette",
+    "source_title": "Omelette (Eierpfannkuchen)",
+    "title": "Eierpfannkuchen",
+    "query": "German Eierpfannkuchen thin egg pancake omelette for a simple savory meal",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "speckknoedel",
+    "source_title": "Speck Knödel",
+    "title": "Speckknödel",
+    "query": "Austrian Tyrolean bacon bread dumplings Speckknoedel served with broth or salad",
+    "cuisine": ["austrian"]
+  },
+  {
+    "slug": "chana-masala",
+    "source_title": "Chana Masala",
+    "title": "Chana Masala",
+    "query": "North Indian chana masala with chickpeas, tomato, ginger, garlic, and garam masala",
+    "cuisine": ["indian"]
+  },
+  {
+    "slug": "pulled-pork",
+    "source_title": "Pulled Pork",
+    "title": "Pulled Pork",
+    "query": "American pulled pork with dry rub and barbecue sauce for sandwiches or bowls",
+    "cuisine": []
+  },
+  {
+    "slug": "neapolitan-pizza",
+    "source_title": "Neapolitan Pizza",
+    "title": "Neapolitan Pizza",
+    "query": "Neapolitan-style pizza Margherita with tomato, mozzarella, basil, and high-heat home oven method",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "red-thai-curry",
+    "source_title": "Red Thai Curry",
+    "title": "Red Thai Curry",
+    "query": "Thai red curry with coconut milk, vegetables, Thai basil, and chicken or tofu option",
+    "cuisine": ["thai"]
+  },
+  {
+    "slug": "venison-spaetzle-red-cabbage-glazed-chestnuts",
+    "source_title": "Wild mit Spaetzle, Rotkraut und glasierten Maronen",
+    "title": "Venison with Spaetzle, Red Cabbage, and Glazed Chestnuts",
+    "query": "Central European venison with spaetzle, braised red cabbage, and glazed chestnuts",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "paella",
+    "source_title": "Paella",
+    "title": "Paella",
+    "query": "Spanish paella with chicken, seafood, saffron, smoked paprika, and short grain rice",
+    "cuisine": ["spanish"]
+  },
+  {
+    "slug": "kaiserschmarrn",
+    "source_title": "Kaiserschmarrn",
+    "title": "Kaiserschmarrn",
+    "query": "Austrian Kaiserschmarrn torn fluffy pancake with raisins and plum compote",
+    "cuisine": ["austrian"]
+  },
+  {
+    "slug": "loaded-sweet-potatoes",
+    "source_title": "Loaded Sweet Potatoes",
+    "title": "Loaded Sweet Potatoes",
+    "query": "loaded baked sweet potatoes with black beans, avocado, yogurt sauce, and herbs",
+    "cuisine": []
+  },
+  {
+    "slug": "banh-mi-with-aioli",
+    "source_title": "Bahn Mi mit Aioli",
+    "title": "Banh Mi with Aioli",
+    "query": "Vietnamese-inspired banh mi sandwich with pickled vegetables, herbs, chili, and aioli",
+    "cuisine": ["vietnamese"],
+    "notes": "Normalize Bahn Mi to Banh Mi."
+  },
+  {
+    "slug": "spinach-ricotta-spaghetti",
+    "source_title": "Creamy Spinach and Ricotta Spaghetti",
+    "title": "Creamy Spinach and Ricotta Spaghetti",
+    "query": "creamy spinach and ricotta spaghetti with lemon, garlic, and parmesan",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "tomato-soup",
+    "source_title": "Tomato Soup",
+    "title": "Tomato Soup",
+    "query": "classic tomato soup with roasted tomatoes, basil, and cream option",
+    "cuisine": []
+  },
+  {
+    "slug": "cannelloni",
+    "source_title": "Cannelloni",
+    "title": "Cannelloni",
+    "query": "Italian ricotta and spinach cannelloni baked with tomato sauce and bechamel",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "ghackets-mit-hoernli",
+    "source_title": "Ghackets mit Hörnli",
+    "title": "Ghackets mit Hörnli",
+    "query": "Swiss Ghackets mit Hoernli minced beef sauce with elbow pasta and apple sauce on the side",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "gurkensalat",
+    "source_title": "Gurkensalat",
+    "title": "Gurkensalat",
+    "query": "German cucumber salad Gurkensalat with dill, vinegar, sour cream option, and onion",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "parmigiana-di-melanzane",
+    "source_title": "Parmigiana (Melanzane)",
+    "title": "Parmigiana di Melanzane",
+    "query": "Italian eggplant parmigiana with tomato sauce, mozzarella, parmesan, and basil",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "bratwurst-with-onion-gravy",
+    "source_title": "Bratwurst mit Zwiebelsauce",
+    "title": "Bratwurst with Onion Gravy",
+    "query": "German bratwurst with onion gravy served with potatoes or mash",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "aprikosenwaehe",
+    "source_title": "Aprikosenwähe",
+    "title": "Aprikosenwähe",
+    "query": "Swiss apricot tart Aprikosenwaehe with custard filling",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "pasta-amatriciana",
+    "source_title": "Pasta all’Amatriciana",
+    "title": "Pasta all'Amatriciana",
+    "query": "Roman pasta all'Amatriciana with guanciale, tomato, pecorino romano, and chili",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "kartoffelgratin",
+    "source_title": "Kartoffelgratin",
+    "title": "Kartoffelgratin",
+    "query": "German potato gratin Kartoffelgratin with cream, garlic, nutmeg, and cheese",
+    "cuisine": ["german"]
+  },
+  {
+    "slug": "chili-con-carne",
+    "source_title": "Chili con Carne",
+    "title": "Chili con Carne",
+    "query": "Tex-Mex chili con carne with beef, beans, tomato, chili powder, cumin, and toppings",
+    "cuisine": ["mexican"]
+  },
+  {
+    "slug": "focaccia",
+    "source_title": "Focaccia",
+    "title": "Focaccia",
+    "query": "Italian focaccia with olive oil, rosemary, flaky salt, and airy crumb",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "thai-beef-water-spinach-rice",
+    "source_title": "Thai Beef with Wasserspinat and Rice",
+    "title": "Thai Beef with Water Spinach and Rice",
+    "query": "Thai stir-fried beef with water spinach, garlic, chili, oyster sauce, and jasmine rice",
+    "cuisine": ["thai"]
+  },
+  {
+    "slug": "butter-chicken",
+    "source_title": "Butter Chicken",
+    "title": "Butter Chicken",
+    "query": "Indian butter chicken murgh makhani with tomato cream sauce and basmati rice",
+    "cuisine": ["indian"]
+  },
+  {
+    "slug": "pad-kra-pao",
+    "source_title": "Pad Kra Pao",
+    "title": "Pad Kra Pao",
+    "query": "Thai pad kra pao basil stir fry with minced meat, chili, garlic, rice, and fried egg",
+    "cuisine": ["thai"]
+  },
+  {
+    "slug": "pho",
+    "source_title": "Pho",
+    "title": "Pho",
+    "query": "Vietnamese beef pho with aromatic broth, rice noodles, herbs, lime, and bean sprouts",
+    "cuisine": ["vietnamese"]
+  },
+  {
+    "slug": "ramen",
+    "source_title": "Ramen",
+    "title": "Ramen",
+    "query": "Japanese miso ramen with broth, noodles, egg, mushrooms, greens, and optional pork",
+    "cuisine": ["japanese"]
+  },
+  {
+    "slug": "nasi-goreng",
+    "source_title": "Fried Rice (Nasi Goreng)",
+    "title": "Nasi Goreng",
+    "query": "Indonesian nasi goreng fried rice with kecap manis, chili, egg, and vegetables",
+    "cuisine": ["indonesian"]
+  },
+  {
+    "slug": "spaghetti-carbonara",
+    "source_title": "Spaghetti Carbonara",
+    "title": "Spaghetti Carbonara",
+    "query": "Roman spaghetti carbonara with guanciale, eggs, pecorino romano, and black pepper",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "asian-stir-fry-noodles",
+    "source_title": "Stir Fry Noodles Asian Style",
+    "title": "Asian-Style Stir-Fry Noodles",
+    "query": "weeknight Asian-style stir-fry noodles with vegetables, soy sauce, sesame, and ginger",
+    "cuisine": ["chinese"]
+  },
+  {
+    "slug": "riz-casimir",
+    "source_title": "Riis Cazimir",
+    "title": "Riz Casimir",
+    "query": "Swiss Riz Casimir curry rice with chicken, fruit, cream, and toasted almonds",
+    "cuisine": ["swiss"],
+    "notes": "Normalize Riis Cazimir to the common Swiss spelling Riz Casimir."
+  },
+  {
+    "slug": "aelplermagronen",
+    "source_title": "Aelpler Magronen",
+    "title": "Älplermagronen",
+    "query": "Swiss Aelplermagronen alpine macaroni with potatoes, cheese, onions, cream, and apple sauce",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "beef-rendang",
+    "source_title": "Beef Rendang",
+    "title": "Beef Rendang",
+    "query": "Indonesian beef rendang slow cooked with coconut milk, lemongrass, galangal, chili, and spices",
+    "cuisine": ["indonesian"]
+  },
+  {
+    "slug": "kartoffelpuffer-with-ratatouille",
+    "source_title": "Kartoffelpuffer mit Ratatouille",
+    "title": "Kartoffelpuffer with Ratatouille",
+    "query": "German potato pancakes Kartoffelpuffer served with French ratatouille",
+    "cuisine": ["german", "french"]
+  },
+  {
+    "slug": "fondue",
+    "source_title": "Fondue",
+    "title": "Cheese Fondue",
+    "query": "Swiss cheese fondue with Gruyere, Vacherin or Emmental, white wine, kirsch, and bread",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "roesti-with-fried-egg",
+    "source_title": "Rösti mit Spiegelei",
+    "title": "Rösti with Fried Egg",
+    "query": "Swiss roesti potato cake with a fried egg on top",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "beer-battered-eglifilet-with-potato-salad",
+    "source_title": "Eglifilet im Bierteig mit Herdöpfelsalat",
+    "title": "Beer-Battered Eglifilet with Potato Salad",
+    "query": "Swiss perch fillets Eglifilet in beer batter with Swiss potato salad Herdoepfelsalat",
+    "cuisine": ["swiss"]
+  },
+  {
+    "slug": "fajitas",
+    "source_title": "Fajitas",
+    "title": "Fajitas",
+    "query": "Tex-Mex chicken or beef fajitas with peppers, onions, tortillas, salsa, and sour cream",
+    "cuisine": ["mexican"]
+  },
+  {
+    "slug": "sweet-and-sour-pork",
+    "source_title": "Sweet and Sour Pork",
+    "title": "Sweet and Sour Pork",
+    "query": "Chinese sweet and sour pork with pineapple, bell peppers, and glossy sauce",
+    "cuisine": ["chinese"]
+  },
+  {
+    "slug": "lasagna",
+    "source_title": "Lasagna",
+    "title": "Lasagna",
+    "query": "Italian lasagna al forno with beef ragu, bechamel, pasta sheets, and parmesan",
+    "cuisine": ["italian"]
+  },
+  {
+    "slug": "grilled-eggplant-tahini-yogurt-bulgur",
+    "source_title": "Grilled Eggplant with Tahini-joghurt Sauce, Bulgur with lemon and Parsley",
+    "title": "Grilled Eggplant with Tahini Yogurt and Lemon Parsley Bulgur",
+    "query": "Middle Eastern grilled eggplant with tahini yogurt sauce and lemon parsley bulgur",
+    "cuisine": ["lebanese"]
+  },
+  {
+    "slug": "orzo-with-prawns",
+    "source_title": "Mini Orzo mit prawns",
+    "title": "Orzo with Prawns",
+    "query": "Mediterranean orzo with prawns, tomato, garlic, lemon, parsley, and olive oil",
+    "cuisine": ["greek"]
+  },
+  {
+    "slug": "pita-with-grilled-vegetables",
+    "source_title": "Pita mit Grill gemüse",
+    "title": "Pita with Grilled Vegetables",
+    "query": "Mediterranean pita with grilled vegetables, herbs, yogurt sauce, and feta option",
+    "cuisine": ["greek"]
+  },
+  {
+    "slug": "kung-pao",
+    "source_title": "Kung Pao",
+    "title": "Kung Pao Chicken",
+    "query": "Sichuan kung pao chicken with peanuts, dried chilies, and savory sweet sour sauce",
+    "cuisine": ["chinese"]
+  },
+  {
+    "slug": "tuna-steak-ponzu-potatoes-romanesco",
+    "source_title": "Tuna Steak mit ponzu sauce mit Kartoffeln & Romanesco",
+    "title": "Tuna Steak with Ponzu, Potatoes, and Romanesco",
+    "query": "seared tuna steak with ponzu sauce, roasted potatoes, and romanesco",
+    "cuisine": ["japanese"]
+  }
+]

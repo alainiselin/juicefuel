@@ -1,0 +1,134 @@
+{
+  "slug": "orzo-with-prawns",
+  "source_title": "Mini Orzo mit prawns",
+  "normalized_title": "Orzo with Prawns",
+  "query": "Mediterranean orzo with prawns, tomato, garlic, lemon, parsley, and olive oil",
+  "cuisine": [
+    "greek"
+  ],
+  "generated_at": "2026-05-01T10:38:26.648Z",
+  "draft": {
+    "title": "Orzo with Prawns",
+    "description": "Mediterranean orzo with prawns, tomato, garlic, lemon, parsley, and olive oil, perfect for a quick and flavorful weeknight meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 15,
+      "total_min": 25
+    },
+    "ingredients": [
+      {
+        "name": "orzo",
+        "amount": 250,
+        "unit": "g",
+        "note": "small pasta similar to rice"
+      },
+      {
+        "name": "prawn",
+        "amount": 400,
+        "unit": "g",
+        "note": "peeled and deveined"
+      },
+      {
+        "name": "tomato",
+        "amount": 200,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 3,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "lemon",
+        "amount": 1,
+        "unit": "piece",
+        "note": "zested and juiced"
+      },
+      {
+        "name": "fresh parsley",
+        "amount": 15,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 700,
+        "unit": "ml",
+        "note": "for cooking orzo"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Bring water to a boil in a large pot, add salt, then cook orzo according to package instructions until al dente, about 8-10 minutes. Drain and set aside."
+      },
+      {
+        "order": 2,
+        "text": "Heat olive oil in a large skillet over medium heat. Add minced garlic and sauté for 1 minute until fragrant."
+      },
+      {
+        "order": 3,
+        "text": "Add prawns to the skillet, season with salt and pepper, and cook for 3-4 minutes until pink and cooked through."
+      },
+      {
+        "order": 4,
+        "text": "Add chopped tomatoes to the skillet and cook for another 2 minutes until slightly softened."
+      },
+      {
+        "order": 5,
+        "text": "Stir in cooked orzo, lemon zest, lemon juice, and chopped parsley. Mix well and heat through for 1-2 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Adjust seasoning with salt and pepper to taste, then serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "greek"
+      ],
+      "FLAVOR": [
+        "citrusy",
+        "herbal",
+        "savory",
+        "refreshing"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "slug": "eierpfannkuchen-omelette",
+  "source_title": "Omelette (Eierpfannkuchen)",
+  "normalized_title": "Eierpfannkuchen",
+  "query": "German Eierpfannkuchen thin egg pancake omelette for a simple savory meal",
+  "cuisine": [
+    "german"
+  ],
+  "generated_at": "2026-05-01T10:28:59.729Z",
+  "draft": {
+    "title": "Eierpfannkuchen",
+    "description": "German Eierpfannkuchen are thin egg pancakes perfect for a simple savory meal, easy to prepare and serve with various toppings.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 15,
+      "total_min": 25
+    },
+    "ingredients": [
+      {
+        "name": "egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "large"
+      },
+      {
+        "name": "milk",
+        "amount": 250,
+        "unit": "ml",
+        "note": "whole or semi-skimmed"
+      },
+      {
+        "name": "all-purpose flour",
+        "amount": 125,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "butter",
+        "amount": 30,
+        "unit": "g",
+        "note": "for frying"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "In a large bowl, whisk the eggs with milk and salt until combined."
+      },
+      {
+        "order": 2,
+        "text": "Gradually sift in the flour while whisking to form a smooth, thin batter without lumps."
+      },
+      {
+        "order": 3,
+        "text": "Heat a non-stick frying pan over medium heat and melt a small amount of butter to coat the surface."
+      },
+      {
+        "order": 4,
+        "text": "Pour a ladle of batter into the pan, swirling to cover the base evenly and thinly."
+      },
+      {
+        "order": 5,
+        "text": "Cook for about 1-2 minutes until the edges lift and the bottom is golden, then flip carefully and cook the other side for 1 minute."
+      },
+      {
+        "order": 6,
+        "text": "Repeat with remaining batter, adding butter as needed. Season with black pepper before serving."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german"
+      ],
+      "FLAVOR": [
+        "savory",
+        "mild"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

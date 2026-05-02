@@ -1,0 +1,137 @@
+{
+  "slug": "kartoffelgratin",
+  "source_title": "Kartoffelgratin",
+  "normalized_title": "Kartoffelgratin",
+  "query": "German potato gratin Kartoffelgratin with cream, garlic, nutmeg, and cheese",
+  "cuisine": [
+    "german"
+  ],
+  "generated_at": "2026-05-01T10:33:53.192Z",
+  "draft": {
+    "title": "Kartoffelgratin",
+    "description": "Classic German potato gratin with cream, garlic, nutmeg, and cheese, perfect as a rich and savory side dish for 4 servings.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 60,
+      "total_min": 80
+    },
+    "ingredients": [
+      {
+        "name": "potato",
+        "amount": 1.2,
+        "unit": "kg",
+        "note": "waxy variety, peeled and thinly sliced"
+      },
+      {
+        "name": "heavy cream",
+        "amount": 400,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "garlic",
+        "amount": 2,
+        "unit": "piece",
+        "note": "cloves, minced"
+      },
+      {
+        "name": "nutmeg",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "freshly grated"
+      },
+      {
+        "name": "grated cheese",
+        "amount": 150,
+        "unit": "g",
+        "note": "Emmental or Gruyère"
+      },
+      {
+        "name": "butter",
+        "amount": 20,
+        "unit": "g",
+        "note": "for greasing the baking dish"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Preheat oven to 180°C (160°C fan)."
+      },
+      {
+        "order": 2,
+        "text": "Grease a medium baking dish with butter."
+      },
+      {
+        "order": 3,
+        "text": "Peel and thinly slice the potatoes, about 2-3 mm thick."
+      },
+      {
+        "order": 4,
+        "text": "In a bowl, combine heavy cream, minced garlic, freshly grated nutmeg, salt, and pepper."
+      },
+      {
+        "order": 5,
+        "text": "Layer half of the sliced potatoes in the baking dish, season lightly with salt and pepper."
+      },
+      {
+        "order": 6,
+        "text": "Pour half of the cream mixture over the potatoes and sprinkle half of the grated cheese."
+      },
+      {
+        "order": 7,
+        "text": "Repeat with the remaining potatoes, cream mixture, and cheese."
+      },
+      {
+        "order": 8,
+        "text": "Cover the dish with aluminum foil and bake for 40 minutes."
+      },
+      {
+        "order": 9,
+        "text": "Remove foil and bake for an additional 20 minutes until the top is golden and bubbly."
+      },
+      {
+        "order": 10,
+        "text": "Let rest for 5-10 minutes before serving."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german"
+      ],
+      "FLAVOR": [
+        "rich",
+        "creamy",
+        "savory",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "slug": "jamaican-oxtail",
+  "source_title": "Jamaican Oxtail",
+  "normalized_title": "Jamaican Oxtail",
+  "query": "Jamaican oxtail stew with butter beans, allspice, thyme, and rice-friendly gravy",
+  "cuisine": [
+    "jamaican"
+  ],
+  "generated_at": "2026-05-01T10:28:02.707Z",
+  "draft": {
+    "title": "Jamaican Oxtail",
+    "description": "Jamaican oxtail stew with butter beans, allspice, thyme, and rich, rice-friendly gravy.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 180,
+      "total_min": 200
+    },
+    "ingredients": [
+      {
+        "name": "oxtail",
+        "amount": 1.2,
+        "unit": "kg",
+        "note": "cut into pieces"
+      },
+      {
+        "name": "butter bean",
+        "amount": 400,
+        "unit": "g",
+        "note": "canned, drained"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 3,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "scotch bonnet pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "whole, pierced"
+      },
+      {
+        "name": "fresh thyme",
+        "amount": 3,
+        "unit": "piece",
+        "note": "sprigs"
+      },
+      {
+        "name": "allspice berry",
+        "amount": 6,
+        "unit": "piece",
+        "note": "whole"
+      },
+      {
+        "name": "carrot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "large, chopped"
+      },
+      {
+        "name": "celery stalk",
+        "amount": 1,
+        "unit": "piece",
+        "note": "chopped"
+      },
+      {
+        "name": "tomato paste",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "dark soy sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "beef stock",
+        "amount": 750,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "brown sugar",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "rice",
+        "amount": 300,
+        "unit": "g",
+        "note": "to serve"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Rinse oxtail pieces and pat dry. Season with salt and pepper."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large heavy pot over medium-high heat. Brown oxtail pieces on all sides, then remove and set aside."
+      },
+      {
+        "order": 3,
+        "text": "Add chopped onion, carrot, celery, and garlic to the pot. Sauté until softened, about 5 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Stir in tomato paste and cook for 2 minutes to caramelize."
+      },
+      {
+        "order": 5,
+        "text": "Return oxtail to the pot. Add beef stock, dark soy sauce, brown sugar, allspice berries, thyme sprigs, and whole scotch bonnet pepper."
+      },
+      {
+        "order": 6,
+        "text": "Bring to a boil, then reduce heat to low. Cover and simmer gently for 2.5 to 3 hours until oxtail is tender."
+      },
+      {
+        "order": 7,
+        "text": "About 30 minutes before the end of cooking, add drained butter beans to the stew. Continue simmering uncovered to thicken the gravy."
+      },
+      {
+        "order": 8,
+        "text": "Adjust seasoning with salt and freshly ground black pepper as needed."
+      },
+      {
+        "order": 9,
+        "text": "Cook rice according to package instructions to serve alongside the oxtail stew."
+      },
+      {
+        "order": 10,
+        "text": "Remove thyme sprigs, allspice berries, and scotch bonnet pepper before serving. Serve hot with rice."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "jamaican"
+      ],
+      "FLAVOR": [
+        "rich",
+        "savory",
+        "spicy",
+        "herbal"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend",
+        "slow-cooked"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Handle scotch bonnet pepper with care; avoid contact with eyes and wash hands after handling."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "slug": "kartoffelpuffer-with-ratatouille",
+  "source_title": "Kartoffelpuffer mit Ratatouille",
+  "normalized_title": "Kartoffelpuffer with Ratatouille",
+  "query": "German potato pancakes Kartoffelpuffer served with French ratatouille",
+  "cuisine": [
+    "german",
+    "french"
+  ],
+  "generated_at": "2026-05-01T10:36:59.969Z",
+  "draft": {
+    "title": "Kartoffelpuffer with Ratatouille",
+    "description": "Crispy German potato pancakes served with a rich and savory French ratatouille vegetable stew.",
+    "servings": 4,
+    "times": {
+      "prep_min": 30,
+      "cook_min": 40,
+      "total_min": 70
+    },
+    "ingredients": [
+      {
+        "name": "potato",
+        "amount": 800,
+        "unit": "g",
+        "note": "peeled and grated"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely grated"
+      },
+      {
+        "name": "egg",
+        "amount": 1,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "all-purpose flour",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 2,
+        "unit": "tsp",
+        "note": "1 tsp for Kartoffelpuffer, 1 tsp for ratatouille"
+      },
+      {
+        "name": "black pepper",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "freshly ground; half for Kartoffelpuffer, half for ratatouille"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 100,
+        "unit": "ml",
+        "note": "for frying"
+      },
+      {
+        "name": "eggplant",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, diced"
+      },
+      {
+        "name": "zucchini",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, diced"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "deseeded and diced"
+      },
+      {
+        "name": "yellow bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "deseeded and diced"
+      },
+      {
+        "name": "tomato",
+        "amount": 400,
+        "unit": "g",
+        "note": "canned or fresh, chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "dried thyme",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "dried oregano",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "fresh basil",
+        "amount": 5,
+        "unit": "g",
+        "note": "chopped"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Prepare the Kartoffelpuffer batter by combining grated potato, grated onion, egg, flour, salt, and pepper in a bowl. Mix well and let rest for 10 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large frying pan over medium heat. Spoon batter into the pan to form pancakes about 8 cm in diameter. Fry until golden and crisp, about 4 minutes per side. Drain on paper towels."
+      },
+      {
+        "order": 3,
+        "text": "Meanwhile, heat olive oil in a large saucepan over medium heat. Add minced garlic and sauté until fragrant, about 1 minute."
+      },
+      {
+        "order": 4,
+        "text": "Add diced eggplant, zucchini, and bell peppers to the pan. Cook, stirring occasionally, until vegetables soften, about 10 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Add chopped tomatoes, dried thyme, oregano, salt, and pepper. Reduce heat to low and simmer uncovered for 20 minutes, stirring occasionally."
+      },
+      {
+        "order": 6,
+        "text": "Stir in chopped fresh basil just before serving. Adjust seasoning if needed."
+      },
+      {
+        "order": 7,
+        "text": "Serve the hot Kartoffelpuffer with a generous portion of ratatouille on the side."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german",
+        "french"
+      ],
+      "FLAVOR": [
+        "savory",
+        "herbal",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Be careful when frying Kartoffelpuffer as the oil can splatter.",
+      "Ensure potatoes are well drained to avoid soggy pancakes."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

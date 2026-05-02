@@ -1,0 +1,152 @@
+{
+  "slug": "pad-kra-pao",
+  "source_title": "Pad Kra Pao",
+  "normalized_title": "Pad Kra Pao",
+  "query": "Thai pad kra pao basil stir fry with minced meat, chili, garlic, rice, and fried egg",
+  "cuisine": [
+    "thai"
+  ],
+  "generated_at": "2026-05-01T10:34:55.758Z",
+  "draft": {
+    "title": "Pad Kra Pao",
+    "description": "Thai basil stir fry with minced meat, chili, garlic, served with rice and topped with a fried egg.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 10,
+      "total_min": 20
+    },
+    "ingredients": [
+      {
+        "name": "minced pork",
+        "amount": 500,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "thai holy basil leaves",
+        "amount": 30,
+        "unit": "g",
+        "note": "loosely packed"
+      },
+      {
+        "name": "red chili",
+        "amount": 3,
+        "unit": "piece",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 4,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "soy sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "preferably light soy sauce"
+      },
+      {
+        "name": "oyster sauce",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "fish sauce",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "white sugar",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "jasmine rice",
+        "amount": 300,
+        "unit": "g",
+        "note": "uncooked"
+      },
+      {
+        "name": "egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "for frying"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Cook jasmine rice according to package instructions and keep warm."
+      },
+      {
+        "order": 2,
+        "text": "Finely chop garlic and red chili; wash and pick holy basil leaves."
+      },
+      {
+        "order": 3,
+        "text": "Heat vegetable oil in a wok or large pan over medium-high heat."
+      },
+      {
+        "order": 4,
+        "text": "Add garlic and chili, stir-fry for 30 seconds until fragrant."
+      },
+      {
+        "order": 5,
+        "text": "Add minced pork and stir-fry until cooked through and no longer pink, about 5-7 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Stir in soy sauce, oyster sauce, fish sauce, and sugar; cook for 1-2 minutes to combine flavors."
+      },
+      {
+        "order": 7,
+        "text": "Add holy basil leaves and stir-fry just until wilted, about 30 seconds; remove from heat."
+      },
+      {
+        "order": 8,
+        "text": "In a separate pan, heat a little oil and fry eggs sunny-side up or to preference."
+      },
+      {
+        "order": 9,
+        "text": "Serve the stir-fried meat over jasmine rice topped with a fried egg."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "thai"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "savory",
+        "herbal",
+        "umami"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

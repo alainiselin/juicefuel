@@ -1,0 +1,168 @@
+{
+  "slug": "sweet-and-sour-pork",
+  "source_title": "Sweet and Sour Pork",
+  "normalized_title": "Sweet and Sour Pork",
+  "query": "Chinese sweet and sour pork with pineapple, bell peppers, and glossy sauce",
+  "cuisine": [
+    "chinese"
+  ],
+  "generated_at": "2026-05-01T10:37:56.622Z",
+  "draft": {
+    "title": "Sweet and Sour Pork",
+    "description": "Chinese sweet and sour pork with pineapple, bell peppers, and glossy sauce, perfect for a flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 15,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "pork tenderloin",
+        "amount": 500,
+        "unit": "g",
+        "note": "cut into bite-sized pieces"
+      },
+      {
+        "name": "pineapple",
+        "amount": 150,
+        "unit": "g",
+        "note": "fresh or canned chunks"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into chunks"
+      },
+      {
+        "name": "green bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into chunks"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into chunks"
+      },
+      {
+        "name": "cornstarch",
+        "amount": 60,
+        "unit": "g",
+        "note": "for coating and sauce thickening"
+      },
+      {
+        "name": "egg",
+        "amount": 1,
+        "unit": "piece",
+        "note": "beaten"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 500,
+        "unit": "ml",
+        "note": "for frying"
+      },
+      {
+        "name": "white vinegar",
+        "amount": 60,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "ketchup",
+        "amount": 80,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "soy sauce",
+        "amount": 30,
+        "unit": "ml",
+        "note": "light soy sauce"
+      },
+      {
+        "name": "sugar",
+        "amount": 50,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 100,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "spring onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped for garnish"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Mix pork pieces with beaten egg and 30g cornstarch until evenly coated; set aside for 10 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a deep pan to 180°C and deep-fry pork pieces in batches until golden and cooked through, about 4-5 minutes; drain on paper towels."
+      },
+      {
+        "order": 3,
+        "text": "In a separate pan, combine white vinegar, ketchup, soy sauce, sugar, water, salt, and remaining cornstarch; stir well to make the sauce."
+      },
+      {
+        "order": 4,
+        "text": "Cook sauce over medium heat, stirring constantly, until it thickens and becomes glossy."
+      },
+      {
+        "order": 5,
+        "text": "Add pineapple chunks, bell peppers, and onion to the sauce; cook for 3-4 minutes until vegetables are tender-crisp."
+      },
+      {
+        "order": 6,
+        "text": "Add fried pork pieces to the sauce and toss gently to coat evenly; heat through for 2 minutes."
+      },
+      {
+        "order": 7,
+        "text": "Serve hot, garnished with chopped spring onion, alongside steamed rice."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "chinese"
+      ],
+      "FLAVOR": [
+        "sweet",
+        "sour",
+        "savory",
+        "umami"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

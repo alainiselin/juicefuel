@@ -1,0 +1,129 @@
+{
+  "slug": "gurkensalat",
+  "source_title": "Gurkensalat",
+  "normalized_title": "Gurkensalat",
+  "query": "German cucumber salad Gurkensalat with dill, vinegar, sour cream option, and onion",
+  "cuisine": [
+    "german"
+  ],
+  "generated_at": "2026-05-01T10:32:35.463Z",
+  "draft": {
+    "title": "Gurkensalat",
+    "description": "Traditional German cucumber salad with dill, vinegar, onion, and optional sour cream, perfect as a refreshing side dish.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 0,
+      "total_min": 15
+    },
+    "ingredients": [
+      {
+        "name": "cucumber",
+        "amount": 500,
+        "unit": "g",
+        "note": "thinly sliced"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "small, thinly sliced"
+      },
+      {
+        "name": "fresh dill",
+        "amount": 15,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "white wine vinegar",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "sugar",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "black pepper",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "freshly ground"
+      },
+      {
+        "name": "sour cream",
+        "amount": 100,
+        "unit": "g",
+        "note": "optional"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Thinly slice the cucumber and onion and place them in a large bowl."
+      },
+      {
+        "order": 2,
+        "text": "In a separate small bowl, mix white wine vinegar, water, sugar, salt, and black pepper until sugar and salt dissolve."
+      },
+      {
+        "order": 3,
+        "text": "Pour the dressing over the cucumber and onion slices and toss gently to combine."
+      },
+      {
+        "order": 4,
+        "text": "Add chopped fresh dill and mix again."
+      },
+      {
+        "order": 5,
+        "text": "If desired, fold in sour cream for a creamier salad."
+      },
+      {
+        "order": 6,
+        "text": "Refrigerate for at least 10 minutes before serving to allow flavors to meld."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german"
+      ],
+      "FLAVOR": [
+        "refreshing",
+        "sour",
+        "herbal",
+        "creamy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "cheap",
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

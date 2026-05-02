@@ -1,0 +1,154 @@
+{
+  "slug": "riz-casimir",
+  "source_title": "Riis Cazimir",
+  "normalized_title": "Riz Casimir",
+  "query": "Swiss Riz Casimir curry rice with chicken, fruit, cream, and toasted almonds",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:36:15.684Z",
+  "draft": {
+    "title": "Riz Casimir",
+    "description": "Swiss Riz Casimir curry rice with chicken, fruit, cream, and toasted almonds, perfect for a flavorful family meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 30,
+      "total_min": 45
+    },
+    "ingredients": [
+      {
+        "name": "chicken breast",
+        "amount": 500,
+        "unit": "g",
+        "note": "cut into bite-sized pieces"
+      },
+      {
+        "name": "basmati rice",
+        "amount": 300,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "curry powder",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "cream",
+        "amount": 200,
+        "unit": "ml",
+        "note": "light cream or crème fraîche"
+      },
+      {
+        "name": "apricot",
+        "amount": 150,
+        "unit": "g",
+        "note": "fresh or canned, chopped"
+      },
+      {
+        "name": "banana",
+        "amount": 1,
+        "unit": "piece",
+        "note": "ripe, sliced"
+      },
+      {
+        "name": "almond",
+        "amount": 50,
+        "unit": "g",
+        "note": "toasted, sliced"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "chicken stock",
+        "amount": 500,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Rinse the basmati rice under cold water until water runs clear. Cook rice in salted boiling water or chicken stock according to package instructions, about 12-15 minutes. Drain and keep warm."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large pan over medium heat. Add chopped onion and sauté until translucent, about 3-4 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add chicken pieces to the pan and cook until lightly browned and cooked through, about 8-10 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Stir in curry powder and cook for 1 minute to release aroma."
+      },
+      {
+        "order": 5,
+        "text": "Add chicken stock and bring to a simmer. Cook for 5 minutes until sauce slightly thickens."
+      },
+      {
+        "order": 6,
+        "text": "Stir in cream, chopped apricot, and sliced banana. Simmer gently for 3-5 minutes to combine flavors. Season with salt and pepper to taste."
+      },
+      {
+        "order": 7,
+        "text": "Toast sliced almonds in a dry pan over medium heat until golden and fragrant, about 2-3 minutes, stirring frequently."
+      },
+      {
+        "order": 8,
+        "text": "Serve the curry sauce over the cooked basmati rice and sprinkle toasted almonds on top."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "creamy",
+        "sweet",
+        "mild",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "quick"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

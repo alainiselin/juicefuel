@@ -1,0 +1,191 @@
+{
+  "slug": "beef-rendang",
+  "source_title": "Beef Rendang",
+  "normalized_title": "Beef Rendang",
+  "query": "Indonesian beef rendang slow cooked with coconut milk, lemongrass, galangal, chili, and spices",
+  "cuisine": [
+    "indonesian"
+  ],
+  "generated_at": "2026-05-01T10:36:43.175Z",
+  "draft": {
+    "title": "Beef Rendang",
+    "description": "Indonesian beef rendang slow cooked with coconut milk, lemongrass, galangal, chili, and spices for a rich, aromatic dish.",
+    "servings": 4,
+    "times": {
+      "prep_min": 30,
+      "cook_min": 180,
+      "total_min": 210
+    },
+    "ingredients": [
+      {
+        "name": "beef chuck",
+        "amount": 800,
+        "unit": "g",
+        "note": "cut into 3 cm cubes"
+      },
+      {
+        "name": "coconut milk",
+        "amount": 400,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "lemongrass",
+        "amount": 2,
+        "unit": "piece",
+        "note": "bruised"
+      },
+      {
+        "name": "galangal",
+        "amount": 30,
+        "unit": "g",
+        "note": "sliced"
+      },
+      {
+        "name": "dried chili",
+        "amount": 5,
+        "unit": "piece",
+        "note": "soaked and chopped"
+      },
+      {
+        "name": "shallot",
+        "amount": 4,
+        "unit": "piece",
+        "note": "peeled"
+      },
+      {
+        "name": "garlic",
+        "amount": 4,
+        "unit": "clove",
+        "note": "peeled"
+      },
+      {
+        "name": "ginger",
+        "amount": 20,
+        "unit": "g",
+        "note": "peeled and chopped"
+      },
+      {
+        "name": "turmeric powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "coriander powder",
+        "amount": 2,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "cumin powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "cinnamon stick",
+        "amount": 1,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "cloves",
+        "amount": 3,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "cardamom pod",
+        "amount": 2,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "kaffir lime leaf",
+        "amount": 4,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "palm sugar",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "or brown sugar"
+      },
+      {
+        "name": "salt",
+        "amount": 1.5,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 200,
+        "unit": "ml",
+        "note": "as needed"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Prepare spice paste by blending shallots, garlic, ginger, dried chili, turmeric, coriander, and cumin powders with a little water until smooth."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a heavy pot over medium heat. Fry the spice paste until fragrant, about 5 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add beef cubes and stir to coat with the spice paste. Cook until beef is browned on all sides."
+      },
+      {
+        "order": 4,
+        "text": "Add lemongrass, galangal, cinnamon stick, cloves, cardamom pods, and kaffir lime leaves. Stir well."
+      },
+      {
+        "order": 5,
+        "text": "Pour in coconut milk and add palm sugar and salt. Bring to a gentle simmer."
+      },
+      {
+        "order": 6,
+        "text": "Reduce heat to low and cook uncovered for about 3 hours, stirring occasionally and adding water if it gets too dry, until beef is tender and sauce is thick."
+      },
+      {
+        "order": 7,
+        "text": "Adjust seasoning with salt or sugar if needed. Remove lemongrass, galangal, cinnamon, cloves, cardamom, and lime leaves before serving."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "indonesian"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "rich",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "slow-cooked",
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

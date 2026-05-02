@@ -1,0 +1,172 @@
+{
+  "slug": "ramen",
+  "source_title": "Ramen",
+  "normalized_title": "Ramen",
+  "query": "Japanese miso ramen with broth, noodles, egg, mushrooms, greens, and optional pork",
+  "cuisine": [
+    "japanese"
+  ],
+  "generated_at": "2026-05-01T10:35:31.057Z",
+  "draft": {
+    "title": "Ramen",
+    "description": "Japanese miso ramen with savory broth, noodles, soft-boiled egg, mushrooms, greens, and optional pork for a rich, comforting meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 40,
+      "total_min": 60
+    },
+    "ingredients": [
+      {
+        "name": "dried ramen noodles",
+        "amount": 400,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "pork belly",
+        "amount": 300,
+        "unit": "g",
+        "note": "optional, sliced"
+      },
+      {
+        "name": "shiitake mushroom",
+        "amount": 150,
+        "unit": "g",
+        "note": "fresh or rehydrated"
+      },
+      {
+        "name": "baby spinach",
+        "amount": 100,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "soft-boiled egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "halved"
+      },
+      {
+        "name": "miso paste",
+        "amount": 60,
+        "unit": "g",
+        "note": "preferably red or mixed miso"
+      },
+      {
+        "name": "dashi stock",
+        "amount": 1.2,
+        "unit": "l",
+        "note": "can use instant dashi powder"
+      },
+      {
+        "name": "soy sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "mirin",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "sesame oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "garlic",
+        "amount": 3,
+        "unit": "clove",
+        "note": "minced"
+      },
+      {
+        "name": "ginger",
+        "amount": 20,
+        "unit": "g",
+        "note": "fresh, grated"
+      },
+      {
+        "name": "spring onion",
+        "amount": 2,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "water",
+        "amount": 500,
+        "unit": "ml",
+        "note": "for boiling noodles"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Prepare soft-boiled eggs by boiling eggs for 6-7 minutes, then cool in ice water and peel; set aside."
+      },
+      {
+        "order": 2,
+        "text": "Heat sesame oil in a pot over medium heat; add minced garlic and grated ginger and sauté until fragrant, about 1-2 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add sliced pork belly to the pot and cook until lightly browned, about 5 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Pour in dashi stock, soy sauce, and mirin; bring to a gentle simmer."
+      },
+      {
+        "order": 5,
+        "text": "Whisk miso paste with a ladle of hot broth in a separate bowl until smooth, then stir back into the pot; keep broth warm but do not boil."
+      },
+      {
+        "order": 6,
+        "text": "In a separate pot, bring water to a boil and cook ramen noodles according to package instructions until al dente; drain and rinse briefly under warm water."
+      },
+      {
+        "order": 7,
+        "text": "Add shiitake mushrooms to the broth and simmer for 5 minutes until tender."
+      },
+      {
+        "order": 8,
+        "text": "Add baby spinach to the broth just before serving and cook until wilted."
+      },
+      {
+        "order": 9,
+        "text": "Divide noodles into four bowls; ladle hot broth with pork, mushrooms, and greens over noodles."
+      },
+      {
+        "order": 10,
+        "text": "Top each bowl with halved soft-boiled egg and sliced spring onions; serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "japanese"
+      ],
+      "FLAVOR": [
+        "umami",
+        "savory",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

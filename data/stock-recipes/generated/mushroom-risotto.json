@@ -1,0 +1,148 @@
+{
+  "slug": "mushroom-risotto",
+  "source_title": "Mushroom Risotto",
+  "normalized_title": "Mushroom Risotto",
+  "query": "Italian mushroom risotto with arborio rice, white wine, parmesan, and mixed mushrooms",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:28:39.537Z",
+  "draft": {
+    "title": "Mushroom Risotto",
+    "description": "Italian mushroom risotto with arborio rice, white wine, parmesan, and mixed mushrooms, perfect for a creamy, savory meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 30,
+      "total_min": 45
+    },
+    "ingredients": [
+      {
+        "name": "arborio rice",
+        "amount": 320,
+        "unit": "g",
+        "note": "short-grain rice ideal for risotto"
+      },
+      {
+        "name": "mixed mushroom",
+        "amount": 400,
+        "unit": "g",
+        "note": "such as cremini, shiitake, and button mushrooms, sliced"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "vegetable stock",
+        "amount": 1,
+        "unit": "l",
+        "note": "kept warm"
+      },
+      {
+        "name": "dry white wine",
+        "amount": 150,
+        "unit": "ml",
+        "note": "such as Pinot Grigio"
+      },
+      {
+        "name": "parmesan cheese",
+        "amount": 80,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "unsalted butter",
+        "amount": 40,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "fresh parsley",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "chopped, for garnish"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat olive oil and half the butter in a large pan over medium heat. Add chopped onion and garlic; sauté until translucent, about 3-4 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Add the sliced mushrooms and cook until softened and lightly browned, about 5-7 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Stir in the arborio rice and cook for 1-2 minutes until the rice is well coated and slightly toasted."
+      },
+      {
+        "order": 4,
+        "text": "Pour in the white wine and stir continuously until it is mostly absorbed by the rice."
+      },
+      {
+        "order": 5,
+        "text": "Add warm vegetable stock one ladle at a time, stirring frequently and allowing the liquid to be absorbed before adding more. Continue until the rice is creamy and al dente, about 18-20 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Remove from heat and stir in the remaining butter and grated parmesan cheese. Season with salt and freshly ground black pepper to taste."
+      },
+      {
+        "order": 7,
+        "text": "Serve immediately, garnished with chopped fresh parsley."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "umami",
+        "creamy",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

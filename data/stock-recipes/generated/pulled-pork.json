@@ -1,0 +1,179 @@
+{
+  "slug": "pulled-pork",
+  "source_title": "Pulled Pork",
+  "normalized_title": "Pulled Pork",
+  "query": "American pulled pork with dry rub and barbecue sauce for sandwiches or bowls",
+  "cuisine": [],
+  "generated_at": "2026-05-01T10:29:47.018Z",
+  "draft": {
+    "title": "Pulled Pork",
+    "description": "American pulled pork with dry rub and barbecue sauce, perfect for sandwiches or bowls, slow-cooked for tender, flavorful meat.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 480,
+      "total_min": 500
+    },
+    "ingredients": [
+      {
+        "name": "pork shoulder",
+        "amount": 1.5,
+        "unit": "kg",
+        "note": "boneless"
+      },
+      {
+        "name": "brown sugar",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "for dry rub"
+      },
+      {
+        "name": "paprika",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "smoked paprika preferred"
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "black pepper",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "freshly ground"
+      },
+      {
+        "name": "garlic powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "onion powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "cayenne pepper",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "optional for mild heat"
+      },
+      {
+        "name": "apple cider vinegar",
+        "amount": 120,
+        "unit": "ml",
+        "note": "for sauce and mop"
+      },
+      {
+        "name": "ketchup",
+        "amount": 200,
+        "unit": "ml",
+        "note": "for barbecue sauce"
+      },
+      {
+        "name": "mustard",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "preferably Dijon"
+      },
+      {
+        "name": "honey",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "for sweetness in sauce"
+      },
+      {
+        "name": "smoked paprika",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "for sauce"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "for searing"
+      },
+      {
+        "name": "burger bun",
+        "amount": 4,
+        "unit": "piece",
+        "note": "to serve"
+      },
+      {
+        "name": "coleslaw",
+        "amount": 200,
+        "unit": "g",
+        "note": "optional, to serve"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Mix brown sugar, paprika, salt, black pepper, garlic powder, onion powder, and cayenne pepper in a bowl to make the dry rub."
+      },
+      {
+        "order": 2,
+        "text": "Pat the pork shoulder dry and rub the spice mix all over it. Let it rest for at least 1 hour or overnight in the fridge for best flavor."
+      },
+      {
+        "order": 3,
+        "text": "Preheat oven to 130°C (265°F). Heat vegetable oil in a large ovenproof pot or Dutch oven over medium-high heat."
+      },
+      {
+        "order": 4,
+        "text": "Sear the pork shoulder on all sides until browned, about 3-4 minutes per side."
+      },
+      {
+        "order": 5,
+        "text": "Mix ketchup, apple cider vinegar, mustard, honey, and smoked paprika in a bowl to make the barbecue sauce."
+      },
+      {
+        "order": 6,
+        "text": "Pour half of the barbecue sauce over the pork. Cover the pot with a lid or foil and place in the oven."
+      },
+      {
+        "order": 7,
+        "text": "Cook for about 8 hours, basting with the remaining sauce every 2 hours, until the pork is very tender and can be shredded easily."
+      },
+      {
+        "order": 8,
+        "text": "Remove pork from oven and let rest for 15 minutes. Shred the meat with two forks, discarding excess fat."
+      },
+      {
+        "order": 9,
+        "text": "Mix shredded pork with remaining barbecue sauce and serve on burger buns with optional coleslaw."
+      }
+    ],
+    "tags": {
+      "CUISINE": [],
+      "FLAVOR": [
+        "smoky",
+        "sweet",
+        "savory",
+        "rich"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "slow-cooked",
+        "weekend",
+        "make-ahead"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

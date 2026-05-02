@@ -1,0 +1,126 @@
+{
+  "slug": "focaccia",
+  "source_title": "Focaccia",
+  "normalized_title": "Focaccia",
+  "query": "Italian focaccia with olive oil, rosemary, flaky salt, and airy crumb",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:34:16.929Z",
+  "draft": {
+    "title": "Focaccia",
+    "description": "Italian focaccia with olive oil, rosemary, flaky salt, and airy crumb, perfect for home baking.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 25,
+      "total_min": 105
+    },
+    "ingredients": [
+      {
+        "name": "all-purpose flour",
+        "amount": 500,
+        "unit": "g",
+        "note": "plus extra for dusting"
+      },
+      {
+        "name": "warm water",
+        "amount": 350,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "dry yeast",
+        "amount": 7,
+        "unit": "g",
+        "note": "one standard packet"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "amount": 60,
+        "unit": "ml",
+        "note": "plus extra for drizzling"
+      },
+      {
+        "name": "fine sea salt",
+        "amount": 10,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "fresh rosemary",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "chopped"
+      },
+      {
+        "name": "flaky sea salt",
+        "amount": 5,
+        "unit": "g",
+        "note": "for topping"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "In a small bowl, dissolve dry yeast in warm water and let it activate for 5-10 minutes until frothy."
+      },
+      {
+        "order": 2,
+        "text": "In a large bowl, combine flour and fine sea salt. Add the yeast mixture and 30 ml olive oil, mixing until a sticky dough forms."
+      },
+      {
+        "order": 3,
+        "text": "Turn the dough onto a floured surface and knead for about 10 minutes until smooth and elastic."
+      },
+      {
+        "order": 4,
+        "text": "Place the dough in a lightly oiled bowl, cover with a clean towel or plastic wrap, and let it rise in a warm place for 1 hour or until doubled in size."
+      },
+      {
+        "order": 5,
+        "text": "Preheat the oven to 220°C (200°C fan). Oil a baking tray generously with olive oil."
+      },
+      {
+        "order": 6,
+        "text": "Transfer the dough to the tray and gently stretch it to fit. Use your fingers to dimple the surface evenly."
+      },
+      {
+        "order": 7,
+        "text": "Drizzle remaining olive oil over the dough, sprinkle with chopped rosemary and flaky sea salt."
+      },
+      {
+        "order": 8,
+        "text": "Bake in the preheated oven for 20-25 minutes until golden brown and crisp on top."
+      },
+      {
+        "order": 9,
+        "text": "Remove from oven, let cool slightly, then slice and serve warm or at room temperature."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "salty",
+        "herbal",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

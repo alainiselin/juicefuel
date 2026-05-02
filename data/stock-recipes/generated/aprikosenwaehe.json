@@ -1,0 +1,142 @@
+{
+  "slug": "aprikosenwaehe",
+  "source_title": "Aprikosenwähe",
+  "normalized_title": "Aprikosenwähe",
+  "query": "Swiss apricot tart Aprikosenwaehe with custard filling",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:33:14.531Z",
+  "draft": {
+    "title": "Aprikosenwähe",
+    "description": "Swiss apricot tart with a tender shortcrust base and creamy custard filling, topped with fresh apricot halves. A classic dessert perfect for summer.",
+    "servings": 6,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 35,
+      "total_min": 55
+    },
+    "ingredients": [
+      {
+        "name": "all-purpose flour",
+        "amount": 250,
+        "unit": "g",
+        "note": "for the crust"
+      },
+      {
+        "name": "butter",
+        "amount": 125,
+        "unit": "g",
+        "note": "cold, for the crust"
+      },
+      {
+        "name": "sugar",
+        "amount": 125,
+        "unit": "g",
+        "note": "50 g for the crust, 75 g for the custard"
+      },
+      {
+        "name": "egg",
+        "amount": 3,
+        "unit": "piece",
+        "note": "1 for the crust, 2 for the custard"
+      },
+      {
+        "name": "apricot",
+        "amount": 500,
+        "unit": "g",
+        "note": "halved and pitted"
+      },
+      {
+        "name": "milk",
+        "amount": 250,
+        "unit": "ml",
+        "note": "whole milk for custard"
+      },
+      {
+        "name": "cream",
+        "amount": 100,
+        "unit": "ml",
+        "note": "heavy cream for custard"
+      },
+      {
+        "name": "vanilla extract",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "for custard flavor"
+      },
+      {
+        "name": "cornstarch",
+        "amount": 20,
+        "unit": "g",
+        "note": "to thicken custard"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Prepare the shortcrust pastry by mixing flour, sugar, and cold butter until crumbly, then add one egg and knead into a smooth dough. Wrap and chill for 30 minutes if possible."
+      },
+      {
+        "order": 2,
+        "text": "Preheat oven to 180°C (350°F). Roll out the chilled dough on a floured surface and line a 26 cm tart pan with removable bottom. Prick the base with a fork."
+      },
+      {
+        "order": 3,
+        "text": "Blind bake the crust for 10 minutes with baking paper and baking beans or rice to prevent rising."
+      },
+      {
+        "order": 4,
+        "text": "Remove the baking paper and beans, then bake the crust for another 5 minutes until lightly golden."
+      },
+      {
+        "order": 5,
+        "text": "In a bowl, whisk eggs, sugar, vanilla extract, and cornstarch until smooth. Warm milk and cream in a saucepan until just below boiling, then slowly whisk into the egg mixture."
+      },
+      {
+        "order": 6,
+        "text": "Pour the custard mixture back into the saucepan and cook over low heat, stirring constantly until it thickens. Remove from heat and let cool slightly."
+      },
+      {
+        "order": 7,
+        "text": "Arrange apricot halves cut side up on the baked tart crust."
+      },
+      {
+        "order": 8,
+        "text": "Pour the custard evenly over the apricots."
+      },
+      {
+        "order": 9,
+        "text": "Bake the tart at 180°C (350°F) for 20 minutes until the custard is set and the apricots are tender."
+      },
+      {
+        "order": 10,
+        "text": "Let the Aprikosenwähe cool before removing from the pan and serving."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "sweet",
+        "creamy",
+        "mild"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

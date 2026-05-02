@@ -1,0 +1,141 @@
+{
+  "slug": "grilled-eggplant-tahini-yogurt-bulgur",
+  "source_title": "Grilled Eggplant with Tahini-joghurt Sauce, Bulgur with lemon and Parsley",
+  "normalized_title": "Grilled Eggplant with Tahini Yogurt and Lemon Parsley Bulgur",
+  "query": "Middle Eastern grilled eggplant with tahini yogurt sauce and lemon parsley bulgur",
+  "cuisine": [
+    "lebanese"
+  ],
+  "generated_at": "2026-05-01T10:38:15.794Z",
+  "draft": {
+    "title": "Grilled Eggplant with Tahini Yogurt and Lemon Parsley Bulgur",
+    "description": "Middle Eastern grilled eggplant served with a creamy tahini yogurt sauce and bright lemon parsley bulgur. A flavorful, easy-to-make dish perfect for home cooking.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 25,
+      "total_min": 45
+    },
+    "ingredients": [
+      {
+        "name": "eggplant",
+        "amount": 2,
+        "unit": "piece",
+        "note": "medium size"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "divided"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "plain yogurt",
+        "amount": 200,
+        "unit": "g",
+        "note": "full fat or Greek"
+      },
+      {
+        "name": "tahini",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "garlic",
+        "amount": 1,
+        "unit": "piece",
+        "note": "clove, minced"
+      },
+      {
+        "name": "lemon juice",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "freshly squeezed"
+      },
+      {
+        "name": "bulgur wheat",
+        "amount": 180,
+        "unit": "g",
+        "note": "medium or coarse"
+      },
+      {
+        "name": "parsley",
+        "amount": 15,
+        "unit": "g",
+        "note": "fresh, chopped"
+      },
+      {
+        "name": "water",
+        "amount": 360,
+        "unit": "ml",
+        "note": "for bulgur cooking"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Slice the eggplants lengthwise into 1 cm thick slices. Brush both sides with 2 tbsp olive oil and season with salt and pepper."
+      },
+      {
+        "order": 2,
+        "text": "Preheat a grill pan or outdoor grill over medium-high heat. Grill the eggplant slices for 5-7 minutes per side until tender and charred."
+      },
+      {
+        "order": 3,
+        "text": "While the eggplant grills, rinse the bulgur under cold water. Bring 360 ml water to a boil, add bulgur, cover, and remove from heat. Let it soak for 15 minutes until water is absorbed."
+      },
+      {
+        "order": 4,
+        "text": "Fluff the bulgur with a fork, then stir in chopped parsley, 1 tbsp olive oil, lemon juice, and season with salt and pepper to taste."
+      },
+      {
+        "order": 5,
+        "text": "In a bowl, whisk together yogurt, tahini, minced garlic, and a pinch of salt until smooth and creamy."
+      },
+      {
+        "order": 6,
+        "text": "Serve the grilled eggplant slices topped with tahini yogurt sauce alongside the lemon parsley bulgur."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "lebanese"
+      ],
+      "FLAVOR": [
+        "smoky",
+        "creamy",
+        "herbal",
+        "citrusy",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "quick"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

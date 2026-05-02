@@ -1,0 +1,155 @@
+{
+  "slug": "turkish-eggs-cilbir",
+  "source_title": "Turkish Eggs",
+  "normalized_title": "Turkish Eggs (Cilbir)",
+  "query": "Turkish cilbir poached eggs with garlicky yogurt and Aleppo pepper butter",
+  "cuisine": [
+    "turkish"
+  ],
+  "generated_at": "2026-05-01T10:27:02.201Z",
+  "draft": {
+    "title": "Turkish Eggs (Cilbir)",
+    "description": "Poached eggs served over garlicky yogurt, topped with melted butter infused with Aleppo pepper for a rich, tangy Turkish breakfast.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 10,
+      "total_min": 20
+    },
+    "ingredients": [
+      {
+        "name": "egg",
+        "amount": 8,
+        "unit": "piece",
+        "note": "fresh, large"
+      },
+      {
+        "name": "plain yogurt",
+        "amount": 400,
+        "unit": "g",
+        "note": "full-fat"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "unsalted butter",
+        "amount": 50,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "aleppo pepper",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "or mild chili flakes"
+      },
+      {
+        "name": "white vinegar",
+        "amount": 15,
+        "unit": "ml",
+        "note": "for poaching water"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "fresh dill",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "chopped, for garnish"
+      },
+      {
+        "name": "fresh parsley",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "chopped, for garnish"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "bread",
+        "amount": 1,
+        "unit": "piece",
+        "note": "rustic, sliced, for serving"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "In a bowl, mix the plain yogurt with minced garlic and a pinch of salt. Set aside to let the flavors meld."
+      },
+      {
+        "order": 2,
+        "text": "Bring a large pot of water to a gentle simmer. Add white vinegar to the water to help eggs coagulate."
+      },
+      {
+        "order": 3,
+        "text": "Crack eggs one at a time into a small bowl, then gently slide each into the simmering water. Poach for 3-4 minutes until whites are set but yolks remain runny."
+      },
+      {
+        "order": 4,
+        "text": "While eggs poach, melt the butter in a small pan over low heat. Stir in Aleppo pepper and remove from heat."
+      },
+      {
+        "order": 5,
+        "text": "Using a slotted spoon, carefully remove eggs from water and drain on paper towels."
+      },
+      {
+        "order": 6,
+        "text": "Spread the garlicky yogurt evenly on a serving plate or individual plates."
+      },
+      {
+        "order": 7,
+        "text": "Place poached eggs on top of the yogurt. Drizzle the Aleppo pepper butter over the eggs."
+      },
+      {
+        "order": 8,
+        "text": "Season with salt and freshly ground black pepper. Garnish with chopped dill and parsley."
+      },
+      {
+        "order": 9,
+        "text": "Serve immediately with rustic bread slices for dipping."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "turkish"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "creamy",
+        "rich",
+        "tangy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Use fresh eggs for best poaching results.",
+      "Adjust Aleppo pepper amount to control spiciness."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

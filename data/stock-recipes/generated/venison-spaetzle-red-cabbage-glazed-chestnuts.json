@@ -1,0 +1,190 @@
+{
+  "slug": "venison-spaetzle-red-cabbage-glazed-chestnuts",
+  "source_title": "Wild mit Spaetzle, Rotkraut und glasierten Maronen",
+  "normalized_title": "Venison with Spaetzle, Red Cabbage, and Glazed Chestnuts",
+  "query": "Central European venison with spaetzle, braised red cabbage, and glazed chestnuts",
+  "cuisine": [
+    "german"
+  ],
+  "generated_at": "2026-05-01T10:30:35.662Z",
+  "draft": {
+    "title": "Venison with Spaetzle, Red Cabbage, and Glazed Chestnuts",
+    "description": "Classic Central European venison served with homemade spaetzle, braised red cabbage, and sweet glazed chestnuts for a rich and hearty meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 30,
+      "cook_min": 90,
+      "total_min": 120
+    },
+    "ingredients": [
+      {
+        "name": "venison steak",
+        "amount": 800,
+        "unit": "g",
+        "note": "preferably from the leg or shoulder"
+      },
+      {
+        "name": "spaetzle flour",
+        "amount": 250,
+        "unit": "g",
+        "note": "or all-purpose flour"
+      },
+      {
+        "name": "egg",
+        "amount": 2,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "milk",
+        "amount": 100,
+        "unit": "ml",
+        "note": "lukewarm"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": "for spaetzle and glazing"
+      },
+      {
+        "name": "red cabbage",
+        "amount": 800,
+        "unit": "g",
+        "note": "finely shredded"
+      },
+      {
+        "name": "apple",
+        "amount": 1,
+        "unit": "piece",
+        "note": "peeled and grated"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "apple cider vinegar",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "brown sugar",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "chestnut",
+        "amount": 200,
+        "unit": "g",
+        "note": "cooked and peeled"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "for searing venison"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "bay leaf",
+        "amount": 1,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "cloves",
+        "amount": 3,
+        "unit": "piece",
+        "note": "whole"
+      },
+      {
+        "name": "juniper berry",
+        "amount": 5,
+        "unit": "piece",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 200,
+        "unit": "ml",
+        "note": "for braising"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Season venison steaks with salt and pepper. Heat vegetable oil in a pan over medium-high heat and sear steaks on both sides until browned. Remove and set aside."
+      },
+      {
+        "order": 2,
+        "text": "In the same pan, add chopped onion and sauté until translucent. Add red cabbage, grated apple, bay leaf, cloves, juniper berries, brown sugar, apple cider vinegar, and water. Stir well."
+      },
+      {
+        "order": 3,
+        "text": "Return venison to the pan, cover, and braise on low heat for about 1 hour until meat is tender and cabbage is soft."
+      },
+      {
+        "order": 4,
+        "text": "Meanwhile, prepare spaetzle dough by mixing flour, eggs, lukewarm milk, and a pinch of salt until smooth. Let rest for 10 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Bring a large pot of salted water to a boil. Press spaetzle dough through a spaetzle maker or colander into the boiling water. Cook until spaetzle float to the surface, then remove with a slotted spoon."
+      },
+      {
+        "order": 6,
+        "text": "Melt butter in a pan and toss cooked spaetzle in it to lightly brown and add flavor."
+      },
+      {
+        "order": 7,
+        "text": "For glazed chestnuts, melt butter in a small pan, add chestnuts and brown sugar, and cook gently until chestnuts are glazed and shiny."
+      },
+      {
+        "order": 8,
+        "text": "Remove bay leaf, cloves, and juniper berries from the cabbage. Serve venison with spaetzle, red cabbage, and glazed chestnuts on the side."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "german"
+      ],
+      "FLAVOR": [
+        "rich",
+        "savory",
+        "sweet",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend",
+        "slow-cooked"
+      ],
+      "COST": [
+        "premium"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

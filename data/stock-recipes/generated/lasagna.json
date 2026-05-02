@@ -1,0 +1,195 @@
+{
+  "slug": "lasagna",
+  "source_title": "Lasagna",
+  "normalized_title": "Lasagna",
+  "query": "Italian lasagna al forno with beef ragu, bechamel, pasta sheets, and parmesan",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:38:10.991Z",
+  "draft": {
+    "title": "Lasagna",
+    "description": "Classic Italian lasagna al forno with rich beef ragu, creamy béchamel, fresh pasta sheets, and parmesan cheese baked to perfection.",
+    "servings": 4,
+    "times": {
+      "prep_min": 40,
+      "cook_min": 45,
+      "total_min": 85
+    },
+    "ingredients": [
+      {
+        "name": "ground beef",
+        "amount": 500,
+        "unit": "g",
+        "note": "lean"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "carrot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "celery stalk",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "canned tomatoes",
+        "amount": 400,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "tomato paste",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "dry white wine",
+        "amount": 125,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "milk",
+        "amount": 500,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "all-purpose flour",
+        "amount": 50,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "nutmeg",
+        "amount": 0.25,
+        "unit": "tsp",
+        "note": "freshly grated"
+      },
+      {
+        "name": "parmesan cheese",
+        "amount": 100,
+        "unit": "g",
+        "note": "grated"
+      },
+      {
+        "name": "lasagna sheets",
+        "amount": 250,
+        "unit": "g",
+        "note": "fresh or dried"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat olive oil in a large pan over medium heat. Add onion, carrot, celery, and garlic; sauté until softened, about 5-7 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Add ground beef and cook until browned, breaking it up with a spoon."
+      },
+      {
+        "order": 3,
+        "text": "Pour in white wine and cook until mostly evaporated, about 3 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Add canned tomatoes, tomato paste, salt, and pepper. Simmer gently for 30 minutes, stirring occasionally."
+      },
+      {
+        "order": 5,
+        "text": "Meanwhile, prepare béchamel: melt butter in a saucepan over medium heat. Stir in flour and cook for 1-2 minutes without browning."
+      },
+      {
+        "order": 6,
+        "text": "Gradually whisk in milk, ensuring no lumps. Cook, stirring constantly, until thickened. Season with salt, pepper, and nutmeg."
+      },
+      {
+        "order": 7,
+        "text": "Preheat oven to 180°C (350°F). Lightly grease a baking dish."
+      },
+      {
+        "order": 8,
+        "text": "Assemble lasagna by layering a thin layer of ragu, then pasta sheets, béchamel, and a sprinkle of parmesan. Repeat layers ending with béchamel and parmesan on top."
+      },
+      {
+        "order": 9,
+        "text": "Cover with foil and bake for 30 minutes. Remove foil and bake another 15 minutes until golden and bubbling."
+      },
+      {
+        "order": 10,
+        "text": "Let rest for 10 minutes before serving."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "rich",
+        "umami",
+        "creamy",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend",
+        "make-ahead"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Ensure pasta sheets are fully covered with sauce to prevent drying during baking.",
+      "Adjust seasoning to taste, especially salt and pepper."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

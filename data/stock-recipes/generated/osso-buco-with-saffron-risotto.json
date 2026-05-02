@@ -1,0 +1,221 @@
+{
+  "slug": "osso-buco-with-saffron-risotto",
+  "source_title": "Osobucco mit Safran Risotto",
+  "normalized_title": "Osso Buco with Saffron Risotto",
+  "query": "traditional Milanese osso buco with saffron risotto for a home kitchen",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:27:45.838Z",
+  "draft": {
+    "title": "Osso Buco with Saffron Risotto",
+    "description": "Traditional Milanese osso buco paired with creamy saffron risotto, perfect for a comforting home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 120,
+      "total_min": 140
+    },
+    "ingredients": [
+      {
+        "name": "veal shank",
+        "amount": 1.2,
+        "unit": "kg",
+        "note": "cut into 4 pieces, about 3-4 cm thick"
+      },
+      {
+        "name": "flour",
+        "amount": 50,
+        "unit": "g",
+        "note": "for dredging"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "carrot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "celery stalk",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "crushed"
+      },
+      {
+        "name": "dry white wine",
+        "amount": 400,
+        "unit": "ml",
+        "note": "250 ml for osso buco, 150 ml for risotto"
+      },
+      {
+        "name": "beef stock",
+        "amount": 800,
+        "unit": "ml",
+        "note": "warm"
+      },
+      {
+        "name": "tomato paste",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "lemon zest",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "for gremolata"
+      },
+      {
+        "name": "parsley",
+        "amount": 15,
+        "unit": "g",
+        "note": "finely chopped, for gremolata"
+      },
+      {
+        "name": "saffron threads",
+        "amount": 0.05,
+        "unit": "g",
+        "note": "for risotto"
+      },
+      {
+        "name": "arborio rice",
+        "amount": 320,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "shallot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "parmesan cheese",
+        "amount": 80,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Pat veal shanks dry and dredge lightly in flour, shaking off excess."
+      },
+      {
+        "order": 2,
+        "text": "Heat olive oil and half the butter in a large heavy pan over medium-high heat; brown veal shanks on all sides, then remove and set aside."
+      },
+      {
+        "order": 3,
+        "text": "Add chopped onion, carrot, celery, and garlic to the pan; sauté until softened, about 5 minutes."
+      },
+      {
+        "order": 4,
+        "text": "Stir in tomato paste and cook for 1 minute, then deglaze with 250 ml white wine, scraping up browned bits."
+      },
+      {
+        "order": 5,
+        "text": "Return veal to the pan; add warm beef stock to cover halfway. Bring to a simmer, cover, and cook gently for 1.5 to 2 hours until meat is tender."
+      },
+      {
+        "order": 6,
+        "text": "Meanwhile, soak saffron threads in 2 tbsp warm water."
+      },
+      {
+        "order": 7,
+        "text": "For risotto, melt remaining butter in a saucepan, add shallot and cook until translucent."
+      },
+      {
+        "order": 8,
+        "text": "Add arborio rice and stir to coat grains with butter; toast for 2 minutes."
+      },
+      {
+        "order": 9,
+        "text": "Pour in 150 ml white wine and cook until mostly absorbed."
+      },
+      {
+        "order": 10,
+        "text": "Add warm beef stock gradually, one ladle at a time, stirring constantly and allowing liquid to absorb before adding more."
+      },
+      {
+        "order": 11,
+        "text": "Halfway through cooking, add saffron with its soaking water to the risotto."
+      },
+      {
+        "order": 12,
+        "text": "When rice is al dente and creamy (about 18-20 minutes), stir in grated parmesan, season with salt and pepper, and remove from heat."
+      },
+      {
+        "order": 13,
+        "text": "Mix lemon zest and parsley to make gremolata."
+      },
+      {
+        "order": 14,
+        "text": "Serve veal shanks over saffron risotto, spoon pan sauce on top, and sprinkle with gremolata."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "rich",
+        "savory",
+        "creamy",
+        "herbal",
+        "citrusy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend",
+        "slow-cooked"
+      ],
+      "COST": [
+        "premium"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "slug": "red-thai-curry",
+  "source_title": "Red Thai Curry",
+  "normalized_title": "Red Thai Curry",
+  "query": "Thai red curry with coconut milk, vegetables, Thai basil, and chicken or tofu option",
+  "cuisine": [
+    "thai"
+  ],
+  "generated_at": "2026-05-01T10:30:14.973Z",
+  "draft": {
+    "title": "Red Thai Curry",
+    "description": "Thai red curry with coconut milk, vegetables, Thai basil, and chicken or tofu option, perfect for a flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 20,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "red curry paste",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "coconut milk",
+        "amount": 400,
+        "unit": "ml",
+        "note": "full fat for creaminess"
+      },
+      {
+        "name": "chicken breast",
+        "amount": 400,
+        "unit": "g",
+        "note": "or firm tofu, cubed"
+      },
+      {
+        "name": "bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced, any color"
+      },
+      {
+        "name": "carrot",
+        "amount": 2,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "aubergine",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, cubed"
+      },
+      {
+        "name": "thai basil leaves",
+        "amount": 15,
+        "unit": "g",
+        "note": "fresh"
+      },
+      {
+        "name": "fish sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "or soy sauce for vegetarian"
+      },
+      {
+        "name": "palm sugar",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "or brown sugar"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "water",
+        "amount": 100,
+        "unit": "ml",
+        "note": "to adjust curry consistency"
+      },
+      {
+        "name": "lime",
+        "amount": 1,
+        "unit": "piece",
+        "note": "cut into wedges for serving"
+      },
+      {
+        "name": "jasmine rice",
+        "amount": 300,
+        "unit": "g",
+        "note": "uncooked, to serve"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Cook jasmine rice according to package instructions."
+      },
+      {
+        "order": 2,
+        "text": "Heat vegetable oil in a large pan over medium heat. Add red curry paste and fry for 1-2 minutes until fragrant."
+      },
+      {
+        "order": 3,
+        "text": "Add chicken or tofu cubes, stir to coat with curry paste, and cook for 3-4 minutes until chicken is sealed."
+      },
+      {
+        "order": 4,
+        "text": "Pour in coconut milk and water, bring to a gentle simmer."
+      },
+      {
+        "order": 5,
+        "text": "Add sliced bell pepper, carrot, and aubergine. Simmer for 10-12 minutes until vegetables are tender and chicken is cooked through."
+      },
+      {
+        "order": 6,
+        "text": "Stir in fish sauce and palm sugar. Adjust seasoning to taste."
+      },
+      {
+        "order": 7,
+        "text": "Remove from heat and stir in fresh Thai basil leaves."
+      },
+      {
+        "order": 8,
+        "text": "Serve curry hot with jasmine rice and lime wedges on the side."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "thai"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "creamy",
+        "savory",
+        "herbal"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "quick"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Adjust red curry paste quantity to control spiciness.",
+      "Use fish sauce carefully if allergic to seafood; substitute with soy sauce as needed."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

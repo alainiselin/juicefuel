@@ -1,0 +1,133 @@
+{
+  "slug": "tomato-soup",
+  "source_title": "Tomato Soup",
+  "normalized_title": "Tomato Soup",
+  "query": "classic tomato soup with roasted tomatoes, basil, and cream option",
+  "cuisine": [],
+  "generated_at": "2026-05-01T10:31:53.491Z",
+  "draft": {
+    "title": "Tomato Soup",
+    "description": "Classic tomato soup with roasted tomatoes, fresh basil, and an optional touch of cream for richness.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 40,
+      "total_min": 55
+    },
+    "ingredients": [
+      {
+        "name": "ripe tomato",
+        "amount": 1.2,
+        "unit": "kg",
+        "note": "halved"
+      },
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "yellow onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "vegetable stock",
+        "amount": 750,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "fresh basil leaf",
+        "amount": 10,
+        "unit": "piece",
+        "note": "plus extra for garnish"
+      },
+      {
+        "name": "sugar",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "optional, to balance acidity"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "heavy cream",
+        "amount": 100,
+        "unit": "ml",
+        "note": "optional, for serving"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Preheat the oven to 200°C. Place halved tomatoes on a baking tray, drizzle with 1 tbsp olive oil, and roast for 25 minutes until soft and slightly caramelized."
+      },
+      {
+        "order": 2,
+        "text": "Heat remaining olive oil in a large pot over medium heat. Add chopped onion and sauté until translucent, about 5 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add minced garlic and cook for 1 minute until fragrant."
+      },
+      {
+        "order": 4,
+        "text": "Add the roasted tomatoes (including juices), vegetable stock, and fresh basil leaves to the pot. Bring to a boil, then reduce heat and simmer for 15 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Remove from heat and blend the soup using an immersion blender until smooth. If too thick, add a little water or stock to reach desired consistency."
+      },
+      {
+        "order": 6,
+        "text": "Return soup to low heat, season with salt, pepper, and sugar if needed. Heat through gently."
+      },
+      {
+        "order": 7,
+        "text": "Serve hot, garnished with extra basil leaves and a swirl of heavy cream if desired."
+      }
+    ],
+    "tags": {
+      "CUISINE": [],
+      "FLAVOR": [
+        "umami",
+        "herbal",
+        "creamy",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "slug": "beer-battered-eglifilet-with-potato-salad",
+  "source_title": "Eglifilet im Bierteig mit Herdöpfelsalat",
+  "normalized_title": "Beer-Battered Eglifilet with Potato Salad",
+  "query": "Swiss perch fillets Eglifilet in beer batter with Swiss potato salad Herdoepfelsalat",
+  "cuisine": [
+    "swiss"
+  ],
+  "generated_at": "2026-05-01T10:37:30.791Z",
+  "draft": {
+    "title": "Beer-Battered Eglifilet with Potato Salad",
+    "description": "Crispy Swiss perch fillets in a light beer batter served with traditional Herdoepfelsalat, a tangy Swiss potato salad.",
+    "servings": 4,
+    "times": {
+      "prep_min": 25,
+      "cook_min": 15,
+      "total_min": 40
+    },
+    "ingredients": [
+      {
+        "name": "eglifilet",
+        "amount": 600,
+        "unit": "g",
+        "note": "skinless, boneless perch fillets"
+      },
+      {
+        "name": "beer",
+        "amount": 250,
+        "unit": "ml",
+        "note": "lager or pale ale, chilled"
+      },
+      {
+        "name": "flour",
+        "amount": 150,
+        "unit": "g",
+        "note": "all-purpose"
+      },
+      {
+        "name": "baking powder",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "for batter"
+      },
+      {
+        "name": "pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      },
+      {
+        "name": "potato",
+        "amount": 800,
+        "unit": "g",
+        "note": "waxy potatoes, peeled"
+      },
+      {
+        "name": "white wine vinegar",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "for potato salad dressing"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "small, finely chopped"
+      },
+      {
+        "name": "chives",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "fresh, chopped"
+      },
+      {
+        "name": "mustard",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "Dijon or Swiss-style"
+      },
+      {
+        "name": "water",
+        "amount": null,
+        "unit": null,
+        "note": "for rinsing potatoes"
+      },
+      {
+        "name": "oil",
+        "amount": null,
+        "unit": null,
+        "note": "for deep frying (sunflower or rapeseed)"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Boil the peeled potatoes in salted water until tender, about 15 minutes. Drain, rinse under cold water, and slice into 1 cm thick rounds."
+      },
+      {
+        "order": 2,
+        "text": "In a bowl, whisk together white wine vinegar, vegetable oil, mustard, chopped onion, chives, salt, and pepper to make the dressing."
+      },
+      {
+        "order": 3,
+        "text": "Toss the warm potato slices gently with the dressing and set aside to marinate at room temperature."
+      },
+      {
+        "order": 4,
+        "text": "In a separate bowl, combine flour, baking powder, salt, and pepper. Gradually whisk in chilled beer until smooth and slightly thick batter forms."
+      },
+      {
+        "order": 5,
+        "text": "Heat oil in a deep pan or fryer to 180°C. Pat the eglifilet dry with paper towels."
+      },
+      {
+        "order": 6,
+        "text": "Dip each perch fillet into the beer batter, allowing excess to drip off, then carefully lower into hot oil."
+      },
+      {
+        "order": 7,
+        "text": "Fry the fillets in batches for 3-4 minutes until golden and crispy. Remove with a slotted spoon and drain on paper towels."
+      },
+      {
+        "order": 8,
+        "text": "Serve the beer-battered eglifilet immediately with the Herdoepfelsalat on the side."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "swiss"
+      ],
+      "FLAVOR": [
+        "savory",
+        "tangy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday",
+        "quick"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Maintain oil temperature to avoid greasy batter.",
+      "Ensure fish is fresh and properly dried before battering."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

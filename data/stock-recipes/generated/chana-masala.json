@@ -1,0 +1,177 @@
+{
+  "slug": "chana-masala",
+  "source_title": "Chana Masala",
+  "normalized_title": "Chana Masala",
+  "query": "North Indian chana masala with chickpeas, tomato, ginger, garlic, and garam masala",
+  "cuisine": [
+    "indian"
+  ],
+  "generated_at": "2026-05-01T10:29:31.949Z",
+  "draft": {
+    "title": "Chana Masala",
+    "description": "North Indian chana masala with chickpeas, tomato, ginger, garlic, and garam masala, perfect for a flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 30,
+      "total_min": 45
+    },
+    "ingredients": [
+      {
+        "name": "chickpeas",
+        "amount": 400,
+        "unit": "g",
+        "note": "canned, drained and rinsed"
+      },
+      {
+        "name": "tomato",
+        "amount": 400,
+        "unit": "g",
+        "note": "fresh, chopped or canned chopped"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, finely chopped"
+      },
+      {
+        "name": "garlic",
+        "amount": 3,
+        "unit": "clove",
+        "note": "minced"
+      },
+      {
+        "name": "ginger",
+        "amount": 20,
+        "unit": "g",
+        "note": "fresh, grated"
+      },
+      {
+        "name": "green chili",
+        "amount": 1,
+        "unit": "piece",
+        "note": "optional, finely chopped"
+      },
+      {
+        "name": "vegetable oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "cumin seeds",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "turmeric powder",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "coriander powder",
+        "amount": 2,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "garam masala",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "red chili powder",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "water",
+        "amount": 250,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "fresh coriander",
+        "amount": 10,
+        "unit": "g",
+        "note": "chopped, for garnish"
+      },
+      {
+        "name": "lemon",
+        "amount": 0.5,
+        "unit": "piece",
+        "note": "for juice"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat oil in a pan over medium heat, add cumin seeds and let them sizzle for 30 seconds."
+      },
+      {
+        "order": 2,
+        "text": "Add chopped onion and sauté until golden brown, about 7-8 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add minced garlic, grated ginger, and chopped green chili; cook for 1-2 minutes until fragrant."
+      },
+      {
+        "order": 4,
+        "text": "Stir in turmeric, coriander powder, red chili powder, and salt; cook spices for 1 minute."
+      },
+      {
+        "order": 5,
+        "text": "Add chopped tomatoes and cook until soft and oil starts to separate, about 8-10 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Add chickpeas and water, stir well, cover and simmer for 15 minutes to blend flavors."
+      },
+      {
+        "order": 7,
+        "text": "Sprinkle garam masala and stir, cook uncovered for 2-3 minutes to thicken the gravy."
+      },
+      {
+        "order": 8,
+        "text": "Turn off heat, squeeze lemon juice, garnish with fresh coriander, and serve hot with rice or flatbread."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "indian"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "savory",
+        "rich",
+        "tangy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

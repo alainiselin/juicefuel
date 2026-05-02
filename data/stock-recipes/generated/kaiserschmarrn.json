@@ -1,0 +1,130 @@
+{
+  "slug": "kaiserschmarrn",
+  "source_title": "Kaiserschmarrn",
+  "normalized_title": "Kaiserschmarrn",
+  "query": "Austrian Kaiserschmarrn torn fluffy pancake with raisins and plum compote",
+  "cuisine": [
+    "austrian"
+  ],
+  "generated_at": "2026-05-01T10:31:10.581Z",
+  "draft": {
+    "title": "Kaiserschmarrn",
+    "description": "Austrian torn fluffy pancake with raisins, served with a sweet plum compote. Light, airy, and perfect for dessert or a special breakfast.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 20,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "egg",
+        "amount": 4,
+        "unit": "piece",
+        "note": "separated"
+      },
+      {
+        "name": "milk",
+        "amount": 250,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "plain flour",
+        "amount": 150,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "granulated sugar",
+        "amount": 30,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "butter",
+        "amount": 50,
+        "unit": "g",
+        "note": "for frying"
+      },
+      {
+        "name": "raisin",
+        "amount": 50,
+        "unit": "g",
+        "note": "soaked in rum or water"
+      },
+      {
+        "name": "powdered sugar",
+        "amount": 20,
+        "unit": "g",
+        "note": "for dusting"
+      },
+      {
+        "name": "plum compote",
+        "amount": 400,
+        "unit": "g",
+        "note": "store-bought or homemade"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Separate the eggs. In a bowl, whisk the egg yolks with milk, flour, sugar, and salt until smooth."
+      },
+      {
+        "order": 2,
+        "text": "In a separate clean bowl, beat the egg whites until stiff peaks form."
+      },
+      {
+        "order": 3,
+        "text": "Gently fold the egg whites into the batter, then fold in the soaked raisins."
+      },
+      {
+        "order": 4,
+        "text": "Heat half the butter in a large non-stick frying pan over medium heat. Pour in the batter and cook for about 4-5 minutes until the bottom is golden."
+      },
+      {
+        "order": 5,
+        "text": "Using a spatula, carefully flip the pancake in sections or invert onto a plate and slide back into the pan to cook the other side for 3-4 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Using two forks, tear the pancake into bite-sized pieces in the pan. Add the remaining butter and continue cooking, stirring gently, until pieces are golden and slightly crisp."
+      },
+      {
+        "order": 7,
+        "text": "Serve warm, dusted with powdered sugar and accompanied by plum compote."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "austrian"
+      ],
+      "FLAVOR": [
+        "sweet",
+        "rich",
+        "creamy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

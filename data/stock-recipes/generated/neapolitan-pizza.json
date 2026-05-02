@@ -1,0 +1,146 @@
+{
+  "slug": "neapolitan-pizza",
+  "source_title": "Neapolitan Pizza",
+  "normalized_title": "Neapolitan Pizza",
+  "query": "Neapolitan-style pizza Margherita with tomato, mozzarella, basil, and high-heat home oven method",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:29:57.357Z",
+  "draft": {
+    "title": "Neapolitan Pizza",
+    "description": "Classic Neapolitan-style pizza Margherita with tomato, mozzarella, basil, baked in a high-heat home oven for an authentic taste.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 10,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "strong bread flour",
+        "amount": 500,
+        "unit": "g",
+        "note": "preferably tipo 00"
+      },
+      {
+        "name": "water",
+        "amount": 325,
+        "unit": "ml",
+        "note": "lukewarm"
+      },
+      {
+        "name": "fresh yeast",
+        "amount": 7,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "fine sea salt",
+        "amount": 10,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "extra virgin olive oil",
+        "amount": 15,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "canned peeled tomato",
+        "amount": 400,
+        "unit": "g",
+        "note": "San Marzano if available"
+      },
+      {
+        "name": "fresh mozzarella",
+        "amount": 250,
+        "unit": "g",
+        "note": "preferably mozzarella di bufala or fior di latte"
+      },
+      {
+        "name": "fresh basil leaves",
+        "amount": 8,
+        "unit": "piece",
+        "note": null
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Dissolve fresh yeast in lukewarm water in a large bowl."
+      },
+      {
+        "order": 2,
+        "text": "Add flour and salt, mix until combined, then knead on a floured surface for 10 minutes until smooth and elastic."
+      },
+      {
+        "order": 3,
+        "text": "Add olive oil and knead briefly to incorporate."
+      },
+      {
+        "order": 4,
+        "text": "Place dough in a lightly oiled bowl, cover with a damp cloth, and let rise for 1-2 hours until doubled in size."
+      },
+      {
+        "order": 5,
+        "text": "Preheat your oven to the highest setting (250-280°C) with a pizza stone or inverted baking tray inside for at least 30 minutes."
+      },
+      {
+        "order": 6,
+        "text": "Divide dough into 4 equal balls and let rest for 15 minutes."
+      },
+      {
+        "order": 7,
+        "text": "Prepare the sauce by crushing canned peeled tomatoes by hand or with a fork; season lightly with salt."
+      },
+      {
+        "order": 8,
+        "text": "On a floured surface, stretch each dough ball into a 25-30 cm round base, leaving a slightly thicker edge."
+      },
+      {
+        "order": 9,
+        "text": "Spread a thin layer of tomato sauce over the base, tear mozzarella into pieces and distribute evenly, then add basil leaves."
+      },
+      {
+        "order": 10,
+        "text": "Transfer pizza onto the hot stone or tray and bake for 7-10 minutes until crust is golden and cheese melted."
+      },
+      {
+        "order": 11,
+        "text": "Remove from oven, drizzle with a little olive oil if desired, slice, and serve immediately."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "umami",
+        "savory",
+        "herbal",
+        "creamy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday",
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Use a pizza stone or inverted baking tray preheated for best crust results.",
+      "Mozzarella can release water; drain excess moisture to avoid soggy pizza."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

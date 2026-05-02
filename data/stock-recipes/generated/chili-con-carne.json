@@ -1,0 +1,179 @@
+{
+  "slug": "chili-con-carne",
+  "source_title": "Chili con Carne",
+  "normalized_title": "Chili con Carne",
+  "query": "Tex-Mex chili con carne with beef, beans, tomato, chili powder, cumin, and toppings",
+  "cuisine": [
+    "mexican"
+  ],
+  "generated_at": "2026-05-01T10:34:05.174Z",
+  "draft": {
+    "title": "Chili con Carne",
+    "description": "Tex-Mex chili con carne with beef, beans, tomato, chili powder, cumin, and toppings for a hearty, flavorful meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 60,
+      "total_min": 75
+    },
+    "ingredients": [
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "for frying"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely chopped"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "carrot",
+        "amount": 1,
+        "unit": "piece",
+        "note": "finely diced"
+      },
+      {
+        "name": "ground beef",
+        "amount": 500,
+        "unit": "g",
+        "note": "lean"
+      },
+      {
+        "name": "canned chopped tomato",
+        "amount": 400,
+        "unit": "g",
+        "note": "one standard can"
+      },
+      {
+        "name": "canned kidney beans",
+        "amount": 240,
+        "unit": "g",
+        "note": "drained weight"
+      },
+      {
+        "name": "tomato paste",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "beef stock",
+        "amount": 250,
+        "unit": "ml",
+        "note": "or water"
+      },
+      {
+        "name": "chili powder",
+        "amount": 2,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "ground cumin",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "smoked paprika",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "fresh coriander",
+        "amount": 10,
+        "unit": "g",
+        "note": "chopped, for garnish"
+      },
+      {
+        "name": "sour cream",
+        "amount": 100,
+        "unit": "g",
+        "note": "for serving"
+      },
+      {
+        "name": "grated cheddar cheese",
+        "amount": 100,
+        "unit": "g",
+        "note": "for serving"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Heat olive oil in a large pot over medium heat. Add chopped onion, garlic, and carrot; cook until softened, about 5 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Add ground beef and cook, breaking it up with a spoon, until browned and no longer pink."
+      },
+      {
+        "order": 3,
+        "text": "Stir in chili powder, cumin, and smoked paprika; cook for 1 minute until fragrant."
+      },
+      {
+        "order": 4,
+        "text": "Add tomato paste, canned chopped tomato, drained kidney beans, and beef stock. Stir well to combine."
+      },
+      {
+        "order": 5,
+        "text": "Bring to a simmer, then reduce heat to low. Cover and cook gently for 45 minutes, stirring occasionally."
+      },
+      {
+        "order": 6,
+        "text": "Season with salt and black pepper to taste. Remove from heat."
+      },
+      {
+        "order": 7,
+        "text": "Serve chili con carne topped with grated cheddar cheese, a dollop of sour cream, and chopped fresh coriander."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "mexican"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "savory",
+        "rich",
+        "smoky"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "weekend"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

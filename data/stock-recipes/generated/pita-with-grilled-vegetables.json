@@ -1,0 +1,167 @@
+{
+  "slug": "pita-with-grilled-vegetables",
+  "source_title": "Pita mit Grill gemüse",
+  "normalized_title": "Pita with Grilled Vegetables",
+  "query": "Mediterranean pita with grilled vegetables, herbs, yogurt sauce, and feta option",
+  "cuisine": [
+    "greek"
+  ],
+  "generated_at": "2026-05-01T10:38:36.942Z",
+  "draft": {
+    "title": "Pita with Grilled Vegetables",
+    "description": "Mediterranean pita filled with smoky grilled vegetables, fresh herbs, creamy yogurt sauce, and optional feta cheese for a flavorful, easy meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 20,
+      "cook_min": 15,
+      "total_min": 35
+    },
+    "ingredients": [
+      {
+        "name": "pita bread",
+        "amount": 4,
+        "unit": "piece",
+        "note": "medium size"
+      },
+      {
+        "name": "zucchini",
+        "amount": 2,
+        "unit": "piece",
+        "note": "medium, sliced lengthwise"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 2,
+        "unit": "piece",
+        "note": "seeded and quartered"
+      },
+      {
+        "name": "eggplant",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, sliced"
+      },
+      {
+        "name": "red onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, sliced into rings"
+      },
+      {
+        "name": "olive oil",
+        "amount": 3,
+        "unit": "tbsp",
+        "note": "for brushing vegetables"
+      },
+      {
+        "name": "plain yogurt",
+        "amount": 150,
+        "unit": "g",
+        "note": "Greek or natural yogurt"
+      },
+      {
+        "name": "garlic",
+        "amount": 1,
+        "unit": "piece",
+        "note": "clove, minced"
+      },
+      {
+        "name": "lemon juice",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "freshly squeezed"
+      },
+      {
+        "name": "fresh parsley",
+        "amount": 15,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "fresh mint",
+        "amount": 10,
+        "unit": "g",
+        "note": "chopped"
+      },
+      {
+        "name": "feta cheese",
+        "amount": 100,
+        "unit": "g",
+        "note": "optional, crumbled"
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Preheat grill or grill pan to medium-high heat."
+      },
+      {
+        "order": 2,
+        "text": "Brush zucchini, red bell pepper, eggplant, and red onion slices with olive oil and season with salt and black pepper."
+      },
+      {
+        "order": 3,
+        "text": "Grill vegetables for 4-5 minutes per side until tender and slightly charred. Remove and set aside."
+      },
+      {
+        "order": 4,
+        "text": "In a small bowl, mix plain yogurt, minced garlic, lemon juice, chopped parsley, chopped mint, salt, and pepper to make the yogurt sauce."
+      },
+      {
+        "order": 5,
+        "text": "Warm pita breads briefly on the grill or in the oven."
+      },
+      {
+        "order": 6,
+        "text": "Cut each pita in half to form pockets. Spread some yogurt sauce inside each pocket."
+      },
+      {
+        "order": 7,
+        "text": "Fill pita pockets with grilled vegetables and sprinkle with crumbled feta cheese if using."
+      },
+      {
+        "order": 8,
+        "text": "Serve immediately while warm."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "greek"
+      ],
+      "FLAVOR": [
+        "smoky",
+        "herbal",
+        "creamy",
+        "savory",
+        "refreshing"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

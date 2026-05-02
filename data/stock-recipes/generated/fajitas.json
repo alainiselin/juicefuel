@@ -1,0 +1,177 @@
+{
+  "slug": "fajitas",
+  "source_title": "Fajitas",
+  "normalized_title": "Fajitas",
+  "query": "Tex-Mex chicken or beef fajitas with peppers, onions, tortillas, salsa, and sour cream",
+  "cuisine": [
+    "mexican"
+  ],
+  "generated_at": "2026-05-01T10:37:43.283Z",
+  "draft": {
+    "title": "Fajitas",
+    "description": "Tex-Mex chicken or beef fajitas with peppers, onions, tortillas, salsa, and sour cream for a flavorful home-cooked meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 15,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "chicken breast",
+        "amount": 500,
+        "unit": "g",
+        "note": "or substitute with beef strips"
+      },
+      {
+        "name": "red bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "green bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "yellow bell pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "sliced"
+      },
+      {
+        "name": "onion",
+        "amount": 1,
+        "unit": "piece",
+        "note": "medium, sliced"
+      },
+      {
+        "name": "tortilla",
+        "amount": 8,
+        "unit": "piece",
+        "note": "flour, medium size"
+      },
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "lime juice",
+        "amount": 15,
+        "unit": "ml",
+        "note": "freshly squeezed"
+      },
+      {
+        "name": "garlic clove",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "ground cumin",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "paprika",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "smoked paprika preferred"
+      },
+      {
+        "name": "chili powder",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "salt",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "black pepper",
+        "amount": 0.5,
+        "unit": "tsp",
+        "note": "freshly ground"
+      },
+      {
+        "name": "sour cream",
+        "amount": 150,
+        "unit": "g",
+        "note": "for serving"
+      },
+      {
+        "name": "salsa",
+        "amount": 150,
+        "unit": "g",
+        "note": "store-bought or homemade"
+      },
+      {
+        "name": "fresh coriander",
+        "amount": 10,
+        "unit": "g",
+        "note": "chopped, for garnish"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Slice chicken breast into thin strips. In a bowl, combine chicken with olive oil, lime juice, garlic, cumin, paprika, chili powder, salt, and pepper. Marinate for 10 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Heat a large skillet over medium-high heat. Add marinated chicken and cook for 5-7 minutes until cooked through and browned. Remove and set aside."
+      },
+      {
+        "order": 3,
+        "text": "In the same skillet, add sliced onions and bell peppers. Cook for 5-7 minutes until softened but still slightly crisp."
+      },
+      {
+        "order": 4,
+        "text": "Return chicken to the skillet and stir to combine with vegetables. Cook for 1-2 minutes to heat through."
+      },
+      {
+        "order": 5,
+        "text": "Warm tortillas in a dry pan or microwave for 30 seconds wrapped in a damp cloth."
+      },
+      {
+        "order": 6,
+        "text": "Serve chicken and vegetable mixture on warm tortillas. Garnish with chopped coriander, and serve with salsa and sour cream."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "mexican"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "smoky",
+        "savory",
+        "creamy",
+        "tangy"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "slug": "kung-pao",
+  "source_title": "Kung Pao",
+  "normalized_title": "Kung Pao Chicken",
+  "query": "Sichuan kung pao chicken with peanuts, dried chilies, and savory sweet sour sauce",
+  "cuisine": [
+    "chinese"
+  ],
+  "generated_at": "2026-05-01T10:38:48.820Z",
+  "draft": {
+    "title": "Kung Pao Chicken",
+    "description": "Sichuan kung pao chicken with peanuts, dried chilies, and savory sweet sour sauce, perfect for home cooking in Europe.",
+    "servings": 4,
+    "times": {
+      "prep_min": 15,
+      "cook_min": 15,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "chicken breast",
+        "amount": 500,
+        "unit": "g",
+        "note": "cut into bite-sized pieces"
+      },
+      {
+        "name": "peanut oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "dried red chili",
+        "amount": 8,
+        "unit": "piece",
+        "note": "adjust to taste"
+      },
+      {
+        "name": "garlic",
+        "amount": 3,
+        "unit": "clove",
+        "note": "minced"
+      },
+      {
+        "name": "ginger",
+        "amount": 1,
+        "unit": "piece",
+        "note": "about 2 cm, minced"
+      },
+      {
+        "name": "spring onion",
+        "amount": 2,
+        "unit": "piece",
+        "note": "white and green parts separated, sliced"
+      },
+      {
+        "name": "roasted peanut",
+        "amount": 60,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "soy sauce",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": "preferably light soy sauce"
+      },
+      {
+        "name": "dark soy sauce",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "Chinese black vinegar",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "or substitute with balsamic vinegar"
+      },
+      {
+        "name": "sugar",
+        "amount": 1,
+        "unit": "tsp",
+        "note": null
+      },
+      {
+        "name": "cornstarch",
+        "amount": 1,
+        "unit": "tsp",
+        "note": "for sauce thickening"
+      },
+      {
+        "name": "water",
+        "amount": 50,
+        "unit": "ml",
+        "note": "for sauce"
+      },
+      {
+        "name": "Shaoxing wine",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": "or dry sherry"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Mix chicken pieces with 1 tbsp soy sauce, 1 tsp cornstarch, and Shaoxing wine. Let marinate 10 minutes."
+      },
+      {
+        "order": 2,
+        "text": "Prepare the sauce by mixing remaining soy sauces, vinegar, sugar, water, and 1 tsp cornstarch until smooth."
+      },
+      {
+        "order": 3,
+        "text": "Heat peanut oil in a wok or large pan over medium-high heat. Fry dried chilies until fragrant but not burnt, then remove and set aside."
+      },
+      {
+        "order": 4,
+        "text": "Add marinated chicken to the wok and stir-fry until cooked through and lightly browned, about 5-7 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Add garlic, ginger, and white parts of spring onion; stir-fry for 1 minute until aromatic."
+      },
+      {
+        "order": 6,
+        "text": "Pour in the prepared sauce and cook, stirring, until it thickens and coats the chicken."
+      },
+      {
+        "order": 7,
+        "text": "Return dried chilies to the wok along with roasted peanuts; toss everything together."
+      },
+      {
+        "order": 8,
+        "text": "Remove from heat and garnish with green parts of spring onion before serving with steamed rice."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "chinese"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "sweet",
+        "sour",
+        "salty",
+        "umami",
+        "nutty"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Adjust dried chili quantity to your spice tolerance.",
+      "Use fresh peanuts or roasted without salt for best flavor."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

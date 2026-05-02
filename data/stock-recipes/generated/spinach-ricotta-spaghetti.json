@@ -1,0 +1,136 @@
+{
+  "slug": "spinach-ricotta-spaghetti",
+  "source_title": "Creamy Spinach and Ricotta Spaghetti",
+  "normalized_title": "Creamy Spinach and Ricotta Spaghetti",
+  "query": "creamy spinach and ricotta spaghetti with lemon, garlic, and parmesan",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:31:43.656Z",
+  "draft": {
+    "title": "Creamy Spinach and Ricotta Spaghetti",
+    "description": "Creamy spaghetti with ricotta, spinach, garlic, lemon, and parmesan, perfect for a quick and rich Italian-inspired meal.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 15,
+      "total_min": 25
+    },
+    "ingredients": [
+      {
+        "name": "spaghetti",
+        "amount": 400,
+        "unit": "g",
+        "note": "dried"
+      },
+      {
+        "name": "fresh spinach",
+        "amount": 200,
+        "unit": "g",
+        "note": "washed and roughly chopped"
+      },
+      {
+        "name": "ricotta cheese",
+        "amount": 250,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "parmesan cheese",
+        "amount": 50,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "garlic",
+        "amount": 2,
+        "unit": "piece",
+        "note": "minced"
+      },
+      {
+        "name": "lemon",
+        "amount": 1,
+        "unit": "piece",
+        "note": "zested and juiced"
+      },
+      {
+        "name": "olive oil",
+        "amount": 2,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Bring a large pot of salted water to a boil and cook the spaghetti according to package instructions until al dente."
+      },
+      {
+        "order": 2,
+        "text": "While pasta cooks, heat olive oil in a large pan over medium heat. Add minced garlic and sauté for 1-2 minutes until fragrant."
+      },
+      {
+        "order": 3,
+        "text": "Add chopped spinach to the pan and cook until wilted, about 3-4 minutes. Season with a pinch of salt and pepper."
+      },
+      {
+        "order": 4,
+        "text": "Drain the spaghetti, reserving about 100 ml of pasta water."
+      },
+      {
+        "order": 5,
+        "text": "Add the drained spaghetti to the pan with spinach. Stir in ricotta, lemon zest, and lemon juice."
+      },
+      {
+        "order": 6,
+        "text": "Add reserved pasta water a little at a time to loosen the sauce and create a creamy texture."
+      },
+      {
+        "order": 7,
+        "text": "Mix in grated parmesan cheese and adjust seasoning with salt and pepper to taste."
+      },
+      {
+        "order": 8,
+        "text": "Serve immediately, garnished with extra parmesan if desired."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "creamy",
+        "herbal",
+        "citrusy",
+        "savory"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}

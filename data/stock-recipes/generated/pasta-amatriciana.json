@@ -1,0 +1,146 @@
+{
+  "slug": "pasta-amatriciana",
+  "source_title": "Pasta all’Amatriciana",
+  "normalized_title": "Pasta all'Amatriciana",
+  "query": "Roman pasta all'Amatriciana with guanciale, tomato, pecorino romano, and chili",
+  "cuisine": [
+    "italian"
+  ],
+  "generated_at": "2026-05-01T10:33:42.134Z",
+  "draft": {
+    "title": "Pasta all'Amatriciana",
+    "description": "Classic Roman pasta with guanciale, tomato, pecorino romano, and chili, perfect for a flavorful and easy Italian dinner.",
+    "servings": 4,
+    "times": {
+      "prep_min": 10,
+      "cook_min": 20,
+      "total_min": 30
+    },
+    "ingredients": [
+      {
+        "name": "guanciale",
+        "amount": 150,
+        "unit": "g",
+        "note": "cut into strips"
+      },
+      {
+        "name": "spaghetti",
+        "amount": 400,
+        "unit": "g",
+        "note": null
+      },
+      {
+        "name": "canned peeled tomato",
+        "amount": 400,
+        "unit": "g",
+        "note": "preferably San Marzano"
+      },
+      {
+        "name": "pecorino romano",
+        "amount": 80,
+        "unit": "g",
+        "note": "freshly grated"
+      },
+      {
+        "name": "dry white wine",
+        "amount": 50,
+        "unit": "ml",
+        "note": null
+      },
+      {
+        "name": "red chili pepper",
+        "amount": 1,
+        "unit": "piece",
+        "note": "fresh or dried"
+      },
+      {
+        "name": "extra virgin olive oil",
+        "amount": 1,
+        "unit": "tbsp",
+        "note": null
+      },
+      {
+        "name": "salt",
+        "amount": null,
+        "unit": null,
+        "note": "to taste"
+      },
+      {
+        "name": "black pepper",
+        "amount": null,
+        "unit": null,
+        "note": "freshly ground, to taste"
+      }
+    ],
+    "steps": [
+      {
+        "order": 1,
+        "text": "Bring a large pot of salted water to a boil for the pasta."
+      },
+      {
+        "order": 2,
+        "text": "In a large skillet, heat the olive oil over medium heat. Add the guanciale strips and cook until crispy and golden, about 5-7 minutes."
+      },
+      {
+        "order": 3,
+        "text": "Add the red chili pepper to the skillet and cook for 1 minute to release flavor."
+      },
+      {
+        "order": 4,
+        "text": "Pour in the white wine and let it reduce by half, about 2-3 minutes."
+      },
+      {
+        "order": 5,
+        "text": "Add the canned peeled tomatoes, crush them with a spoon, and simmer the sauce gently for 10-12 minutes until slightly thickened. Season with salt and black pepper."
+      },
+      {
+        "order": 6,
+        "text": "Cook the spaghetti in the boiling water until al dente according to package instructions, usually 8-10 minutes."
+      },
+      {
+        "order": 7,
+        "text": "Reserve a cup of pasta water, then drain the spaghetti."
+      },
+      {
+        "order": 8,
+        "text": "Add the drained spaghetti to the sauce and toss well over low heat. Add reserved pasta water as needed to loosen the sauce."
+      },
+      {
+        "order": 9,
+        "text": "Remove from heat and stir in most of the grated pecorino romano, reserving some for serving."
+      },
+      {
+        "order": 10,
+        "text": "Serve immediately, topped with remaining pecorino and freshly ground black pepper."
+      }
+    ],
+    "tags": {
+      "CUISINE": [
+        "italian"
+      ],
+      "FLAVOR": [
+        "spicy",
+        "savory",
+        "umami"
+      ],
+      "DIET": [],
+      "ALLERGEN": [],
+      "TECHNIQUE": [],
+      "TIME": [
+        "quick",
+        "weekday"
+      ],
+      "COST": [
+        "affordable"
+      ]
+    },
+    "warnings": [
+      "Guanciale may be difficult to find; pancetta can be used as a substitute but will alter flavor.",
+      "Adjust chili pepper quantity to desired spiciness."
+    ],
+    "ai": {
+      "generated": true,
+      "model": "gpt-4.1-mini-2025-04-14"
+    }
+  }
+}
