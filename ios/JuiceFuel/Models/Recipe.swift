@@ -205,6 +205,12 @@ struct Tag: Codable, Hashable, Identifiable {
 
 struct AIRecipeGenerationResponse: Codable, Hashable {
     let draft: AIRecipeDraft
+    let sourceURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case draft
+        case sourceURL = "source_url"
+    }
 }
 
 struct AIRecipeDraft: Codable, Hashable {

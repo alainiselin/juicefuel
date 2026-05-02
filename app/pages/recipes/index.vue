@@ -12,7 +12,7 @@
             Manage Libraries
           </button>
           <button
-            @click="showAIGenerateModal = true"
+            @click="openAIModal('idea')"
             :disabled="!selectedLibrary || !selectedLibrary.is_own_household"
             class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
             title="Generate recipe with AI"
@@ -21,6 +21,17 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             Generate with AI
+          </button>
+          <button
+            @click="openAIModal('url')"
+            :disabled="!selectedLibrary || !selectedLibrary.is_own_household"
+            class="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            title="Import recipe from URL"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 010 5.656l-1.414 1.414a4 4 0 01-5.656-5.656l1.414-1.414m7.656 3.656a4 4 0 000-5.656l-1.414-1.414a4 4 0 00-5.656 0L7.344 8.172" />
+            </svg>
+            Import URL
           </button>
           <button
             @click="showCreateRecipeModal = true"
@@ -331,16 +342,29 @@
         @click.self="closeAIModal"
       >
         <div class="bg-white rounded-lg p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-          <h2 class="text-xl font-bold mb-4">Generate Recipe with AI</h2>
+          <h2 class="text-xl font-bold mb-4">
+            {{ aiMode === 'url' ? 'Import Recipe from URL' : 'Generate Recipe with AI' }}
+          </h2>
           
           <!-- Input Form -->
           <div v-if="!aiDraft" class="space-y-4">
-            <div>
+            <div v-if="aiMode === 'idea'">
               <label class="block text-sm font-medium text-gray-700 mb-1">What would you like to make?</label>
               <input
                 v-model="aiQuery"
                 type="text"
                 placeholder="e.g., authentic pho, quick chicken stir fry..."
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                @keypress.enter="generateAIRecipe"
+              />
+            </div>
+
+            <div v-else>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Recipe URL</label>
+              <input
+                v-model="aiSourceUrl"
+                type="url"
+                placeholder="https://example.com/recipe"
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 @keypress.enter="generateAIRecipe"
               />
@@ -376,14 +400,15 @@
             <div class="flex gap-2">
               <button
                 @click="generateAIRecipe"
-                :disabled="!aiQuery || aiGenerating"
-                class="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 flex items-center justify-center gap-2"
+                :disabled="!canGenerateAI || aiGenerating"
+                class="flex-1 px-4 py-2 text-white rounded-lg disabled:opacity-50 flex items-center justify-center gap-2"
+                :class="aiMode === 'url' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-purple-600 hover:bg-purple-700'"
               >
                 <svg v-if="aiGenerating" class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span>{{ aiGenerating ? 'Generating...' : 'Generate Recipe' }}</span>
+                <span>{{ aiGenerating ? (aiMode === 'url' ? 'Importing...' : 'Generating...') : (aiMode === 'url' ? 'Import Recipe' : 'Generate Recipe') }}</span>
               </button>
               <button
                 @click="closeAIModal"
@@ -396,7 +421,7 @@
 
           <!-- Preview Draft -->
           <div v-else class="space-y-4">
-            <div class="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+            <div class="p-4 border rounded-lg" :class="aiMode === 'url' ? 'bg-emerald-50 border-emerald-200' : 'bg-purple-50 border-purple-200'">
               <h3 class="text-lg font-semibold text-gray-900">{{ aiDraft.title }}</h3>
               <p class="text-sm text-gray-600 mt-1">{{ aiDraft.description }}</p>
               <div class="flex gap-4 mt-2 text-xs text-gray-500">
@@ -404,6 +429,15 @@
                 <span>{{ aiDraft.times.total_min }} min total</span>
                 <span>{{ aiDraft.ingredients.length }} ingredients</span>
               </div>
+              <a
+                v-if="aiSourceUrl"
+                :href="aiSourceUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block mt-2 text-xs text-emerald-700 hover:underline break-all"
+              >
+                {{ aiSourceUrl }}
+              </a>
             </div>
 
             <div>
@@ -440,9 +474,10 @@
               <button
                 @click="regenerateAIRecipe"
                 :disabled="aiGenerating"
-                class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50"
+                class="px-4 py-2 text-white rounded-lg disabled:opacity-50"
+                :class="aiMode === 'url' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-purple-600 hover:bg-purple-700'"
               >
-                Regenerate
+                {{ aiMode === 'url' ? 'Re-import' : 'Regenerate' }}
               </button>
               <button
                 @click="closeAIModal"
@@ -506,7 +541,9 @@ const createModalHouseholdId = computed(() => {
 
 // AI Generation
 const aiGenerator = useAIRecipeGenerator();
+const aiMode = ref<'idea' | 'url'>('idea');
 const aiQuery = ref('');
+const aiSourceUrl = ref('');
 const aiServings = ref<number | null>(null);
 const aiMaxTime = ref<number | null>(null);
 const aiDraft = ref<any>(null);
@@ -515,6 +552,11 @@ const aiGenerating = computed(() => aiGenerator.generating.value);
 const aiSaving = computed(() => aiGenerator.saving.value);
 const aiError = computed(() => aiGenerator.error.value);
 const aiCost = computed(() => aiMeta.value?.estimated_cost_usd);
+const canGenerateAI = computed(() => {
+  return aiMode.value === 'url'
+    ? Boolean(aiSourceUrl.value.trim())
+    : Boolean(aiQuery.value.trim());
+});
 
 const selectedLibrary = computed(() => {
   return libraries.value.find(lib => lib.id === selectedLibraryId.value);
@@ -756,8 +798,13 @@ const navigateToRecipe = (id: string) => {
 };
 
 // AI Generation Functions
+function openAIModal(mode: 'idea' | 'url') {
+  aiMode.value = mode;
+  showAIGenerateModal.value = true;
+}
+
 async function generateAIRecipe() {
-  if (!aiQuery.value || !selectedLibrary.value) return;
+  if (!canGenerateAI.value || !selectedLibrary.value) return;
 
   aiGenerator.clearError();
   
@@ -773,16 +820,25 @@ async function generateAIRecipe() {
       return;
     }
 
-    const result = await aiGenerator.generate({
-      household_id: householdId,
-      query: aiQuery.value,
-      servings: aiServings.value,
-      constraints: aiMaxTime.value ? { max_total_minutes: aiMaxTime.value } : undefined,
-    });
+    const result = aiMode.value === 'url'
+      ? await aiGenerator.generateFromUrl({
+          household_id: householdId,
+          url: aiSourceUrl.value.trim(),
+          servings: aiServings.value,
+        })
+      : await aiGenerator.generate({
+          household_id: householdId,
+          query: aiQuery.value.trim(),
+          servings: aiServings.value,
+          constraints: aiMaxTime.value ? { max_total_minutes: aiMaxTime.value } : undefined,
+        });
 
     if (result) {
       aiDraft.value = result.draft;
       aiMeta.value = result.meta;
+      if (result.source_url) {
+        aiSourceUrl.value = result.source_url;
+      }
     }
   } catch (error: any) {
     console.error('Failed to get household:', error);
@@ -812,6 +868,7 @@ async function saveAIRecipe() {
       household_id: householdId,
       recipe_library_id: selectedLibrary.value.id,
       draft: aiDraft.value,
+      source_url: aiMode.value === 'url' ? aiSourceUrl.value.trim() : undefined,
     });
 
     if (recipe) {
@@ -827,7 +884,9 @@ async function saveAIRecipe() {
 
 function closeAIModal() {
   showAIGenerateModal.value = false;
+  aiMode.value = 'idea';
   aiQuery.value = '';
+  aiSourceUrl.value = '';
   aiServings.value = null;
   aiMaxTime.value = null;
   aiDraft.value = null;

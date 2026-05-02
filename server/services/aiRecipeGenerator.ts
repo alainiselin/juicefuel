@@ -89,6 +89,22 @@ export interface GenerateRecipeResult {
   };
 }
 
+export interface GenerateRecipeFromExtractedInput {
+  url: string;
+  servings?: number | null;
+  extracted: {
+    title?: string | null;
+    description?: string | null;
+    servings?: number | null;
+    prep_min?: number | null;
+    cook_min?: number | null;
+    total_min?: number | null;
+    ingredients: string[];
+    steps: string[];
+  };
+  tagAllowlist: GenerateRecipeInput['tagAllowlist'];
+}
+
 function buildSystemPrompt(input: GenerateRecipeInput, model: string): string {
   const { tagAllowlist, constraints } = input;
   
@@ -179,6 +195,75 @@ Output JSON structure:
   return prompt;
 }
 
+function buildImportedRecipeSystemPrompt(
+  input: GenerateRecipeFromExtractedInput,
+  model: string
+): string {
+  const { tagAllowlist } = input;
+
+  return `You are a professional recipe import normalizer. Convert extracted recipe page data into the app's STRICT JSON recipe draft format.
+
+CRITICAL RULES:
+1. Output ONLY valid JSON. No markdown code blocks. No explanations. No extra text.
+2. Preserve the source recipe's identity. Do not invent a different recipe.
+3. Normalize ingredient names to lowercase.
+4. Keep ingredient quantities only when the source clearly provides them. If uncertain, use null amount/unit and keep the original clue in note.
+5. Steps must be numbered starting from 1 and be clear and actionable.
+6. Use ONLY tags from the allowlist provided for each kind.
+7. If source data is missing, still produce a usable draft from the available source and add a short warning.
+
+TAG ALLOWLISTS (use ONLY these slugs):
+- CUISINE: ${tagAllowlist.CUISINE.slice(0, 30).join(', ')}
+- FLAVOR: ${tagAllowlist.FLAVOR.slice(0, 20).join(', ')}
+- DIET: ${tagAllowlist.DIET.slice(0, 15).join(', ')}
+- ALLERGEN: ${tagAllowlist.ALLERGEN.slice(0, 15).join(', ')}
+- TECHNIQUE: ${tagAllowlist.TECHNIQUE.slice(0, 20).join(', ')}
+- TIME: ${tagAllowlist.TIME.slice(0, 10).join(', ')}
+- COST: ${tagAllowlist.COST.slice(0, 10).join(', ')}
+
+UNITS ALLOWED: g, kg, ml, l, tbsp, tsp, cup, piece, package, or null
+
+Output JSON structure:
+{
+  "title": "Recipe Name",
+  "description": "A concise 1-2 sentence description of the dish (max 240 chars)",
+  "servings": 2,
+  "times": {
+    "prep_min": 15,
+    "cook_min": 30,
+    "total_min": 45
+  },
+  "ingredients": [
+    {
+      "name": "ingredient name",
+      "amount": 200,
+      "unit": "g",
+      "note": "optional note"
+    }
+  ],
+  "steps": [
+    {
+      "order": 1,
+      "text": "Step instructions"
+    }
+  ],
+  "tags": {
+    "CUISINE": ["slug1"],
+    "FLAVOR": ["slug2"],
+    "DIET": [],
+    "ALLERGEN": [],
+    "TECHNIQUE": ["slug3"],
+    "TIME": [],
+    "COST": []
+  },
+  "warnings": [],
+  "ai": {
+    "generated": true,
+    "model": "${model}"
+  }
+}`;
+}
+
 function buildUserPrompt(input: GenerateRecipeInput): string {
   let prompt = `Generate a recipe for: ${input.query}`;
   
@@ -188,6 +273,23 @@ function buildUserPrompt(input: GenerateRecipeInput): string {
   
   prompt += '\n\nReturn ONLY the JSON object. No other text.';
   
+  return prompt;
+}
+
+function buildImportedRecipeUserPrompt(input: GenerateRecipeFromExtractedInput): string {
+  const extracted = {
+    ...input.extracted,
+    ingredients: input.extracted.ingredients.slice(0, 80),
+    steps: input.extracted.steps.slice(0, 60),
+  };
+
+  let prompt = `Normalize this recipe imported from URL: ${input.url}`;
+  if (input.servings) {
+    prompt += `\nRequested servings: ${input.servings}`;
+  }
+  prompt += `\n\nExtracted source data:\n${JSON.stringify(extracted, null, 2)}`;
+  prompt += '\n\nReturn ONLY the JSON object. No other text.';
+
   return prompt;
 }
 
@@ -202,16 +304,20 @@ function estimateCost(inputTokens: number, outputTokens: number, model: string):
   return inputCost + outputCost;
 }
 
-export async function generateRecipe(
-  input: GenerateRecipeInput
+async function requestRecipeDraft(
+  params: {
+    systemPrompt: string;
+    userPrompt: string;
+    model: string;
+    promptVersion: string;
+    logContext: Record<string, unknown>;
+  }
 ): Promise<GenerateRecipeResult> {
-  const model = process.env.OPENAI_MODEL ?? 'gpt-4.1-mini-2025-04-14';
-  const systemPrompt = buildSystemPrompt(input, model);
-  const userPrompt = buildUserPrompt(input);
+  const { systemPrompt, userPrompt, model, promptVersion, logContext } = params;
 
   console.log('[AI Recipe Generator] Starting generation', {
-    query: input.query,
     model,
+    ...logContext,
   });
 
   try {
@@ -307,7 +413,7 @@ Please output a CORRECTED JSON object that matches the schema. No explanations.`
         draft: repairedValidation.data,
         meta: {
           model,
-          prompt_version: '1.0',
+          prompt_version: promptVersion,
           input_tokens: totalInput,
           output_tokens: totalOutput,
           total_tokens: totalAll,
@@ -320,7 +426,7 @@ Please output a CORRECTED JSON object that matches the schema. No explanations.`
       draft: validation.data,
       meta: {
         model,
-        prompt_version: '1.0',
+        prompt_version: promptVersion,
         input_tokens: inputTokens,
         output_tokens: outputTokens,
         total_tokens: totalTokens,
@@ -331,4 +437,36 @@ Please output a CORRECTED JSON object that matches the schema. No explanations.`
     console.error('[AI Recipe Generator] Error', error);
     throw error;
   }
+}
+
+export async function generateRecipe(
+  input: GenerateRecipeInput
+): Promise<GenerateRecipeResult> {
+  const model = process.env.OPENAI_MODEL ?? 'gpt-4.1-mini-2025-04-14';
+
+  return requestRecipeDraft({
+    systemPrompt: buildSystemPrompt(input, model),
+    userPrompt: buildUserPrompt(input),
+    model,
+    promptVersion: '1.0',
+    logContext: { query: input.query },
+  });
+}
+
+export async function generateRecipeFromExtracted(
+  input: GenerateRecipeFromExtractedInput
+): Promise<GenerateRecipeResult> {
+  const model = process.env.OPENAI_MODEL ?? 'gpt-4.1-mini-2025-04-14';
+
+  return requestRecipeDraft({
+    systemPrompt: buildImportedRecipeSystemPrompt(input, model),
+    userPrompt: buildImportedRecipeUserPrompt(input),
+    model,
+    promptVersion: 'url-import-1.0',
+    logContext: {
+      url: input.url,
+      ingredientCount: input.extracted.ingredients.length,
+      stepCount: input.extracted.steps.length,
+    },
+  });
 }

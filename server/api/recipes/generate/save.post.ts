@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import type { Unit } from '@prisma/client';
 import { requireAuth } from '../../../utils/authHelpers';
 import prisma from '../../../utils/prisma';
 import { RecipeDraftSchema } from '../../../services/aiRecipeGenerator';
@@ -7,6 +8,7 @@ const SaveDraftRequestSchema = z.object({
   household_id: z.string().uuid(),
   recipe_library_id: z.string().uuid(),
   draft: RecipeDraftSchema,
+  source_url: z.string().url().nullable().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -22,7 +24,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { household_id, recipe_library_id, draft } = validation.data;
+  const { household_id, recipe_library_id, draft, source_url } = validation.data;
 
   // Verify user is member of household
   const member = await prisma.household_member.findUnique({
@@ -57,12 +59,12 @@ export default defineEventHandler(async (event) => {
   const ingredientIds: Array<{
     ingredient_id: string;
     quantity: number | null;
-    unit: string | null;
+    unit: Unit | null;
     note: string | null;
   }> = [];
 
   // Map AI units to Prisma enum values
-  const unitMap: Record<string, string> = {
+  const unitMap: Record<string, Unit> = {
     'g': 'G',
     'kg': 'KG',
     'ml': 'ML',
@@ -137,9 +139,16 @@ export default defineEventHandler(async (event) => {
       base_servings: draft.servings,
       prep_time_minutes: draft.times.total_min,
       instructions_markdown: `## Steps\n\n${stepsMarkdown}`,
-      source_url: null,
+      source_url: source_url ?? null,
       ingredients: {
-        create: ingredientIds,
+        create: ingredientIds.map(ing => ({
+          ingredient: {
+            connect: { id: ing.ingredient_id },
+          },
+          quantity: ing.quantity,
+          unit: ing.unit,
+          note: ing.note,
+        })),
       },
     },
     include: {

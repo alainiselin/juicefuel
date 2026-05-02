@@ -12,6 +12,12 @@ export interface GenerateRecipeRequest {
   constraints?: AIRecipeConstraints;
 }
 
+export interface GenerateRecipeFromUrlRequest {
+  household_id: string;
+  url: string;
+  servings?: number | null;
+}
+
 export interface RecipeDraft {
   title: string;
   description: string;
@@ -49,6 +55,13 @@ export interface RecipeDraft {
 
 export interface GenerateRecipeResponse {
   draft: RecipeDraft;
+  source_url?: string;
+  import?: {
+    extraction_method: 'json-ld' | 'html-metadata';
+    title: string | null;
+    ingredient_count: number;
+    step_count: number;
+  };
   meta: {
     model: string;
     prompt_version: string;
@@ -63,6 +76,7 @@ export interface SaveDraftRequest {
   household_id: string;
   recipe_library_id: string;
   draft: RecipeDraft;
+  source_url?: string | null;
 }
 
 export const useAIRecipeGenerator = () => {
@@ -86,6 +100,27 @@ export const useAIRecipeGenerator = () => {
     } catch (e: any) {
       console.error('Failed to generate recipe:', e);
       error.value = e.data?.message || e.message || 'Failed to generate recipe';
+      return null;
+    } finally {
+      generating.value = false;
+    }
+  };
+
+  const generateFromUrl = async (request: GenerateRecipeFromUrlRequest): Promise<GenerateRecipeResponse | null> => {
+    generating.value = true;
+    error.value = null;
+
+    try {
+      const response = await $fetch<GenerateRecipeResponse>('/api/recipes/generate/from-url', {
+        method: 'POST',
+        body: request,
+      });
+
+      lastGenerated.value = response;
+      return response;
+    } catch (e: any) {
+      console.error('Failed to import recipe from URL:', e);
+      error.value = e.data?.message || e.message || 'Failed to import recipe from URL';
       return null;
     } finally {
       generating.value = false;
@@ -122,6 +157,7 @@ export const useAIRecipeGenerator = () => {
     error: readonly(error),
     lastGenerated: readonly(lastGenerated),
     generate,
+    generateFromUrl,
     save,
     clearError,
   };
