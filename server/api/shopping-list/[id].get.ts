@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
     store_hint: list.store_hint,
     created_at: list.created_at.toISOString(),
     updated_at: list.updated_at.toISOString(),
-    items: list.items.map((item) => {
+    items: (list as any).items.map((item: any) => {
       const baseItem = {
         id: item.id,
         shopping_list_id: item.shopping_list_id,
@@ -54,8 +54,8 @@ export default defineEventHandler(async (event) => {
             updated_at: item.ingredient.updated_at.toISOString(),
           },
           tags: [
-            // Tags from ingredient
-            ...(item.ingredient.ingredient_tag || []).map((t) => ({
+            // Item tags come first so item-level AISLE overrides win.
+            ...item.shopping_list_item_tag.map((t: any) => ({
               id: t.tag.id,
               label: t.tag.name,
               slug: t.tag.slug,
@@ -64,8 +64,8 @@ export default defineEventHandler(async (event) => {
               household_id: t.tag.household_id,
               created_at: t.tag.created_at.toISOString(),
             })),
-            // Tags from shopping list item
-            ...item.shopping_list_item_tag.map((t) => ({
+            // Tags from ingredient
+            ...(item.ingredient.ingredient_tag || []).map((t: any) => ({
               id: t.tag.id,
               label: t.tag.name,
               slug: t.tag.slug,
@@ -85,18 +85,8 @@ export default defineEventHandler(async (event) => {
             default_unit: item.article.default_unit,
           },
           tags: [
-            // Articles use their default_aisle as a pseudo-tag
-            {
-              id: `aisle-${item.article.default_aisle}`,
-              label: item.article.default_aisle.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase()),
-              slug: item.article.default_aisle,
-              kind: 'AISLE',
-              scope: 'GLOBAL',
-              household_id: null,
-              created_at: item.article.created_at.toISOString(),
-            },
-            // Tags from shopping list item
-            ...item.shopping_list_item_tag.map((t) => ({
+            // Item tags come first so item-level AISLE overrides win.
+            ...item.shopping_list_item_tag.map((t: any) => ({
               id: t.tag.id,
               label: t.tag.name,
               slug: t.tag.slug,
@@ -105,6 +95,16 @@ export default defineEventHandler(async (event) => {
               household_id: t.tag.household_id,
               created_at: t.tag.created_at.toISOString(),
             })),
+            // Articles use their default_aisle as a pseudo-tag
+            {
+              id: `aisle-${item.article.default_aisle}`,
+              label: item.article.default_aisle.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase()),
+              slug: item.article.default_aisle,
+              kind: 'AISLE',
+              scope: 'GLOBAL',
+              household_id: null,
+              created_at: item.article.created_at.toISOString(),
+            },
           ],
         };
       }

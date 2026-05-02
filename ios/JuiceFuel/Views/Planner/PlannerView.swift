@@ -70,6 +70,9 @@ struct PlannerView: View {
                         }
                     }
                 }
+                .navigationDestination(for: Recipe.self) { recipe in
+                    RecipeDetailView(recipe: recipe)
+                }
         }
     }
 

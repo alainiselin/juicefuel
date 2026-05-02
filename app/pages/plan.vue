@@ -374,14 +374,18 @@ onMounted(() => {
   const hasCachedRecipes = recipesStore.recipes.length > 0;
   const hasCachedEntries = store.entries.length > 0;
 
-  // Refresh in the background. Silent = the user already has data on screen.
-  void (async () => {
-    await loadHouseholds({ silent: hasCachedHousehold });
-    // Recipes + entries depend on the household being resolved first.
-    await Promise.all([
-      loadRecipes({ silent: hasCachedRecipes }),
-      loadEntries({ silent: hasCachedEntries }),
-    ]);
-  })();
+  if (hasCachedHousehold) {
+    // Warm visit: we already know which household + meal_plan to fetch for, so fire
+    // all three refreshes in parallel instead of making entries wait for households.
+    void loadHouseholds({ silent: true });
+    void loadRecipes({ silent: hasCachedRecipes });
+    void loadEntries({ silent: hasCachedEntries });
+  } else {
+    // Cold start: must resolve households first to learn the meal_plan id.
+    void (async () => {
+      await loadHouseholds();
+      await Promise.all([loadRecipes(), loadEntries()]);
+    })();
+  }
 });
 </script>

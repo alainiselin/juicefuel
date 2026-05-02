@@ -204,15 +204,16 @@ export const shoppingListRepo = {
   async updateItem(
     id: string,
     data: {
-      quantity?: number;
-      unit?: string;
+      shopping_list_id?: string;
+      quantity?: number | null;
+      unit?: string | null;
       is_checked?: boolean;
-      note?: string;
+      note?: string | null;
     }
   ) {
     return prisma.shopping_list_item.update({
       where: { id },
-      data,
+      data: data as any,
       include: {
         ingredient: {
           include: {

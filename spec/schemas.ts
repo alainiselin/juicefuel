@@ -210,10 +210,12 @@ export const CreateShoppingListItemSchema = z.object({
 export type CreateShoppingListItemInput = z.infer<typeof CreateShoppingListItemSchema>;
 
 export const UpdateShoppingListItemSchema = z.object({
+  shopping_list_id: z.string().uuid().optional(),
   quantity: z.number().positive().optional().nullable(),
   unit: UnitSchema.optional().nullable(),
   note: z.string().optional().nullable(),
   is_checked: z.boolean().optional(),
+  aisle: z.string().optional().nullable(),
 });
 export type UpdateShoppingListItemInput = z.infer<typeof UpdateShoppingListItemSchema>;
 

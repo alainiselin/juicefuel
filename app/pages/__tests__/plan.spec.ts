@@ -12,9 +12,9 @@ describe('Plan Page Static Analysis', () => {
   it('should reference required components', () => {
     // Check that components are used in the template
     expect(planPageSource).toContain('<DesktopShell>');
-    expect(planPageSource).toContain('<MealCard');
-    expect(planPageSource).toContain('<AddMealCard');
+    expect(planPageSource).toContain('<WeekGridFullView');
     expect(planPageSource).toContain('<AddMealSlotDialog');
+    expect(planPageSource).toContain('<MealPlanGeneratorModal');
   });
 
   it('should have exactly 4 desktop tabs (no Snack)', () => {

@@ -11,6 +11,7 @@ struct AddMealSheet: View {
     @State private var slot: SlotType
     @State private var mode: Mode
     @State private var recipes: [Recipe] = []
+    @State private var searchText = ""
     @State private var selectedRecipeId: String?
     @State private var customTitle: String
     @State private var phase: Phase = .loading
@@ -90,7 +91,16 @@ struct AddMealSheet: View {
                                 Text("No recipes yet. Add one first.")
                                     .foregroundStyle(.secondary)
                             } else {
-                                ForEach(recipes) { recipe in
+                                TextField("Search recipes or tags", text: $searchText)
+                                    .textInputAutocapitalization(.never)
+                                    .autocorrectionDisabled()
+
+                                if filteredRecipes.isEmpty {
+                                    Text("No matching recipes.")
+                                        .foregroundStyle(.secondary)
+                                }
+
+                                ForEach(filteredRecipes) { recipe in
                                     Button {
                                         selectedRecipeId = recipe.id
                                     } label: {
@@ -144,6 +154,23 @@ struct AddMealSheet: View {
 
     private var formattedDate: String {
         MealPlanDate.display(dateKey)
+    }
+
+    private var filteredRecipes: [Recipe] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !query.isEmpty else { return recipes }
+
+        return recipes.filter { recipe in
+            if recipe.title.lowercased().contains(query) { return true }
+            if recipe.description?.lowercased().contains(query) == true { return true }
+
+            return recipe.tags?.contains { join in
+                let tag = join.tag
+                return tag.name.lowercased().contains(query)
+                    || tag.slug?.lowercased().contains(query) == true
+                    || tag.kind?.lowercased().contains(query) == true
+            } == true
+        }
     }
 
     private func loadRecipes() async {

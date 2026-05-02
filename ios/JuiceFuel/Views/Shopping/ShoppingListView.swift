@@ -236,8 +236,12 @@ private struct ShoppingListDetailView: View {
             }
         }
         .sheet(item: $editingItem) { item in
-            EditShoppingItemSheet(item: item) { updated in
-                replace(updated)
+            EditShoppingItemSheet(item: item, currentListTitle: list.title) { updated in
+                if updated.shoppingListId == list.id {
+                    replace(updated)
+                } else {
+                    list.items.removeAll { $0.id == updated.id }
+                }
                 onChange(list)
             }
         }
@@ -717,26 +721,61 @@ private struct AddShoppingItemSheet: View {
 
 private struct EditShoppingItemSheet: View {
     let item: ShoppingListItem
+    let currentListTitle: String
     var onSaved: (ShoppingListItem) -> Void
 
     @Environment(\.dismiss) private var dismiss
     @State private var quantity: String
     @State private var unit: String
     @State private var note: String
+    @State private var lists: [ShoppingList] = []
+    @State private var selectedListId: String
+    @State private var selectedAisle: String
+    @State private var loadingLists = false
     @State private var saving = false
     @State private var errorMessage: String?
 
-    init(item: ShoppingListItem, onSaved: @escaping (ShoppingListItem) -> Void) {
+    init(item: ShoppingListItem, currentListTitle: String, onSaved: @escaping (ShoppingListItem) -> Void) {
         self.item = item
+        self.currentListTitle = currentListTitle
         self.onSaved = onSaved
         _quantity = State(initialValue: item.quantity.map { String(format: "%g", $0) } ?? "")
         _unit = State(initialValue: item.unit ?? "")
         _note = State(initialValue: item.note ?? "")
+        _selectedListId = State(initialValue: item.shoppingListId)
+        _selectedAisle = State(initialValue: ShoppingRubrics.rubric(for: item).id)
     }
 
     var body: some View {
         NavigationStack {
             Form {
+                Section("Location") {
+                    Picker("List", selection: $selectedListId) {
+                        if lists.isEmpty {
+                            Text(currentListTitle).tag(item.shoppingListId)
+                        } else {
+                            ForEach(lists) { list in
+                                Text(list.title).tag(list.id)
+                            }
+                        }
+                    }
+                    .disabled(loadingLists || lists.isEmpty)
+
+                    Picker("Category", selection: $selectedAisle) {
+                        ForEach(ShoppingRubrics.all) { rubric in
+                            Text(rubric.name).tag(rubric.id)
+                        }
+                    }
+
+                    if loadingLists {
+                        HStack {
+                            ProgressView()
+                            Text("Loading lists...")
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                }
+
                 Section(item.displayName.capitalized) {
                     TextField("Quantity", text: $quantity)
                         .keyboardType(.decimalPad)
@@ -763,14 +802,47 @@ private struct EditShoppingItemSheet: View {
                     }
                 }
             }
+            .task { await loadLists() }
+        }
+    }
+
+    private func loadLists() async {
+        guard lists.isEmpty else { return }
+        loadingLists = true
+        defer { loadingLists = false }
+        do {
+            let result: [ShoppingList] = try await APIClient.shared.send("GET", path: "/api/shopping-list")
+            lists = result.filter { $0.status == .active }
+            if !lists.contains(where: { $0.id == selectedListId }) {
+                lists.insert(ShoppingList(
+                    id: item.shoppingListId,
+                    householdId: "",
+                    title: currentListTitle,
+                    status: .active,
+                    storeHint: nil,
+                    items: []
+                ), at: 0)
+            }
+        } catch {
+            errorMessage = error.localizedDescription
         }
     }
 
     private func save() async {
         struct Body: Encodable {
+            let shoppingListId: String
             let quantity: Double?
             let unit: String?
             let note: String?
+            let aisle: String
+
+            enum CodingKeys: String, CodingKey {
+                case shoppingListId = "shopping_list_id"
+                case quantity
+                case unit
+                case note
+                case aisle
+            }
         }
 
         let trimmedQuantity = quantity.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -788,9 +860,11 @@ private struct EditShoppingItemSheet: View {
                 "PATCH",
                 path: "/api/shopping-list-items/\(item.id)",
                 body: Body(
+                    shoppingListId: selectedListId,
                     quantity: parsedQuantity,
                     unit: unit.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : unit.uppercased(),
-                    note: note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note
+                    note: note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? nil : note,
+                    aisle: selectedAisle
                 )
             )
             onSaved(updated)

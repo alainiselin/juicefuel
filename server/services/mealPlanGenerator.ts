@@ -7,7 +7,7 @@ export interface GeneratorInput {
   favoriteRatio: number; // 0-100
   proteinFilters: string[]; // e.g., ['poultry', 'beef', 'fish', 'pork', 'game']
   effort: 'any' | 'quick' | 'normal' | 'project';
-  libraryIds: string[]; // empty = all libraries
+  libraryIds?: string[]; // empty/omitted = all libraries
   avoidSameRecipe: boolean;
   avoidBackToBackCuisine: boolean;
   avoidBackToBackProtein: boolean;
@@ -21,7 +21,7 @@ export interface RecipeCandidate {
   tags: string[]; // tag slugs
   isFavorite: boolean;
   lastUsedDays?: number; // days since last use in planner, undefined if never used
-  libraryId: string; // recipe_library_id
+  libraryId?: string; // recipe_library_id
 }
 
 export interface GeneratedSlot {
@@ -65,7 +65,7 @@ export class MealPlanGenerator {
     const totalSlots = this.input.days * this.input.mealTypes.length;
     
     // Try generating with strict constraints
-    let eligible = this.filterEligible(false, false, false);
+    let eligible = this.filterEligible(false, false);
     
     // Check if we have enough recipes (considering avoid repeats setting)
     const needsRelaxation = this.input.avoidSameRecipe 
@@ -91,12 +91,12 @@ export class MealPlanGenerator {
   private relaxAndRetry(): GenerationResult {
     // Relax ladder: effort -> protein -> repeats
     const totalSlots = this.input.days * this.input.mealTypes.length;
-    let eligible = this.filterEligible(false, false, false);
+    let eligible = this.filterEligible(false, false);
     const beforeRelaxCount = eligible.length;
 
     // Step 1: Relax effort if it's currently filtering
     if (this.input.effort !== 'any') {
-      const relaxedEffort = this.filterEligible(true, false, false);
+      const relaxedEffort = this.filterEligible(true, false);
       if (relaxedEffort.length > beforeRelaxCount) {
         eligible = relaxedEffort;
         this.relaxedConstraints.push('effort');
@@ -106,7 +106,7 @@ export class MealPlanGenerator {
     // Step 2: Relax protein if filters are active
     if (this.input.proteinFilters.length > 0 && this.input.diet === 'none') {
       const beforeProtein = eligible.length;
-      const relaxedProtein = this.filterEligible(true, true, false);
+      const relaxedProtein = this.filterEligible(true, true);
       if (relaxedProtein.length > beforeProtein) {
         eligible = relaxedProtein;
         this.relaxedConstraints.push('protein');
@@ -135,13 +135,13 @@ export class MealPlanGenerator {
 
   private filterEligible(
     ignoreEffort: boolean,
-    ignoreProtein: boolean,
-    allowRepeats: boolean
+    ignoreProtein: boolean
   ): RecipeCandidate[] {
     return this.recipes.filter(recipe => {
       // Library filter (if specific libraries selected)
-      if (this.input.libraryIds.length > 0) {
-        if (!this.input.libraryIds.includes(recipe.libraryId)) return false;
+      const libraryIds = this.input.libraryIds ?? [];
+      if (libraryIds.length > 0) {
+        if (!recipe.libraryId || !libraryIds.includes(recipe.libraryId)) return false;
       }
 
       // Diet filter
@@ -257,7 +257,7 @@ export class MealPlanGenerator {
 
       // Back-to-back variety penalties
       if (existingSlots.length > 0) {
-        const lastSlot = existingSlots[existingSlots.length - 1];
+        const lastSlot = existingSlots[existingSlots.length - 1]!;
         const lastRecipe = this.recipes.find(r => r.id === lastSlot.recipeId);
         
         if (lastRecipe) {
@@ -300,7 +300,7 @@ export class MealPlanGenerator {
       }
     }
 
-    return weighted[weighted.length - 1].recipe;
+    return weighted[weighted.length - 1]!.recipe;
   }
 
   private createSlotForRecipe(recipe: RecipeCandidate, slotIndex: number): GeneratedSlot {
@@ -310,11 +310,11 @@ export class MealPlanGenerator {
 
     const date = new Date();
     date.setDate(date.getDate() + dayIndex);
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = date.toISOString().split('T')[0]!;
 
     return {
       date: dateStr,
-      mealType: this.input.mealTypes[mealIndex],
+      mealType: this.input.mealTypes[mealIndex]!,
       recipeId: recipe.id,
     };
   }
