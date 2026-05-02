@@ -57,7 +57,7 @@ export interface GenerateRecipeResponse {
   draft: RecipeDraft;
   source_url?: string;
   import?: {
-    extraction_method: 'json-ld' | 'html-metadata';
+    extraction_method: 'json-ld' | 'microdata' | 'html-metadata';
     title: string | null;
     ingredient_count: number;
     step_count: number;

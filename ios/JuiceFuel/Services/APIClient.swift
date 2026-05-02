@@ -10,6 +10,9 @@ enum APIError: Error, LocalizedError {
         switch self {
         case .invalidURL: return "Invalid URL"
         case .badStatus(let code, let body):
+            if let message = APIClientErrorBody.message(from: body) {
+                return message
+            }
             if let body, !body.isEmpty { return "HTTP \(code): \(body)" }
             return "HTTP \(code)"
         case .decoding(let err): return "Decoding failed: \(APIClientDecoding.describe(err))"
@@ -104,6 +107,21 @@ struct APIClient {
             throw APIError.badStatus(http.statusCode, body: String(data: data, encoding: .utf8))
         }
         return http.statusCode
+    }
+}
+
+private enum APIClientErrorBody {
+    static func message(from body: String?) -> String? {
+        guard
+            let body,
+            let data = body.data(using: .utf8),
+            let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
+            return nil
+        }
+
+        return (json["message"] as? String)
+            ?? (json["statusMessage"] as? String)
     }
 }
 

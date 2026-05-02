@@ -259,6 +259,7 @@ private struct AIRecipeSheet: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("AI recipe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -497,6 +498,7 @@ private struct URLRecipeImportSheet: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("Import recipe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

@@ -13,7 +13,7 @@ export interface ExtractedRecipe {
   total_min?: number | null;
   ingredients: string[];
   steps: string[];
-  extraction_method: 'json-ld' | 'html-metadata';
+  extraction_method: 'json-ld' | 'microdata' | 'html-metadata';
 }
 
 export interface ImportRecipeFromUrlInput {
@@ -132,8 +132,14 @@ async function fetchRecipeHtml(url: string): Promise<string> {
 
 export function extractRecipeFromHtml(html: string): ExtractedRecipe {
   const jsonLdRecipe = extractRecipeFromJsonLd(html);
+  const microdataRecipe = extractRecipeFromMicrodata(html);
+
   if (jsonLdRecipe) {
-    return jsonLdRecipe;
+    return mergeExtractedRecipes(jsonLdRecipe, microdataRecipe);
+  }
+
+  if (microdataRecipe && (microdataRecipe.ingredients.length > 0 || microdataRecipe.steps.length > 0)) {
+    return microdataRecipe;
   }
 
   return {
@@ -167,19 +173,19 @@ function extractRecipeFromJsonLd(html: string): ExtractedRecipe | null {
     const parsed = safeJsonParse(rawJson);
     if (!parsed) continue;
 
-    const node = findRecipeNode(parsed);
+    const node = findTypedNode(parsed, 'Recipe') ?? findTypedNode(parsed, 'HowTo');
     if (!node) continue;
 
     const ingredients = toStringArray(node.recipeIngredient);
-    const steps = extractInstructions(node.recipeInstructions);
+    const steps = extractInstructions(node.recipeInstructions ?? node.step);
 
     return {
       title: toText(node.name),
       description: toText(node.description),
       servings: parseServings(node.recipeYield ?? node.yield),
-      prep_min: parseIsoDurationMinutes(toText(node.prepTime)),
-      cook_min: parseIsoDurationMinutes(toText(node.cookTime)),
-      total_min: parseIsoDurationMinutes(toText(node.totalTime)),
+      prep_min: parseDurationMinutes(node.prepTime),
+      cook_min: parseDurationMinutes(node.cookTime),
+      total_min: parseDurationMinutes(node.totalTime),
       ingredients,
       steps,
       extraction_method: 'json-ld',
@@ -189,10 +195,68 @@ function extractRecipeFromJsonLd(html: string): ExtractedRecipe | null {
   return null;
 }
 
-function findRecipeNode(value: unknown): Record<string, any> | null {
+function extractRecipeFromMicrodata(html: string): ExtractedRecipe | null {
+  const ingredients = uniqueStrings([
+    ...extractItempropTexts(html, 'recipeIngredient'),
+    ...extractListItemsFromClass(html, 'ingredients-list'),
+  ]);
+  const steps = uniqueStrings([
+    ...extractItempropTexts(html, 'recipeInstructions'),
+    ...extractListItemsFromClass(html, 'directions-list'),
+    ...extractListItemsFromClass(html, 'preparation-list'),
+    ...extractListItemsFromClass(html, 'PreparationList--list'),
+  ]);
+
+  if (ingredients.length === 0 && steps.length === 0) {
+    return null;
+  }
+
+  return {
+    title: firstText([
+      readItempropContent(html, 'name'),
+      readMetaContent(html, 'property', 'og:title'),
+      readTitle(html),
+    ]),
+    description: firstText([
+      readItempropContent(html, 'description'),
+      readMetaContent(html, 'name', 'description'),
+      readMetaContent(html, 'property', 'og:description'),
+    ]),
+    servings: parseServings(readItempropContent(html, 'recipeYield')),
+    prep_min: parseDurationMinutes(readItempropContent(html, 'prepTime')),
+    cook_min: parseDurationMinutes(readItempropContent(html, 'cookTime')),
+    total_min: parseDurationMinutes(readItempropContent(html, 'totalTime')),
+    ingredients,
+    steps,
+    extraction_method: 'microdata',
+  };
+}
+
+function mergeExtractedRecipes(
+  primary: ExtractedRecipe,
+  fallback: ExtractedRecipe | null
+): ExtractedRecipe {
+  if (!fallback) return primary;
+
+  return {
+    title: primary.title ?? fallback.title,
+    description: primary.description ?? fallback.description,
+    servings: primary.servings ?? fallback.servings,
+    prep_min: primary.prep_min ?? fallback.prep_min,
+    cook_min: primary.cook_min ?? fallback.cook_min,
+    total_min: primary.total_min ?? fallback.total_min,
+    ingredients: primary.ingredients.length > 0 ? primary.ingredients : fallback.ingredients,
+    steps: primary.steps.length > 0 ? primary.steps : fallback.steps,
+    extraction_method: primary.ingredients.length > 0 && primary.steps.length > 0
+      ? primary.extraction_method
+      : fallback.extraction_method,
+  };
+}
+
+function findTypedNode(value: unknown, typeName: string): Record<string, any> | null {
   if (Array.isArray(value)) {
     for (const item of value) {
-      const found = findRecipeNode(item);
+      const found = findTypedNode(item, typeName);
       if (found) return found;
     }
     return null;
@@ -203,17 +267,17 @@ function findRecipeNode(value: unknown): Record<string, any> | null {
   }
 
   const obj = value as Record<string, any>;
-  if (hasType(obj, 'Recipe')) {
+  if (hasType(obj, typeName)) {
     return obj;
   }
 
   if (obj['@graph']) {
-    const found = findRecipeNode(obj['@graph']);
+    const found = findTypedNode(obj['@graph'], typeName);
     if (found) return found;
   }
 
-  for (const key of ['mainEntity', 'about']) {
-    const found = findRecipeNode(obj[key]);
+  for (const key of ['mainEntity', 'about', 'itemListElement']) {
+    const found = findTypedNode(obj[key], typeName);
     if (found) return found;
   }
 
@@ -238,6 +302,9 @@ function extractInstructions(value: unknown): string[] {
     const obj = value as Record<string, any>;
     if (obj.itemListElement) {
       return extractInstructions(obj.itemListElement);
+    }
+    if (obj.item) {
+      return extractInstructions(obj.item);
     }
     return splitInstructionText(toText(obj.text) ?? toText(obj.name) ?? '');
   }
@@ -282,15 +349,91 @@ function parseServings(value: unknown): number | null {
   return match ? Number(match[0]) : null;
 }
 
-function parseIsoDurationMinutes(value: string | null): number | null {
-  if (!value) return null;
-  const match = value.match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/i);
-  if (!match) return null;
-  const days = Number(match[1] ?? 0);
-  const hours = Number(match[2] ?? 0);
-  const minutes = Number(match[3] ?? 0);
-  const seconds = Number(match[4] ?? 0);
-  return days * 24 * 60 + hours * 60 + minutes + (seconds > 0 ? 1 : 0);
+function parseDurationMinutes(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value;
+  }
+
+  const text = toText(value);
+  if (!text) return null;
+
+  const isoMatch = text.match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/i);
+  if (isoMatch) {
+    const days = Number(isoMatch[1] ?? 0);
+    const hours = Number(isoMatch[2] ?? 0);
+    const minutes = Number(isoMatch[3] ?? 0);
+    const seconds = Number(isoMatch[4] ?? 0);
+    return days * 24 * 60 + hours * 60 + minutes + (seconds > 0 ? 1 : 0);
+  }
+
+  const compactHours = text.match(/(\d+(?:[.,]\d+)?)\s*h/i);
+  const compactMinutes = text.match(/(\d+)\s*min/i);
+  const wordHours = text.match(/(\d+(?:[.,]\d+)?)\s*(?:hours?|hrs?)/i);
+  const hours = Number((compactHours?.[1] ?? wordHours?.[1] ?? '0').replace(',', '.'));
+  const minutes = Number(compactMinutes?.[1] ?? 0);
+  const total = Math.floor(hours) * 60 + Math.round((hours % 1) * 60) + minutes;
+  if (total > 0) {
+    return total;
+  }
+
+  return null;
+}
+
+function extractItempropTexts(html: string, itemprop: string): string[] {
+  const texts: string[] = [];
+  const elementPattern = new RegExp(`<(?<tag>[a-z0-9]+)\\b(?=[^>]*\\bitemprop=["']${escapeRegExp(itemprop)}["'])[^>]*>([\\s\\S]*?)<\\/\\k<tag>>`, 'gi');
+
+  for (const match of html.matchAll(elementPattern)) {
+    texts.push(cleanExtractedText(match[2] ?? ''));
+  }
+
+  return texts.filter(Boolean);
+}
+
+function extractListItemsFromClass(html: string, className: string): string[] {
+  const classPattern = new RegExp(`<(?<tag>[a-z0-9]+)\\b(?=[^>]*\\bclass=["'][^"']*\\b${escapeRegExp(className)}\\b[^"']*["'])[^>]*>([\\s\\S]*?)<\\/\\k<tag>>`, 'gi');
+  const texts: string[] = [];
+
+  for (const classMatch of html.matchAll(classPattern)) {
+    const block = classMatch[2] ?? '';
+    for (const itemMatch of block.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi)) {
+      texts.push(cleanExtractedText(itemMatch[1] ?? ''));
+    }
+  }
+
+  return texts.filter(Boolean);
+}
+
+function readItempropContent(html: string, itemprop: string): string | null {
+  const metaPattern = new RegExp(`<meta\\b(?=[^>]*\\bitemprop=["']${escapeRegExp(itemprop)}["'])(?=[^>]*\\bcontent=["']([^"']*)["'])[^>]*>`, 'i');
+  const metaMatch = html.match(metaPattern);
+  if (metaMatch) {
+    return decodeHtmlEntities(normalizeWhitespace(metaMatch[1] ?? ''));
+  }
+
+  const elementPattern = new RegExp(`<(?<tag>[a-z0-9]+)\\b(?=[^>]*\\bitemprop=["']${escapeRegExp(itemprop)}["'])[^>]*>([\\s\\S]*?)<\\/\\k<tag>>`, 'i');
+  const elementMatch = html.match(elementPattern);
+  return elementMatch ? cleanExtractedText(elementMatch[2] ?? '') : null;
+}
+
+function uniqueStrings(values: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const value of values) {
+    const normalized = cleanExtractedText(value);
+    const key = normalized.toLowerCase();
+    if (!normalized || seen.has(key)) continue;
+    seen.add(key);
+    result.push(normalized);
+  }
+  return result;
+}
+
+function cleanExtractedText(value: string): string {
+  return decodeHtmlEntities(normalizeWhitespace(value))
+    .replace(/\u200d/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function readMetaContent(html: string, attr: 'name' | 'property', value: string): string | null {

@@ -80,6 +80,72 @@ describe('recipeUrlImporter', () => {
     expect(recipe.steps).toEqual(['Simmer everything.']);
   });
 
+  it('fills Recipe JSON-LD from server-rendered ingredient and direction lists', () => {
+    const html = `
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Recipe",
+          "name": "Butter Chicken",
+          "prepTime": "30 min + overnight",
+          "cookTime": "1 hour",
+          "recipeYield": "4"
+        }
+      </script>
+      <article class="ingredients-list w-richtext">
+        <p><strong>Marinade:</strong></p>
+        <ul><li>1 cup yogurt</li><li>1.5 lbs chicken thighs</li></ul>
+      </article>
+      <div class="directions-list w-richtext">
+        <p><strong>Cook:</strong></p>
+        <ol><li>Marinate the chicken.</li><li>Simmer in sauce.</li></ol>
+      </div>
+    `;
+
+    const recipe = extractRecipeFromHtml(html);
+
+    expect(recipe.extraction_method).toBe('microdata');
+    expect(recipe.title).toBe('Butter Chicken');
+    expect(recipe.servings).toBe(4);
+    expect(recipe.prep_min).toBe(30);
+    expect(recipe.cook_min).toBe(60);
+    expect(recipe.ingredients).toEqual(['1 cup yogurt', '1.5 lbs chicken thighs']);
+    expect(recipe.steps).toEqual(['Marinate the chicken.', 'Simmer in sauce.']);
+  });
+
+  it('combines HowTo JSON-LD with recipeIngredient microdata', () => {
+    const html = `
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": "Asparagus Cannelloni",
+          "totalTime": 65,
+          "step": [
+            { "@type": "HowToStep", "itemListElement": { "@type": "HowToDirection", "text": "Blanch asparagus." } },
+            { "@type": "HowToStep", "itemListElement": { "@type": "HowToDirection", "text": "Bake until golden." } }
+          ]
+        }
+      </script>
+      <table>
+        <tr itemprop="recipeIngredient"><td>12</td><th>lasagne sheets</th></tr>
+        <tr itemprop="recipeIngredient"><td>700 g</td><th>green asparagus</th></tr>
+      </table>
+      <meta itemprop="prepTime" content="PT40M">
+      <meta itemprop="cookTime" content="PT25M">
+    `;
+
+    const recipe = extractRecipeFromHtml(html);
+
+    expect(recipe.extraction_method).toBe('microdata');
+    expect(recipe.title).toBe('Asparagus Cannelloni');
+    expect(recipe.prep_min).toBe(40);
+    expect(recipe.cook_min).toBe(25);
+    expect(recipe.total_min).toBe(65);
+    expect(recipe.ingredients).toEqual(['12 lasagne sheets', '700 g green asparagus']);
+    expect(recipe.steps).toEqual(['Blanch asparagus.', 'Bake until golden.']);
+  });
+
   it('falls back to page metadata when no recipe schema exists', () => {
     const html = `
       <html>
