@@ -494,25 +494,44 @@ const checkedItems = computed(() => {
   return currentList.value.items.filter(item => item.is_checked);
 });
 
-onMounted(async () => {
-  loading.value = true;
-  try {
-    await store.fetchShoppingLists('ACTIVE');
-    const firstList = lists.value[0];
-    if (firstList) {
-      selectedListId.value = firstList.id;
-      await store.fetchShoppingListById(firstList.id);
-    }
-    // Resolve the household's meal plan id so the generator modal can use it.
+onMounted(() => {
+  // Stale-while-revalidate: render any cached state immediately and refresh in the
+  // background. Only show a spinner if there's nothing cached yet (cold start).
+  const hasCachedList = lists.value.length > 0 && currentList.value !== null;
+  const silent = hasCachedList;
+  if (!silent) loading.value = true;
+
+  // Restore the previously-selected list if it still exists; otherwise fall back to
+  // the first list so the user lands on something usable on a cold start.
+  if (currentList.value && !selectedListId.value) {
+    selectedListId.value = currentList.value.id;
+  }
+
+  void (async () => {
     try {
-      const households = await $fetch<Array<{ id: string; meal_plan?: { id: string } | null }>>('/api/households');
-      const withPlan = households.find((h) => h.meal_plan?.id);
-      mealPlanId.value = withPlan?.meal_plan?.id ?? null;
-    } catch (err) {
-      console.error('Failed to load meal plan:', err);
+      await store.fetchShoppingLists('ACTIVE', { silent });
+      const stillExists = lists.value.find((l) => l.id === selectedListId.value);
+      const target = stillExists ?? lists.value[0];
+      if (target) {
+        selectedListId.value = target.id;
+        await store.fetchShoppingListById(target.id, { silent });
+      }
+    } finally {
+      if (!silent) loading.value = false;
     }
-  } finally {
-    loading.value = false;
+  })();
+
+  // Resolve the household's meal plan id once for the generator modal. Skip if cached.
+  if (mealPlanId.value === null) {
+    void (async () => {
+      try {
+        const households = await $fetch<Array<{ id: string; meal_plan?: { id: string } | null }>>('/api/households');
+        const withPlan = households.find((h) => h.meal_plan?.id);
+        mealPlanId.value = withPlan?.meal_plan?.id ?? null;
+      } catch (err) {
+        console.error('Failed to load meal plan:', err);
+      }
+    })();
   }
 });
 

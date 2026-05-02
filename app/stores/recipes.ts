@@ -6,12 +6,17 @@ export const useRecipesStore = defineStore('recipes', () => {
   const loading = ref(false);
   const api = useApi();
 
-  const fetchRecipes = async (query?: string, recipeLibraryId?: string) => {
-    loading.value = true;
+  const fetchRecipes = async (
+    query?: string,
+    recipeLibraryId?: string,
+    options?: { silent?: boolean }
+  ) => {
+    // SWR: when called silently, leave the spinner alone so cached recipes stay visible.
+    if (!options?.silent) loading.value = true;
     try {
       recipes.value = await api.getRecipes(query, recipeLibraryId);
     } finally {
-      loading.value = false;
+      if (!options?.silent) loading.value = false;
     }
   };
 

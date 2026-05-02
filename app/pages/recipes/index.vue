@@ -574,20 +574,13 @@ async function loadLibraries() {
   }
 }
 
-async function loadRecipes() {
-  loadingRecipes.value = true;
+async function loadRecipes(options?: { silent?: boolean }) {
+  // SWR: silent calls leave the spinner alone so cached recipes stay visible.
+  if (!options?.silent) loadingRecipes.value = true;
   try {
-    const params: any = {};
-    if (searchQuery.value) {
-      params.query = searchQuery.value;
-    }
-    if (selectedLibraryId.value) {
-      params.library_id = selectedLibraryId.value;
-    }
-    
-    await store.fetchRecipes(searchQuery.value, selectedLibraryId.value);
+    await store.fetchRecipes(searchQuery.value, selectedLibraryId.value, options);
   } finally {
-    loadingRecipes.value = false;
+    if (!options?.silent) loadingRecipes.value = false;
   }
 }
 
@@ -634,7 +627,11 @@ const onSearch = () => {
   // No need to make API calls
 };
 
+// onMounted controls the very first fetch (so it can run silently with cached data).
+// The watch only fires for *user-driven* library changes after that point.
+let suppressLibraryWatch = true;
 watch(selectedLibraryId, () => {
+  if (suppressLibraryWatch) return;
   loadRecipes();
 });
 
@@ -838,8 +835,20 @@ function closeAIModal() {
   aiGenerator.clearError();
 }
 
-onMounted(async () => {
-  await loadLibraries();
-  await loadRecipes();
+// SWR: render cached recipes immediately on revisit and refresh in the background.
+onMounted(() => {
+  const hasCachedRecipes = store.recipes.length > 0;
+  if (!hasCachedRecipes) loadingRecipes.value = true;
+
+  void (async () => {
+    try {
+      await loadLibraries();  // sets selectedLibraryId; library watch is suppressed for now
+      await loadRecipes({ silent: hasCachedRecipes });
+    } finally {
+      // Re-enable the watch so subsequent user-driven library changes refresh normally.
+      suppressLibraryWatch = false;
+      if (!hasCachedRecipes) loadingRecipes.value = false;
+    }
+  })();
 });
 </script>

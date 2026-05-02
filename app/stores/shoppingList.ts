@@ -17,21 +17,22 @@ export const useShoppingListStore = defineStore('shoppingList', () => {
     }
   };
 
-  const fetchShoppingLists = async (status?: string) => {
-    loading.value = true;
+  const fetchShoppingLists = async (status?: string, options?: { silent?: boolean }) => {
+    // SWR: when called silently, leave the spinner alone so cached lists stay visible.
+    if (!options?.silent) loading.value = true;
     try {
       shoppingLists.value = await api.getShoppingLists(status);
     } finally {
-      loading.value = false;
+      if (!options?.silent) loading.value = false;
     }
   };
 
-  const fetchShoppingListById = async (id: string) => {
-    loading.value = true;
+  const fetchShoppingListById = async (id: string, options?: { silent?: boolean }) => {
+    if (!options?.silent) loading.value = true;
     try {
       currentList.value = await api.getShoppingListById(id);
     } finally {
-      loading.value = false;
+      if (!options?.silent) loading.value = false;
     }
   };
 

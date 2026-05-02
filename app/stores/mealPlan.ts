@@ -6,12 +6,18 @@ export const useMealPlanStore = defineStore('mealPlan', () => {
   const loading = ref(false);
   const api = useApi();
 
-  const fetchEntries = async (mealPlanId: string, from: string, to: string) => {
-    loading.value = true;
+  const fetchEntries = async (
+    mealPlanId: string,
+    from: string,
+    to: string,
+    options?: { silent?: boolean }
+  ) => {
+    // SWR: when called silently, leave the spinner alone so cached entries stay visible.
+    if (!options?.silent) loading.value = true;
     try {
       entries.value = await api.getMealPlan(mealPlanId, from, to);
     } finally {
-      loading.value = false;
+      if (!options?.silent) loading.value = false;
     }
   };
 

@@ -150,15 +150,15 @@
 <script setup lang="ts">
 import { useMealPlanStore } from '../stores/mealPlan';
 import { useRecipesStore } from '../stores/recipes';
+import { useHouseholdStore } from '../stores/household';
 import type { SlotType } from '../../spec/schemas';
 
 const store = useMealPlanStore();
 const recipesStore = useRecipesStore();
+const householdStore = useHouseholdStore();
 
-// Household state
-const households = ref<any[]>([]);
-const selectedHouseholdId = ref<string>('');
-const loadingHouseholds = ref(true);
+// Page-local UI state (cached household state lives in the store).
+const loadingHouseholds = ref(false);
 const creatingMealPlan = ref(false);
 
 // Week state
@@ -198,9 +198,7 @@ const toLocalDateKey = (date: Date) => {
 };
 
 // Computed
-const currentHousehold = computed(() => {
-  return households.value.find(h => h.id === selectedHouseholdId.value);
-});
+const currentHousehold = computed(() => householdStore.activeHousehold);
 
 const weekEndDate = computed(() => {
   const end = new Date(weekStartDate.value);
@@ -240,63 +238,51 @@ const filteredEntries = computed(() => {
 const recipes = computed(() => recipesStore.recipes);
 
 // Methods
-const loadHouseholds = async () => {
-  loadingHouseholds.value = true;
+const loadHouseholds = async (options?: { silent?: boolean }) => {
+  // Page-local spinner only shows when there's no cached household yet.
+  const showSpinner = !options?.silent;
+  if (showSpinner) loadingHouseholds.value = true;
   try {
-    const activeData = await $fetch('/api/households/me');
-    
-    // Create a household object with meal plan from active household
-    if (activeData.household) {
-      households.value = [{
-        id: activeData.household.id,
-        name: activeData.household.name,
-        meal_plan: null, // Will be loaded separately if needed
-        recipe_libraries: [],
-      }];
-      selectedHouseholdId.value = activeData.household.id;
-      
-      // Load full household data with meal plan
-      const fullHouseholds = await $fetch('/api/households');
-      const activeHousehold = fullHouseholds.find((h: any) => h.id === activeData.household.id);
-      if (activeHousehold) {
-        households.value = [activeHousehold];
-      }
-    }
+    await householdStore.fetchHouseholds(options);
   } catch (error) {
     console.error('Failed to load households:', error);
   } finally {
-    loadingHouseholds.value = false;
+    if (showSpinner) loadingHouseholds.value = false;
   }
 };
 
-const loadRecipes = async () => {
+const loadRecipes = async (options?: { silent?: boolean }) => {
   if (!currentHousehold.value?.recipe_libraries?.[0]?.id) return;
-  await recipesStore.fetchRecipes(undefined, currentHousehold.value.recipe_libraries[0].id);
+  await recipesStore.fetchRecipes(
+    undefined,
+    currentHousehold.value.recipe_libraries[0].id,
+    options
+  );
 };
 
-const loadEntries = async () => {
+const loadEntries = async (options?: { silent?: boolean }) => {
   const household = currentHousehold.value;
   if (!household?.meal_plan) return;
-  
+
   const fromDate = toLocalDateKey(weekStartDate.value);
   const toDate = toLocalDateKey(weekEndDate.value);
-  
-  await store.fetchEntries(household.meal_plan.id, fromDate, toDate);
+
+  await store.fetchEntries(household.meal_plan.id, fromDate, toDate, options);
 };
 
 const createMealPlan = async () => {
   if (!currentHousehold.value) return;
-  
+
   creatingMealPlan.value = true;
   try {
     const mealPlan = await $fetch('/api/households/meal-plan', {
       method: 'POST',
       body: { household_id: currentHousehold.value.id },
     });
-    
-    // Update household with new meal plan
-    currentHousehold.value.meal_plan = mealPlan;
-    
+
+    // Patch the household in the store so UI re-renders with the new meal plan.
+    householdStore.setMealPlanForActive(mealPlan);
+
     // Load entries for the new meal plan
     await loadEntries();
   } catch (error: any) {
@@ -373,9 +359,9 @@ watch(selectedSlot, (newSlot) => {
   defaultMealDate.value = undefined; // Reset date when changing tabs
 });
 
-// Initialize
-onMounted(async () => {
-  // Detect mobile
+// Initialize — stale-while-revalidate so revisiting the page renders cached data
+// immediately and refreshes silently in the background.
+onMounted(() => {
   isMobile.value = window.innerWidth < 640;
   window.addEventListener('resize', () => {
     isMobile.value = window.innerWidth < 640;
@@ -383,8 +369,18 @@ onMounted(async () => {
 
   weekStartDate.value = getMondayWeekStart(new Date());
 
-  await loadHouseholds();
-  await loadRecipes();
-  await loadEntries();
+  const hasCachedHousehold = householdStore.activeHousehold !== null;
+  const hasCachedRecipes = recipesStore.recipes.length > 0;
+  const hasCachedEntries = store.entries.length > 0;
+
+  // Refresh in the background. Silent = the user already has data on screen.
+  void (async () => {
+    await loadHouseholds({ silent: hasCachedHousehold });
+    // Recipes + entries depend on the household being resolved first.
+    await Promise.all([
+      loadRecipes({ silent: hasCachedRecipes }),
+      loadEntries({ silent: hasCachedEntries }),
+    ]);
+  })();
 });
 </script>
