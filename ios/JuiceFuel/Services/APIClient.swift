@@ -45,6 +45,7 @@ struct APIClient {
         }
         var req = URLRequest(url: url)
         req.httpMethod = method
+        req.timeoutInterval = 60
         req.setValue("application/json", forHTTPHeaderField: "Accept")
 
         if let body {

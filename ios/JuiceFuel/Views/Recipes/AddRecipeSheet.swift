@@ -114,6 +114,7 @@ struct AddRecipeSheet: View {
                     .disabled(!canSave || saving)
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
             .task {
                 if existingRecipe == nil {
                     await loadLibraries()
@@ -135,12 +136,12 @@ struct AddRecipeSheet: View {
     private func loadLibraries() async {
         do {
             let result: [RecipeLibrary] = try await APIClient.shared.send("GET", path: "/api/recipe-libraries")
-            let ownLibraries = result.filter { $0.isOwnHousehold != false }
-            guard let library = ownLibraries.first ?? result.first else {
+            let ownLibraries = result.filter { $0.isOwnHousehold == true }
+            guard let library = ownLibraries.first else {
                 phase = .error("No recipe library found in your household.")
                 return
             }
-            libraries = ownLibraries.isEmpty ? result : ownLibraries
+            libraries = ownLibraries
             libraryId = library.id
             phase = .ready
         } catch {
@@ -150,6 +151,7 @@ struct AddRecipeSheet: View {
 
     private func save() async {
         guard let libraryId else { return }
+        Keyboard.dismiss()
         saving = true
         errorMessage = nil
         defer { saving = false }
@@ -255,10 +257,12 @@ private struct CreateRecipeLibrarySheet: View {
                     .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || saving)
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
         }
     }
 
     private func save() async {
+        Keyboard.dismiss()
         saving = true
         errorMessage = nil
         defer { saving = false }

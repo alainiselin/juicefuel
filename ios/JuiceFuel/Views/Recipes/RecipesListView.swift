@@ -312,7 +312,7 @@ private struct AIRecipeSheet: View {
             async let libs: [RecipeLibrary] = APIClient.shared.send("GET", path: "/api/recipe-libraries")
             let (householdResponse, librariesResponse) = try await (household, libs)
             householdId = householdResponse.household.id
-            libraries = librariesResponse.filter { $0.isOwnHousehold != false }
+            libraries = librariesResponse.filter { $0.isOwnHousehold == true }
             selectedLibraryId = libraries.first?.id
         } catch {
             errorMessage = error.localizedDescription
@@ -321,6 +321,7 @@ private struct AIRecipeSheet: View {
 
     private func generate() async {
         guard let householdId, let parsedServings else { return }
+        Keyboard.dismiss()
         generating = true
         errorMessage = nil
         defer { generating = false }
@@ -349,6 +350,7 @@ private struct AIRecipeSheet: View {
 
     private func save() async {
         guard let householdId, let selectedLibraryId, let draft else { return }
+        Keyboard.dismiss()
         saving = true
         errorMessage = nil
         defer { saving = false }
@@ -531,7 +533,7 @@ private struct URLRecipeImportSheet: View {
         !recipeURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             && householdId != nil
             && selectedLibraryId != nil
-            && parsedServings != nil
+            && (servings.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || parsedServings != nil)
     }
 
     private var parsedServings: Int? {
@@ -551,7 +553,7 @@ private struct URLRecipeImportSheet: View {
             async let libs: [RecipeLibrary] = APIClient.shared.send("GET", path: "/api/recipe-libraries")
             let (householdResponse, librariesResponse) = try await (household, libs)
             householdId = householdResponse.household.id
-            libraries = librariesResponse.filter { $0.isOwnHousehold != false }
+            libraries = librariesResponse.filter { $0.isOwnHousehold == true }
             selectedLibraryId = libraries.first?.id
         } catch {
             errorMessage = error.localizedDescription
@@ -560,6 +562,7 @@ private struct URLRecipeImportSheet: View {
 
     private func importRecipe() async {
         guard let householdId else { return }
+        Keyboard.dismiss()
         importing = true
         errorMessage = nil
         defer { importing = false }
@@ -589,6 +592,7 @@ private struct URLRecipeImportSheet: View {
 
     private func save() async {
         guard let householdId, let selectedLibraryId, let draft else { return }
+        Keyboard.dismiss()
         saving = true
         errorMessage = nil
         defer { saving = false }

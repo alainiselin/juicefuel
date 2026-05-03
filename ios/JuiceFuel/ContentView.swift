@@ -21,6 +21,7 @@ struct ContentView: View {
             await auth.restoreSession()
             didRestore = true
         }
+        .keyboardDoneToolbar()
     }
 }
 
