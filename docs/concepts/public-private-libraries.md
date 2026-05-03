@@ -154,7 +154,7 @@ GET /api/recipe-libraries
 Returns:
 - User's household libraries (private)
 - All public libraries
-- Includes `userRole` and `canEdit` flags
+- Includes `is_own_household`, which clients use to distinguish writable own libraries from read-only public libraries
 
 ### Create Library
 ```
@@ -171,6 +171,10 @@ Body: { is_public: true/false }
 ```
 
 Only household members can toggle.
+
+### Saving Generated Recipes
+
+Generated AI drafts and imported URL drafts must be saved to a library owned by the user's active household. Public libraries from other households appear in browse/search contexts but should not appear in save pickers.
 
 ## Future Enhancements
 

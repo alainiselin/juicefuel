@@ -6,7 +6,7 @@ status: draft
 
 # iOS Parity Roadmap
 
-This document tracks the native iOS parity push against the web app. It is the permanent roadmap. The temporary continuity note lives in [`../HANDOVER_TEMP.md`](../HANDOVER_TEMP.md) and can be deleted once the current work is merged, shipped, or summarized elsewhere.
+This document tracks the native iOS parity push against the web app. It is the permanent roadmap; [`../HANDOVER_TEMP.md`](../HANDOVER_TEMP.md) is only a current-session continuity note.
 
 ## Current state
 
@@ -64,16 +64,20 @@ Delivered:
 - Pick a recipe library when creating a recipe.
 - Create a new recipe library from iOS.
 - Generate an AI recipe draft from iOS.
+- Import a recipe draft from a public recipe URL.
 - Preview and save the AI draft into a selected recipe library.
+- Preview and save imported URL drafts through the same save endpoint as AI drafts.
+- Dismiss keyboards with the shared native keyboard toolbar.
 - Require authenticated household-library access for recipe create/read/update/delete endpoints used by iOS.
 - Accept `null` optional recipe create fields from iOS and return ingredient names consistently from ingredient mutation endpoints.
 - Verify recipe access before creating a favorite.
+- Only show writable own-household libraries in native save pickers; public libraries remain read-only.
 
 Remaining polish:
 
 - Rename/archive/delete recipe libraries.
 - Add richer AI constraints on mobile.
-- Add recipe images/import flows if needed.
+- Add recipe images if needed.
 
 ### Phase 4: Household and profile
 
@@ -127,7 +131,9 @@ xcodebuild -project JuiceFuel.xcodeproj -scheme JuiceFuel -destination 'id=00008
 Also verified:
 
 ```bash
-/Applications/Codex.app/Contents/Resources/node node_modules/vue-tsc/bin/vue-tsc.js --noEmit
+npm run build
+npm run test -- --run server/services/recipeUrlImporter.test.ts
+xcodebuild -project ios/JuiceFuel.xcodeproj -scheme JuiceFuel -configuration Debug -destination 'generic/platform=iOS Simulator' build
 ```
 
-Use the bundled Codex Node binary on this machine because `npm` is not currently on the shell PATH.
+`npm run typecheck` is not currently a green verification gate; it fails on existing unrelated repo-wide type debt. Use focused tests plus `npm run build` until that debt is cleaned up.

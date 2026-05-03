@@ -29,7 +29,8 @@ All set in Vercel (Settings → Environment Variables → Production):
 | `GOOGLE_CLIENT_ID` | Google OAuth | from https://console.cloud.google.com/auth/clients |
 | `GOOGLE_CLIENT_SECRET` | Google OAuth | same |
 | `APPLE_BUNDLE_ID` | Sign in with Apple JWT audience | must match the iOS app's Bundle ID (`vip.juicecrew.juicefuel`) |
-| `OPENAI_API_KEY` | AI recipe generation | optional |
+| `OPENAI_API_KEY` | AI recipe generation and URL recipe import | Required for AI/URL recipe creation flows |
+| `OPENAI_MODEL` | OpenAI model override | Optional; defaults to `gpt-4.1-mini-2025-04-14` |
 
 `sslmode=no-verify` is intentional: the `pg` driver on Vercel's runtime doesn't trust Supabase's intermediate CA. TLS still encrypts; the chain isn't verified. To make verification proper, add `ssl: { ca, rejectUnauthorized: true }` to the `pg.Pool` in [`server/utils/prisma.ts`](../../server/utils/prisma.ts) with Supabase's root cert.
 
@@ -56,6 +57,13 @@ vercel deploy --prod --yes
 ```
 
 Vercel runs `npm install` (which triggers `postinstall` → `prisma generate && nuxt prepare`) then `nuxt build`. The build emits Nitro functions to `.vercel/output/`.
+
+Latest known production deploy from this cleanup pass:
+
+- Date: 2026-05-03
+- Commit: `227cadc` (`fix(recipes): accept imported drafts on save`)
+- Deployment ID: `dpl_HEvBLjSzTBe8v6CLFV3ERCpkSwXp`
+- Alias verified: `https://juicefuel.juicecrew.vip`
 
 ## Pushing schema changes
 

@@ -115,10 +115,10 @@ The iOS app is now a useful native companion, not only a login shell. It still t
 
 | Area | Native iOS status | Remaining gap |
 |---|---|---|
-| Auth | Email/password, Apple, Google callback, Keychain restore | No account/profile editing beyond sign out |
+| Auth | Email/password, Apple, Google callback, Keychain restore, profile editing | Account diagnostics and no-household recovery can still improve |
 | Shopping | Create/finish lists, add existing ingredients/articles, create custom articles, edit quantity/unit/notes, check/uncheck, delete items | No generate-from-planner action yet, no household sharing controls, no offline sync |
 | Planner | Loads active household, creates meal plan if missing, add/edit/remove meals, generate/apply meal suggestions | Generator UI is simpler than web advanced mode, no drag/drop or rich desktop grid controls |
-| Recipes | List/detail/create/edit/delete, add/edit/delete ingredients, favorite toggle, tags, library selection/create, AI generate/save | Deeper library admin can still improve |
+| Recipes | List/detail/create/edit/delete, add/edit/delete ingredients, favorite toggle, tags, library selection/create, AI generate/save, URL import/save | Deeper library admin can still improve |
 | Households | Active household view, switcher, owner rename, invite generation/share, join-by-code, members list, member role/removal, leave/delete flows | Deeper diagnostics and onboarding polish still missing |
 
 ## Bundle ID, signing, capabilities
@@ -154,9 +154,11 @@ xcodebuild \
 
 For TestFlight, use App Store Connect and upload an archive signed with an Apple Distribution certificate. The current work Mac is intentionally kept on macOS 15.2; if Apple's upload tooling requires a newer Xcode than this OS can run, use a separate newer build machine or CI runner for archive upload while keeping this Mac for day-to-day direct installs.
 
-## URL scheme
+## URL scheme and URL import
 
 `juicefuel://auth/callback` is registered in `Info.plist` (generated from `project.yml`). It's only used by the Google-via-ASWebAuthenticationSession flow — the iOS app doesn't expose any other deep links right now.
+
+Recipe URL import is not an iOS deep link. The native recipe import sheet posts a public recipe page URL to `/api/recipes/generate/from-url`, previews the returned draft, and saves it through `/api/recipes/generate/save`. The same save endpoint is used by normal AI recipe generation.
 
 ## Adding a new screen
 
@@ -191,7 +193,6 @@ let recipes: [Recipe] = try await APIClient.shared.send("GET", path: "/api/recip
 
 - **Build target is x86_64 by default.** On Apple Silicon this means Rosetta — slower than native arm64. Adding `ARCHS: arm64` (or removing the implicit setting) in `project.yml` would speed builds.
 - **No Universal Links yet.** Switching from `juicefuel://` to a verified `https://juicefuel.juicecrew.vip/...` deep link would require associated-domains setup (browser config + an `apple-app-site-association` JSON served from the domain).
-- **No real app icon.** `Assets.xcassets/AppIcon.appiconset/` is intentionally empty — drop a 1024×1024 PNG in to fix.
 - **No push notifications.** Would require an APNs auth key in Apple Developer portal + server-side scheduling.
 - **No offline cache.** Every screen refetches from the server on appear. Fine for an MVP; a later iteration could add persistent caching.
 - **Household/profile parity is functionally covered.** The native Me tab now covers the requested account and household tasks. Richer diagnostics and onboarding polish remain for the polish phase.

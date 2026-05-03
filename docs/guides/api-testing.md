@@ -111,6 +111,45 @@ curl -X PATCH http://localhost:3000/api/recipes/RECIPE_ID \
 curl -X DELETE http://localhost:3000/api/recipes/RECIPE_ID -b cookies.txt
 ```
 
+### Generate AI Recipe Draft
+```bash
+curl -X POST http://localhost:3000/api/recipes/generate \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
+  -d '{
+    "household_id": "HOUSEHOLD_ID",
+    "query": "quick high-protein pasta",
+    "servings": 4
+  }'
+```
+
+### Import Recipe Draft From URL
+```bash
+curl -X POST http://localhost:3000/api/recipes/generate/from-url \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
+  -d '{
+    "household_id": "HOUSEHOLD_ID",
+    "url": "https://www.swissmilk.ch/de/rezepte-kochideen/rezepte/LM201005_18/spargel-cannelloni-mit-speck/",
+    "servings": 4
+  }'
+```
+
+### Save Generated Or Imported Draft
+```bash
+curl -X POST http://localhost:3000/api/recipes/generate/save \
+  -H "Content-Type: application/json" \
+  -b cookies.txt \
+  -d '{
+    "household_id": "HOUSEHOLD_ID",
+    "recipe_library_id": "OWN_HOUSEHOLD_LIBRARY_ID",
+    "draft": { "...": "paste draft from generate/from-url response" },
+    "source_url": "https://example.com/original-recipe"
+  }'
+```
+
+`recipe_library_id` must belong to the user's active household. Public libraries are readable by other households but not writable.
+
 ## Meal Plan Endpoints
 
 ### Get Meal Plan Entries

@@ -19,6 +19,8 @@ This checklist tracks what JuiceFuel needs before sharing the native iOS app thr
   - planner,
   - recipes,
   - household/profile.
+- Recipe creation supports manual creation, AI prompt generation, and URL import.
+- A shared keyboard Done toolbar is present for text and number entry.
 
 ## Build path
 
@@ -53,7 +55,7 @@ For TestFlight, create an archive with Apple Distribution signing and upload it 
 Capture on a modern iPhone simulator or physical device:
 
 - Recipes list and recipe detail.
-- AI recipe generation preview.
+- AI recipe generation and URL import preview.
 - Planner weekly view.
 - Shopping list with aisle groups.
 - Me tab with household members.
@@ -73,7 +75,8 @@ Run this before each TestFlight candidate:
 7. Add, edit, remove, generate, and apply meals.
 8. Create, edit, favorite, tag, and delete a recipe.
 9. Generate an AI recipe and save it.
-10. Switch households, generate an invite, join via code, edit profile, and sign out.
+10. Import a recipe from a public URL and save it to an own-household library.
+11. Switch households, generate an invite, join via code, edit profile, and sign out.
 
 ## Remaining polish
 
