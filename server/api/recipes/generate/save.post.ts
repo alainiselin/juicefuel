@@ -4,12 +4,54 @@ import { requireAuth } from '../../../utils/authHelpers';
 import prisma from '../../../utils/prisma';
 import { RecipeDraftSchema } from '../../../services/aiRecipeGenerator';
 
+const NullableStringSchema = z.preprocess((value) => {
+  if (value === undefined || value === null) return null;
+  if (typeof value !== 'string') return value;
+  const trimmed = value.trim();
+  return trimmed.length === 0 ? null : trimmed;
+}, z.string().nullable());
+
+const NullableAmountSchema = z.preprocess((value) => {
+  if (value === undefined || value === null || value === '') return null;
+  const numeric = typeof value === 'number' ? value : Number(value);
+  return Number.isFinite(numeric) ? numeric : null;
+}, z.number().nullable());
+
+const RecipeDraftSaveSchema = RecipeDraftSchema.extend({
+  description: z.string().trim().max(1000).transform(value => value.slice(0, 240)),
+  ingredients: z.array(
+    z.object({
+      name: z.string().trim().min(1),
+      amount: NullableAmountSchema,
+      unit: NullableStringSchema,
+      note: NullableStringSchema,
+    })
+  ).min(1),
+  tags: z.object({
+    CUISINE: z.array(z.string()).optional().default([]),
+    FLAVOR: z.array(z.string()).optional().default([]),
+    DIET: z.array(z.string()).optional().default([]),
+    ALLERGEN: z.array(z.string()).optional().default([]),
+    TECHNIQUE: z.array(z.string()).optional().default([]),
+    TIME: z.array(z.string()).optional().default([]),
+    COST: z.array(z.string()).optional().default([]),
+  }),
+});
+
 const SaveDraftRequestSchema = z.object({
-  household_id: z.string().uuid(),
-  recipe_library_id: z.string().uuid(),
-  draft: RecipeDraftSchema,
+  household_id: z.string().min(1),
+  recipe_library_id: z.string().min(1),
+  draft: RecipeDraftSaveSchema,
   source_url: z.string().url().nullable().optional(),
 });
+
+function validationSummary(error: z.ZodError): string {
+  const issue = error.issues[0];
+  if (!issue) return 'Invalid request data';
+
+  const path = issue.path.length > 0 ? issue.path.join('.') : 'request';
+  return `Invalid recipe save data: ${path} - ${issue.message}`;
+}
 
 export default defineEventHandler(async (event) => {
   const userId = await requireAuth(event);
@@ -17,9 +59,16 @@ export default defineEventHandler(async (event) => {
 
   const validation = SaveDraftRequestSchema.safeParse(body);
   if (!validation.success) {
+    console.warn('[API] AI recipe save validation failed', {
+      issues: validation.error.issues.slice(0, 8).map(issue => ({
+        path: issue.path.join('.'),
+        message: issue.message,
+      })),
+    });
+
     throw createError({
       statusCode: 400,
-      message: 'Invalid request data',
+      message: validationSummary(validation.error),
       data: validation.error.flatten(),
     });
   }
